@@ -72,11 +72,6 @@ function init(): void {
       }
       total += visible;
       g.hidden = visible === 0;
-
-      const ticks = g.querySelectorAll<HTMLElement>('.tick');
-      ticks.forEach((t, i) => (t.hidden = i >= visible));
-      const fr = g.querySelector<HTMLElement>('[data-year-ticks]');
-      fr?.setAttribute('aria-label', `${visible} paper${visible === 1 ? '' : 's'} in ${g.dataset.year}`);
     }
 
     // status line + clear affordance

@@ -3,11 +3,9 @@ import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 import TagChip from '../components/TagChip.astro';
-import { getPublications, getAreaTags, getKeywordTags, getTags, getTagCounts, getYears } from '../lib/collections';
+import { getPublications, getTags, getTagCounts, getYears } from '../lib/collections';
 
 const pubs = await getPublications();
-const areas = await getAreaTags();
-const keywords = await getKeywordTags();
 const tags = await getTags();
 const counts = await getTagCounts();
 const years = await getYears();
@@ -22,37 +20,18 @@ const byYear = years.map((y) => ({
 <Base
   title="Publications"
   current="publications"
-  description="Every paper the Quantum Information Theory group has authored, newest first — filterable by research area and keyword."
+  description="Every paper the Quantum Information Theory group has authored, newest first — filterable by keyword."
 >
-  <PageHeader
-    title="Publications"
-    lead="Every paper the group has authored, newest first. Filter by topic below."
-  />
+  <PageHeader title="Publications" />
 
   <div class="wrap pubs" data-pub-filter>
     {/* ── filter chips ──────────────────────────────────────────────── */}
     <div class="filter">
       <div class="filter__row">
-        <span class="filter__label">Research areas</span>
-        <div class="chips">
-          {
-            areas.map((t) => (
-              <TagChip
-                id={t.id}
-                label={t.label}
-                count={counts.get(t.id) ?? 0}
-                isArea
-                href={`/publications?tag=${t.id}`}
-              />
-            ))
-          }
-        </div>
-      </div>
-      <div class="filter__row">
         <span class="filter__label">Keywords</span>
         <div class="chips">
           {
-            keywords.map((t) => (
+            tags.map((t) => (
               <TagChip
                 id={t.id}
                 label={t.label}
@@ -85,15 +64,6 @@ const byYear = years.map((y) => ({
           <div class="yeargroup" data-year-group data-year={year}>
             <div class="year">
               <span class="year__num">{year}</span>
-              <span
-                class="year__fringe"
-                data-year-ticks
-                aria-label={`${items.length} paper${items.length === 1 ? '' : 's'} in ${year}`}
-              >
-                {items.map(() => (
-                  <span class="tick" aria-hidden="true" />
-                ))}
-              </span>
             </div>
             <div>
               {items.map((p) => (
@@ -235,19 +205,6 @@ const byYear = years.map((y) => ({
     letter-spacing: -0.02em;
     line-height: 1;
     color: var(--ink);
-    min-width: 116px;
-  }
-  .year__fringe {
-    display: inline-flex;
-    gap: 3px;
-    align-items: flex-end;
-    padding-bottom: 5px;
-  }
-  .tick {
-    width: 1px;
-    height: 18px;
-    background: var(--cyan);
-    display: block;
   }
 
   .empty {
