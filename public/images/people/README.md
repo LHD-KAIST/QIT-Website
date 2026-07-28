@@ -1,14 +1,15 @@
 # Member photos
 
-Drop member photos in **this folder**, each named after that member's `id` in
-`src/data/members.json`.
+Drop each member's photo in **this folder**, named after that member's `id`
+(see the ID table in `MEMBER-GUIDE.md` at the repo root).
 
-Examples: `oh-changhun.jpg`, `lee-hodong.jpg`, `kim-minsoo.jpg`.
+Examples: `oh-changhun.jpg`, `lee-hodong.png`, `kim-minsoo.webp`.
 
-The site replaces the placeholder with the real photo automatically — you don't
-edit any code. Until a photo exists, a tasteful placeholder is shown.
+Any common format works — `.jpg`, `.jpeg`, `.png`, or `.webp` — as long as the
+name matches the member id. The site swaps the placeholder for the real photo
+automatically; no code change needed.
 
-**Tips:** square-ish crop, at least ~480px wide, `.jpg` or `.webp`.
+**Tips:** portrait crop, at least ~800px wide, under ~5 MB.
 
 To upload on GitHub: open this folder → **Add file → Upload files** → drag the
 image in → **Commit changes**.

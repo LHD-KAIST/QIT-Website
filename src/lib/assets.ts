@@ -15,3 +15,16 @@ export function publicAssetExists(publicPath: string | null | undefined): boolea
   const rel = publicPath.replace(/^\/+/, '');
   return fs.existsSync(path.join(PUBLIC_DIR, rel));
 }
+
+/**
+ * Find a member's photo by id, accepting any common image format so a member
+ * can upload public/images/people/<id>.jpg (or .jpeg/.png/.webp) without having
+ * to match an exact extension. Returns the public URL, or null if none exists.
+ */
+export function findMemberPhoto(id: string): string | null {
+  for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
+    const rel = `images/people/${id}.${ext}`;
+    if (fs.existsSync(path.join(PUBLIC_DIR, rel))) return `/${rel}`;
+  }
+  return null;
+}

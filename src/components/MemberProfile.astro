@@ -12,7 +12,7 @@
  *       (Only members with a website get the button — currently just the PI.)
  */
 import type { Member } from '../lib/collections';
-import { publicAssetExists } from '../lib/assets';
+import { findMemberPhoto } from '../lib/assets';
 import Placeholder from './Placeholder.astro';
 
 interface Props {
@@ -20,7 +20,8 @@ interface Props {
 }
 const { member: m } = Astro.props;
 
-const hasPhoto = publicAssetExists(m.photo);
+// Photo is matched by member id, in any common format (jpg/jpeg/png/webp).
+const photo = findMemberPhoto(m.id);
 
 // Heading under the name: the formal title if there is one, otherwise the role.
 const heading = m.title ?? m.roleLabel;
@@ -51,8 +52,8 @@ const career = m.education.map((e) =>
   <div class="profile__left">
     <div class="profile__photo">
       {
-        hasPhoto ? (
-          <img src={m.photo} alt={m.name} width="300" height="375" />
+        photo ? (
+          <img src={photo} alt={m.name} width="300" height="375" />
         ) : (
           <Placeholder variant="photo" ratio="4 / 5" />
         )
