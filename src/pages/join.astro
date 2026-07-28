@@ -1,128 +1,72 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
+import { publicAssetExists } from '../lib/assets';
 import { getMembers } from '../lib/collections';
 
+// Contact email comes from the PI's record in members.json.
 const members = await getMembers();
 const pi = members.find((m) => m.role === 'pi');
 const primary = pi?.emails.find((e) => e.primary) ?? pi?.emails[0];
-const piEmail = primary ? `${primary.user}@${primary.domain}` : null;
-const piFirst = pi?.name.split(' ')[0] ?? 'the PI';
+const email = primary ? `${primary.user}@${primary.domain}` : null;
 
-const blocks = [
-  {
-    label: 'What we look for',
-    body: 'We work at the boundary between what quantum computers can do and what classical ones cannot, and we try to prove which side a given problem falls on. If you like turning a vague intuition into a theorem — or a hard theorem into a clean argument — you will feel at home.',
-  },
-  {
-    label: 'Who we welcome',
-    body: 'Students from physics, computer science, and mathematics. Most of our members arrived without a quantum background; curiosity and rigor matter more than a finished CV. Undergraduates lead papers here, not just assist on them.',
-  },
-];
+const hasImage = publicAssetExists('/images/join.webp');
 ---
 
 <Base
   title="Join"
   current="join"
-  description="We are looking for students who want to prove things. How to reach the KAIST Quantum Information Theory group."
+  description="Join the KAIST Quantum Information Theory group — email Prof. Changhun Oh."
 >
-  <PageHeader
-    title="Join"
-    lead="This page matters. If the work below sounds like yours, write to us."
-  />
+  <PageHeader title="Join" />
 
   <div class="wrap join">
-    <p class="join__lead">We are looking for students who want to prove things.</p>
+    {
+      hasImage && (
+        <img class="join__img" src="/images/join.webp" alt="Join our group" width="1600" height="893" />
+      )
+    }
 
-    <div class="join__blocks">
-      {
-        blocks.map((b) => (
-          <section class="join__block">
-            <div class="join__label">{b.label}</div>
-            <p class="join__body">{b.body}</p>
-          </section>
-        ))
-      }
-
-      <section class="join__block">
-        <div class="join__label">How to reach us</div>
-        <p class="join__body">
-          Email {piFirst} with a short note on what you would like to work on — a paper of
-          ours you found interesting is a good place to start.
-        </p>
-        {
-          piEmail && (
-            <a class="join__email" href={`mailto:${piEmail}`}>
-              {piEmail}
-            </a>
-          )
-        }
-      </section>
-    </div>
+    <p class="join__msg">
+      If you are interested in joining our group, please feel free to email<br />
+      Prof.{' '}{pi?.name}{email && (
+        <>
+          {' '}(<a href={`mailto:${email}`}>{email}</a>)
+        </>
+      )} !
+    </p>
   </div>
 </Base>
 
 <style>
   .join {
-    padding-top: 48px;
-    padding-bottom: 24px;
+    padding-top: 24px;
+    padding-bottom: 56px;
   }
-  .join__lead {
-    margin: 0 0 8px;
-    font-family: var(--font-serif);
-    font-size: clamp(24px, 4vw, 34px);
+  .join__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--soft);
+    border-radius: var(--radius-card);
+    margin-bottom: 44px;
+  }
+  .join__msg {
+    margin: 0 auto;
+    font-family: var(--font-display);
+    font-size: clamp(19px, 3vw, 29px);
     font-weight: 400;
-    line-height: 1.3;
+    line-height: 1.5;
     letter-spacing: -0.01em;
-    max-width: 24ch;
-    text-wrap: pretty;
+    color: var(--ink);
+    text-align: center;
   }
-  .join__blocks {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-  }
-  .join__block {
-    border-top: 1px solid var(--rule);
-    padding: 28px 0;
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 40px;
-  }
-  .join__label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    padding-top: 3px;
-  }
-  .join__body {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.7;
-    color: color-mix(in srgb, var(--ink) 82%, var(--ground));
-    max-width: 62ch;
-    text-wrap: pretty;
-  }
-  .join__email {
-    display: inline-block;
-    margin-top: 16px;
-    font-family: var(--font-mono);
-    font-size: 14px;
+  .join__msg a {
     color: var(--cyan);
     border-bottom: 1px solid color-mix(in srgb, var(--cyan) 45%, transparent);
-    padding-bottom: 2px;
-    grid-column: 2;
+    white-space: nowrap;
   }
-
-  @media (max-width: 720px) {
-    .join__block {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    .join__email {
-      grid-column: 1;
-    }
+  .join__msg a:hover {
+    border-color: var(--cyan);
   }
 </style>
