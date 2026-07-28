@@ -3,11 +3,13 @@ import Base from '../layouts/Base.astro';
 import SelectedPaperCard from '../components/SelectedPaperCard.astro';
 import Placeholder from '../components/Placeholder.astro';
 import { publicAssetExists } from '../lib/assets';
-import { getPublications, sortPublications } from '../lib/collections';
+import { getPublications, getMembers, sortPublications } from '../lib/collections';
+import { buildMemberHrefs } from '../lib/people';
 
 const hasGroupPhoto = publicAssetExists('/images/group.jpg');
 
 const pubs = await getPublications();
+const memberHrefs = buildMemberHrefs(await getMembers());
 
 // Selected papers: drawn from `highlight`, newest first, four of them.
 const selected = sortPublications(pubs.filter((p) => p.highlight)).slice(0, 4);
@@ -40,7 +42,7 @@ const selected = sortPublications(pubs.filter((p) => p.highlight)).slice(0, 4);
       <a class="quiet-link" href="/publications">All publications →</a>
     </div>
     <div class="selected__grid">
-      {selected.map((p) => <SelectedPaperCard pub={p} />)}
+      {selected.map((p) => <SelectedPaperCard pub={p} memberHrefs={memberHrefs} />)}
     </div>
   </section>
 </Base>

@@ -1,0 +1,229 @@
+---
+/*
+ * MemberProfile — one person, photo on the left, details on the right.
+ *
+ * EVERYTHING shown here comes from src/data/members.json — you never edit this
+ * file to change a person's content. To update a member:
+ *   • text (name, title, affiliation, emails, education, interests, links)
+ *       → edit that member's entry in src/data/members.json
+ *   • photo → drop an image at  public/images/people/<id>.jpg
+ *       (e.g. oh-changhun.jpg). Until then a placeholder is shown.
+ *   • "Personal Homepage" button → set the member's  links.website  in the JSON.
+ *       (Only members with a website get the button — currently just the PI.)
+ */
+import type { Member } from '../lib/collections';
+import { publicAssetExists } from '../lib/assets';
+import Placeholder from './Placeholder.astro';
+
+interface Props {
+  member: Member;
+}
+const { member: m } = Astro.props;
+
+const hasPhoto = publicAssetExists(m.photo);
+
+// Heading under the name: the formal title if there is one, otherwise the role.
+const heading = m.title ?? m.roleLabel;
+
+// Emails as "user@domain" strings (primary first).
+const emails = [...m.emails]
+  .sort((a, b) => Number(b.primary) - Number(a.primary))
+  .map((e) => `${e.user}@${e.domain}`);
+
+// External links, in a fixed order, skipping any that are empty.
+const links = (
+  [
+    ['scholar', 'Google Scholar'],
+    ['arxiv', 'arXiv'],
+    ['orcid', 'ORCID'],
+  ] as const
+)
+  .map(([key, label]) => ({ label, href: m.links[key] }))
+  .filter((l): l is { label: string; href: string } => !!l.href);
+
+// One "Academic Career" line per education entry, tolerating missing pieces.
+const career = m.education.map((e) =>
+  [e.period ? `${e.period} : ` : '', e.position, e.org ? `, ${e.org}` : ''].join(''),
+);
+---
+
+<article class="profile" id={m.id}>
+  <div class="profile__left">
+    <div class="profile__photo">
+      {
+        hasPhoto ? (
+          <img src={m.photo} alt={m.name} width="300" height="375" />
+        ) : (
+          <Placeholder variant="photo" ratio="4 / 5" />
+        )
+      }
+    </div>
+    {
+      m.links.website && (
+        <a class="profile__home" href={m.links.website} target="_blank" rel="noopener">
+          Personal Homepage
+        </a>
+      )
+    }
+  </div>
+
+  <div class="profile__body">
+    <h2 class="profile__name">{m.name}</h2>
+    <div class="profile__heading">{heading}</div>
+
+    <ul class="facts">
+      <li>{m.affiliation}</li>
+      {emails.length > 0 && (
+        <li>
+          Email:{' '}
+          {emails.map((e, i) => (
+            <>
+              {i > 0 && ', '}
+              <a href={`mailto:${e}`}>{e}</a>
+            </>
+          ))}
+        </li>
+      )}
+      {links.map((l) => (
+        <li>
+          <a href={l.href} target="_blank" rel="noopener">{l.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    {m.bio && <p class="profile__bio">{m.bio}</p>}
+
+    {
+      career.length > 0 && (
+        <>
+          <div class="profile__subhead">Academic Career</div>
+          <ul class="facts">
+            {career.map((line) => (
+              <li>{line}</li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    {
+      m.interests.length > 0 && (
+        <>
+          <div class="profile__subhead">Research Interests</div>
+          <ul class="facts">
+            {m.interests.map((i) => (
+              <li>{i}</li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .profile {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 48px;
+    align-items: start;
+    scroll-margin-top: 24px;
+  }
+
+  /* ── left column: photo + optional homepage button ── */
+  .profile__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .profile__photo img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+    border: 1px solid var(--soft);
+  }
+  .profile__home {
+    display: block;
+    text-align: center;
+    background: var(--cyan);
+    color: var(--pane);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 14px;
+    margin-top: 10px;
+  }
+  .profile__home:hover {
+    background: var(--cyan-ink);
+    color: #fff;
+  }
+
+  /* ── right column: name, heading, facts ── */
+  .profile__name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .profile__heading {
+    margin-top: 14px;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .facts {
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--ink) 82%, var(--ground));
+  }
+  .facts li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+    text-wrap: pretty;
+  }
+  .facts li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.6em;
+    width: 5px;
+    height: 5px;
+    background: var(--muted);
+  }
+
+  .profile__subhead {
+    margin-top: 22px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .profile__bio {
+    margin: 16px 0 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--ink) 82%, var(--ground));
+    max-width: 64ch;
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 720px) {
+    .profile {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .profile__left {
+      max-width: 300px;
+    }
+  }
+</style>

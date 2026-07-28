@@ -3,13 +3,15 @@ import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 import TagChip from '../components/TagChip.astro';
-import { getPublications, getTags, getTagCounts, getYears } from '../lib/collections';
+import { getPublications, getMembers, getTags, getTagCounts, getYears } from '../lib/collections';
+import { buildMemberHrefs } from '../lib/people';
 
 const pubs = await getPublications();
 const tags = await getTags();
 const counts = await getTagCounts();
 const years = await getYears();
 const tagLabels = new Map(tags.map((t) => [t.id, t.label]));
+const memberHrefs = buildMemberHrefs(await getMembers());
 
 const byYear = years.map((y) => ({
   year: y,
@@ -67,7 +69,7 @@ const byYear = years.map((y) => ({
             </div>
             <div>
               {items.map((p) => (
-                <PublicationItem pub={p} tagLabels={tagLabels} />
+                <PublicationItem pub={p} tagLabels={tagLabels} memberHrefs={memberHrefs} />
               ))}
             </div>
           </div>

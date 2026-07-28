@@ -10,8 +10,10 @@ interface Props {
   tagLabels: Map<string, string>;
   /** compact = home "Selected papers": drop tags + note, keep citation. */
   compact?: boolean;
+  /** memberId -> URL of that person's card (on their People sub-page). */
+  memberHrefs?: Map<string, string>;
 }
-const { pub, activeTag = null, tagLabels, compact = false } = Astro.props;
+const { pub, activeTag = null, tagLabels, compact = false, memberHrefs } = Astro.props;
 
 const isJournal = pub.type === 'journal';
 const badge = isJournal ? venueBadge(pub.venue) : pub.venue;
@@ -22,7 +24,7 @@ const authors = pub.authors.map((a, i) => ({
   name: a.name,
   group: !!a.group,
   corr: !!a.corresponding,
-  href: a.memberId ? `/people#${a.memberId}` : null,
+  href: a.memberId ? (memberHrefs?.get(a.memberId) ?? '/people') : null,
   sep: i < pub.authors.length - 1 ? ', ' : '',
 }));
 

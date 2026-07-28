@@ -4,8 +4,9 @@ import { venueBadge, venueAccent, venueLogo } from '../lib/authors';
 
 interface Props {
   pub: Publication;
+  memberHrefs?: Map<string, string>;
 }
-const { pub } = Astro.props;
+const { pub, memberHrefs } = Astro.props;
 
 const badge = venueBadge(pub.venue);
 const accent = venueAccent(pub.venue);
@@ -14,7 +15,7 @@ const authors = pub.authors.map((a, i) => ({
   name: a.name,
   group: !!a.group,
   corr: !!a.corresponding,
-  href: a.memberId ? `/people#${a.memberId}` : null,
+  href: a.memberId ? (memberHrefs?.get(a.memberId) ?? '/people') : null,
   sep: i < pub.authors.length - 1 ? ', ' : '',
 }));
 ---

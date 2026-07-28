@@ -1,0 +1,108 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import MemberProfile from '../../components/MemberProfile.astro';
+import Placeholder from '../../components/Placeholder.astro';
+import { publicAssetExists } from '../../lib/assets';
+import { getMembers } from '../../lib/collections';
+import { ROLE_GROUPS, membersOf, type RoleGroup } from '../../lib/people';
+
+export function getStaticPaths() {
+  return ROLE_GROUPS.map((g) => ({ params: { group: g.slug }, props: { group: g } }));
+}
+
+interface Props {
+  group: RoleGroup;
+}
+const { group } = Astro.props;
+
+const members = await getMembers();
+
+const isPhotos = group.role === null;
+const people = group.role ? membersOf(members, group.role) : [];
+const hasGroupPhoto = publicAssetExists('/images/group.jpg');
+---
+
+<Base title={group.label} current="people" description={`${group.label} — KAIST Quantum Information Theory group.`}>
+  <PageHeader title={group.label} eyebrow="People" />
+
+  <div class="wrap gpage">
+    <a class="back" href="/people">← All sections</a>
+
+    {
+      isPhotos ? (
+        <div class="gphotos">
+          {hasGroupPhoto ? (
+            <img class="gphotos__img" src="/images/group.jpg" alt="QIT group photo" />
+          ) : (
+            <Placeholder variant="figure" ratio="16 / 6" label="Group photo — coming soon" />
+          )}
+        </div>
+      ) : people.length > 0 ? (
+        <div class="people-list">
+          {people.map((m) => (
+            <MemberProfile member={m} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty">None yet — the seat is kept open.</div>
+      )
+    }
+  </div>
+
+  <script>
+    // Scroll to a profile when arriving via /people/<slug>#member-id
+    function scrollToTarget() {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (!id) return;
+      document.getElementById(id)?.scrollIntoView({ block: 'start' });
+    }
+    window.addEventListener('hashchange', scrollToTarget);
+    scrollToTarget();
+  </script>
+</Base>
+
+<style>
+  .gpage {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .back {
+    display: inline-block;
+    margin-bottom: 28px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .back:hover {
+    color: var(--cyan);
+  }
+  .people-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .people-list :global(.profile) {
+    padding: 44px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .people-list :global(.profile:first-child) {
+    border-top: 0;
+    padding-top: 4px;
+  }
+  .empty {
+    border: 1px dashed var(--rule);
+    border-radius: var(--radius-card);
+    padding: 20px 22px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .gphotos__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--soft);
+    border-radius: var(--radius-card);
+  }
+</style>

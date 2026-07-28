@@ -387,7 +387,7 @@
     "id": "jeon-sangwoo",
     "name": "Sangwoo Jeon",
     "authorKey": "S. Jeon",
-    "role": "ra",
+    "role": "alumni",
     "roleLabel": "Research Assistant",
     "order": 0,
     "title": null,
@@ -411,7 +411,7 @@
       "start": null,
       "end": null
     },
-    "nextPosition": null,
-    "roleOrder": 5
+    "nextPosition": "PhD student, University of Waterloo",
+    "roleOrder": 6
   }
 ]
