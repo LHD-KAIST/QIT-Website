@@ -1,0 +1,218 @@
+---
+import Wordmark from './Wordmark.astro';
+
+interface Props {
+  current?: 'research' | 'publications' | 'people' | 'join';
+}
+const { current } = Astro.props;
+
+const links = [
+  { label: 'Research', href: '/research', key: 'research' },
+  { label: 'Publications', href: '/publications', key: 'publications' },
+  { label: 'People', href: '/people', key: 'people' },
+  { label: 'Join', href: '/join', key: 'join' },
+] as const;
+---
+
+<header class="nav" data-nav>
+  <div class="wrap nav__inner">
+    <a href="/" class="brand">
+      <Wordmark h={22} />
+      <span class="brand__name">Quantum Information Theory</span>
+      <span class="brand__sub">KAIST Physics</span>
+    </a>
+
+    <button
+      class="nav__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+      aria-label="Toggle navigation menu"
+      data-nav-toggle
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="nav-menu" class="nav__menu" aria-label="Primary">
+      {
+        links.map((l) => {
+          const active = current === l.key;
+          return (
+            <a
+              href={l.href}
+              class:list={['navlink', { 'navlink--active': active }]}
+              aria-current={active ? 'page' : undefined}
+            >
+              <span>{l.label}</span>
+              {active && <span class="navlink__fringe" aria-hidden="true" />}
+            </a>
+          );
+        })
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    border-bottom: 1px solid var(--rule);
+    background: var(--ground);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 68px;
+    padding-block: 16px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--ink);
+    min-height: 44px;
+  }
+  .brand__name {
+    font-family: var(--font-display);
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+  }
+  .brand__sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-left: 1px solid var(--rule);
+    padding-left: 14px;
+  }
+
+  .nav__menu {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+  }
+  .navlink {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--ink);
+    opacity: 0.72;
+    min-height: 44px;
+    justify-content: center;
+  }
+  .navlink:hover {
+    opacity: 1;
+  }
+  .navlink--active {
+    opacity: 1;
+    font-weight: 500;
+  }
+  .navlink__fringe {
+    width: 100%;
+    height: 3px;
+    display: block;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--cyan) 0 1px,
+      transparent 1px 3px
+    );
+  }
+
+  /* hamburger — hidden on desktop */
+  .nav__toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 5px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .nav__toggle > span {
+    display: block;
+    height: 1px;
+    background: var(--ink);
+  }
+  .nav__toggle > span:nth-child(1) {
+    width: 22px;
+  }
+  .nav__toggle > span:nth-child(2) {
+    width: 22px;
+  }
+  .nav__toggle > span:nth-child(3) {
+    width: 14px;
+  }
+
+  @media (max-width: 820px) {
+    .brand__sub {
+      display: none;
+    }
+    .nav__toggle {
+      display: flex;
+    }
+    .nav__menu {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--ground);
+      border-bottom: 1px solid var(--rule);
+      padding: 8px clamp(20px, 5vw, 56px) 16px;
+      z-index: 40;
+    }
+    .nav[data-open] .nav__menu {
+      display: flex;
+    }
+    .nav {
+      position: relative;
+    }
+    .navlink {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 1;
+      border-top: 1px solid var(--soft);
+      padding-block: 6px;
+    }
+    .navlink__fringe {
+      width: 48px;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-nav]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  if (header && toggle) {
+    toggle.addEventListener('click', () => {
+      const open = header.toggleAttribute('data-open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    header.querySelectorAll('.nav__menu a').forEach((a) =>
+      a.addEventListener('click', () => {
+        header.removeAttribute('data-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }),
+    );
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && header.hasAttribute('data-open')) {
+        header.removeAttribute('data-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+  }
+</script>

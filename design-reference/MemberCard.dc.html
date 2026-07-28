@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="border:1px solid #DCE3E4;border-radius:3px;background:#F8FAFA;overflow:hidden">
+  <button type="button" onClick="{{ toggle }}" style="display:block;width:100%;text-align:left;background:transparent;border:0;padding:0;cursor:pointer;font-family:Archivo,sans-serif" style-focus="outline:2px solid #145661;outline-offset:-2px">
+    <div style="position:relative;aspect-ratio:4/5;background-color:#E4EBEC;background-image:repeating-linear-gradient(90deg,#C3D0D2 0 1px,transparent 1px 6px),repeating-linear-gradient(90deg,#C3D0D2 0 1px,transparent 1px 7px);display:flex;align-items:flex-end;justify-content:space-between;padding:10px 12px">
+      <span style="font-family:'STIX Two Text',Georgia,serif;font-size:26px;color:#8C9A9E;line-height:1">{{ initials }}</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;color:#8C9A9E;text-transform:uppercase">photo</span>
+    </div>
+    <div style="padding:14px 14px 16px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+        <span style="font-family:'STIX Two Text',Georgia,serif;font-size:19px;color:#121719;line-height:1.2">{{ name }}</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#9AA8AC;line-height:1">{{ sign }}</span>
+      </div>
+      <div style="margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#145661">{{ roleLabel }}</div>
+      <p style="margin:9px 0 0;font-size:12.5px;line-height:1.5;color:#5C6B70;text-wrap:pretty">{{ oneLine }}</p>
+    </div>
+  </button>
+  <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:0 14px 16px;font-family:Archivo,sans-serif">
+      <div style="height:1px;background:#DCE3E4;margin-bottom:14px"></div>
+      <sc-if value="{{ hasInterests }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-bottom:14px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:7px">Interests</div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <sc-for list="{{ interests }}" as="i" hint-placeholder-count="2"><span style="font-size:12.5px;line-height:1.4;color:#2C3639">{{ i.label }}</span></sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hasEdu }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-bottom:14px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:7px">Background</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <sc-for list="{{ education }}" as="e" hint-placeholder-count="2">
+              <div>
+                <div style="font-size:12.5px;line-height:1.4;color:#2C3639">{{ e.position }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.5;color:#7A888C">{{ e.meta }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px">
+        <sc-for list="{{ emails }}" as="m" hint-placeholder-count="1"><a href="{{ m.href }}" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#145661;border-bottom:1px solid #B9CACC" style-hover="color:#0C3A42;border-color:#145661">{{ m.text }}</a></sc-for>
+        <sc-for list="{{ links }}" as="l" hint-placeholder-count="0"><a href="{{ l.href }}" target="_blank" rel="noopener" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#145661;border-bottom:1px solid #B9CACC" style-hover="color:#0C3A42;border-color:#145661">{{ l.text }} ↗</a></sc-for>
+      </div>
+      <sc-if value="{{ hasPapers }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top:14px;display:flex;align-items:center;gap:9px">
+          <div style="display:flex;gap:3px;align-items:flex-end">
+            <sc-for list="{{ paperTicks }}" as="t" hint-placeholder-count="3"><span style="width:1px;height:12px;background:#145661;display:block"></span></sc-for>
+          </div>
+          <a href="#" style="font-family:Archivo,sans-serif;font-size:12px;color:#145661" style-hover="text-decoration:underline;text-underline-offset:3px">{{ papersLabel }} →</a>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:300,&quot;height&quot;:420},&quot;member&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;Member&quot;},&quot;initialOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { open: null };
+  renderVals() {
+    const m = this.props.member || {};
+    const open = this.state.open === null ? !!this.props.initialOpen : this.state.open;
+    const n = m.papers || 0;
+    return Object.assign({}, m, {
+      open,
+      sign: open ? '–' : '+',
+      hasPapers: n > 0,
+      paperTicks: Array.from({ length: n }, (_, i) => ({ i })),
+      papersLabel: n === 1 ? '1 paper' : n + ' papers',
+      toggle: () => this.setState({ open: !open })
+    });
+  }
+}
+
+</script>
+</body>
+</html>

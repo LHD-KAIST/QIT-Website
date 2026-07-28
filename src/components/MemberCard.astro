@@ -1,0 +1,257 @@
+---
+import type { Member } from '../lib/collections';
+import { publicAssetExists } from '../lib/assets';
+import Placeholder from './Placeholder.astro';
+
+interface Props {
+  member: Member;
+  paperCount: number;
+  open?: boolean;
+}
+const { member: m, paperCount, open = false } = Astro.props;
+
+const hasPhoto = publicAssetExists(m.photo);
+
+// One-line fallback chain: bio → first degree + affiliation → affiliation.
+const firstEdu = m.education[0];
+const oneLine =
+  m.bio ??
+  (firstEdu ? `${firstEdu.position} · ${m.affiliation}` : m.affiliation);
+
+// Only render links that actually exist (PI has some; most members have none).
+const linkOrder: Array<[keyof typeof m.links, string]> = [
+  ['scholar', 'Scholar'],
+  ['website', 'Website'],
+  ['arxiv', 'arXiv'],
+  ['orcid', 'ORCID'],
+];
+const links = linkOrder
+  .map(([key, label]) => ({ label, href: m.links[key] }))
+  .filter((l): l is { label: string; href: string } => !!l.href);
+
+const emails = m.emails.map((e) => ({
+  text: `${e.user}@${e.domain}`,
+  href: `mailto:${e.user}@${e.domain}`,
+}));
+
+const hasInterests = m.interests.length > 0;
+const hasEdu = m.education.length > 0;
+const hasExpandable = hasInterests || hasEdu || emails.length > 0 || links.length > 0;
+---
+
+<details class="mc" id={m.id} open={open || undefined}>
+  <summary class="mc__head">
+    <div class="mc__photo">
+      {
+        hasPhoto ? (
+          <img src={m.photo} alt={m.name} loading="lazy" width="240" height="300" />
+        ) : (
+          <Placeholder variant="photo" ratio="4 / 5" />
+        )
+      }
+    </div>
+    <div class="mc__id">
+      <div class="mc__name">{m.name}</div>
+      <div class="mc__role">{m.roleLabel}</div>
+      <div class="mc__one">{oneLine}</div>
+      {hasExpandable && <span class="mc__toggle" aria-hidden="true">Details<span class="mc__chev"></span></span>}
+    </div>
+  </summary>
+
+  {
+    hasExpandable && (
+      <div class="mc__body">
+        {hasInterests && (
+          <div class="mc__block">
+            <div class="mc__label">Interests</div>
+            <ul class="mc__interests">
+              {m.interests.map((i) => (
+                <li>{i}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {hasEdu && (
+          <div class="mc__block">
+            <div class="mc__label">Education</div>
+            <ul class="mc__edu">
+              {m.education.map((e) => {
+                const meta = [e.period, e.org].filter(Boolean).join(' · ');
+                return (
+                  <li>
+                    <span class="mc__edu-pos">{e.position}</span>
+                    {meta && <span class="mc__edu-meta">{meta}</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+
+        <div class="mc__block">
+          <div class="mc__label">Contact</div>
+          <div class="mc__contact">
+            {emails.map((e) => (
+              <a href={e.href}>{e.text}</a>
+            ))}
+          </div>
+        </div>
+
+        {links.length > 0 && (
+          <div class="mc__links">
+            {links.map((l) => (
+              <a href={l.href} target="_blank" rel="noopener">
+                {l.label} ↗
+              </a>
+            ))}
+          </div>
+        )}
+
+        {paperCount > 0 && (
+          <div class="mc__papers">
+            {paperCount} {paperCount === 1 ? 'paper' : 'papers'} with the group
+          </div>
+        )}
+      </div>
+    )
+  }
+</details>
+
+<style>
+  .mc {
+    background: var(--pane);
+    border: 1px solid var(--soft);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    scroll-margin-top: 24px;
+  }
+  .mc__head {
+    display: block;
+    cursor: pointer;
+    list-style: none;
+  }
+  .mc__head::-webkit-details-marker {
+    display: none;
+  }
+  .mc__photo {
+    line-height: 0;
+  }
+  .mc__photo img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+  }
+  .mc__id {
+    padding: 14px 16px 16px;
+  }
+  .mc__name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .mc__role {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-top: 6px;
+  }
+  .mc__one {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-top: 10px;
+    text-wrap: pretty;
+  }
+  .mc__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .mc__chev {
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid var(--muted);
+    border-bottom: 1px solid var(--muted);
+    transform: rotate(45deg);
+    transition: transform 0.15s ease;
+  }
+  .mc[open] .mc__chev {
+    transform: rotate(-135deg);
+  }
+
+  .mc__body {
+    padding: 4px 16px 18px;
+    border-top: 1px solid var(--soft);
+  }
+  .mc__block {
+    margin-top: 14px;
+  }
+  .mc__label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+  .mc__interests,
+  .mc__edu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .mc__edu-pos {
+    display: block;
+  }
+  .mc__edu-meta {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .mc__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mc__contact a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+  .mc__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .mc__links a {
+    font-family: var(--font-display);
+    font-size: 12.5px;
+  }
+  .mc__papers {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--soft);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>

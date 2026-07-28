@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  current?: 'research' | 'publications' | 'people' | 'join';
+}
+const {
+  title,
+  description = 'Quantum Information Theory group, Department of Physics, KAIST. We study the boundary between what quantum computers can do and what classical ones cannot.',
+  current,
+} = Astro.props;
+
+const suffix = 'Quantum Information Theory · KAIST Physics';
+const fullTitle = title ? `${title} — ${suffix}` : suffix;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Nav current={current} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,231 @@
+---
+import type { Publication } from '../lib/collections';
+import { venueBadge } from '../lib/authors';
+
+interface Props {
+  pub: Publication;
+  /** Currently active filter tag id — matching chips render "on". */
+  activeTag?: string | null;
+  /** id -> label for this publication's tags. */
+  tagLabels: Map<string, string>;
+  /** compact = home "Selected papers": drop tags + note, keep citation. */
+  compact?: boolean;
+}
+const { pub, activeTag = null, tagLabels, compact = false } = Astro.props;
+
+const isJournal = pub.type === 'journal';
+const badge = isJournal ? venueBadge(pub.venue) : pub.venue;
+
+// Author runs: lab members are bold ink (and link to their member card if they
+// have a memberId); outside authors stay muted; corresponding authors get a ∗.
+const authors = pub.authors.map((a, i) => ({
+  name: a.name,
+  group: !!a.group,
+  corr: !!a.corresponding,
+  href: a.memberId ? `/people#${a.memberId}` : null,
+  sep: i < pub.authors.length - 1 ? ', ' : '',
+}));
+
+const tags = pub.tags.map((id) => ({
+  id,
+  label: tagLabels.get(id) ?? id,
+  on: id === activeTag,
+}));
+---
+
+<article
+  class:list={['pub', { 'pub--compact': compact }]}
+  data-type={pub.type}
+  data-tags={pub.tags.join(' ')}
+>
+  <div class="pub__rail">
+    {
+      isJournal ? (
+        <span class="pub__badge pub__badge--journal">{badge}</span>
+      ) : (
+        <span class="pub__badge pub__badge--preprint">{badge}</span>
+      )
+    }
+  </div>
+
+  <div class="pub__body">
+    <a class="pub__title" href={pub.url} target="_blank" rel="noopener">{pub.title}</a>
+
+    <p class="pub__authors">
+      {
+        authors.map((a) => (
+          <span class="pub__author">
+            {a.href ? (
+              <a
+                class:list={['pub__name', { 'pub__name--group': a.group }]}
+                href={a.href}
+              >
+                {a.name}
+              </a>
+            ) : (
+              <span class:list={['pub__name', { 'pub__name--group': a.group }]}>
+                {a.name}
+              </span>
+            )}
+            {a.corr && <span class="pub__corr" aria-label="corresponding author">∗</span>}
+            {a.sep}
+          </span>
+        ))
+      }
+    </p>
+
+    <div class="pub__meta">
+      <span class="pub__cite">{pub.citation}</span>
+      {!compact && pub.note && <span class="pub__note">{pub.note}</span>}
+    </div>
+
+    {
+      !compact && (
+        <div class="pub__tags">
+          {tags.map((t) => (
+            <span class:list={['pub__tag', { 'pub__tag--on': t.on }]} data-tag-id={t.id}>
+              {t.label}
+            </span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .pub {
+    display: grid;
+    grid-template-columns: 136px 1fr;
+    gap: 0 28px;
+    padding: 17px 12px 19px 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .pub:hover {
+    background: color-mix(in srgb, var(--cyan) 5%, var(--ground));
+  }
+
+  .pub__rail {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 4px;
+  }
+  .pub__badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    border-radius: var(--radius-chip);
+    white-space: nowrap;
+  }
+  .pub__badge--journal {
+    color: var(--cyan-ink);
+    background: var(--cyan-bg);
+    padding: 4px 7px;
+  }
+  .pub__badge--preprint {
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    padding: 3px 6px;
+  }
+
+  .pub__body {
+    min-width: 0;
+  }
+  .pub__title {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    line-height: 1.33;
+    letter-spacing: -0.002em;
+    color: var(--ink);
+    display: block;
+    text-wrap: pretty;
+  }
+  .pub__title:hover {
+    color: var(--cyan);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .pub__authors {
+    margin: 8px 0 0;
+    font-family: var(--font-display);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+  .pub__name--group {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  a.pub__name--group:hover {
+    color: var(--cyan);
+  }
+  .pub__corr {
+    color: var(--core);
+  }
+
+  .pub__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    margin-top: 7px;
+  }
+  .pub__cite {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .pub__note {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--note-ink);
+    border-bottom: 1px solid var(--note-line);
+    padding-bottom: 1px;
+  }
+
+  .pub__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .pub__tag {
+    font-family: var(--font-display);
+    font-size: 11.5px;
+    line-height: 1;
+    color: var(--muted);
+    border: 1px solid var(--soft);
+    border-radius: var(--radius-chip);
+    padding: 3px 7px;
+    background: var(--pane);
+  }
+  .pub__tag--on {
+    color: var(--cyan-ink);
+    border-color: var(--cyan);
+    background: var(--cyan-bg);
+  }
+
+  .pub__compact .pub__meta {
+    margin-top: 6px;
+  }
+
+  /* Mobile: badge rail collapses, badge sits above the title. */
+  @media (max-width: 640px) {
+    .pub {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .pub__rail {
+      justify-content: flex-start;
+      padding-top: 0;
+      margin-bottom: 8px;
+    }
+  }
+</style>

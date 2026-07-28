@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#DCE3E4; }
+  a { color:#145661; text-decoration:none; }
+  a:hover { color:#0C3A42; }
+  ::selection { background:rgba(194,87,31,.18); }
+  :focus-visible { outline:2px solid #145661; outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.001ms !important; transition-duration:.001ms !important; } }
+</style>
+</helmet>
+
+<div style="font-family:Archivo,-apple-system,sans-serif;color:#121719;padding:64px 56px 120px;display:flex;flex-direction:column;gap:88px;width:1600px;margin:0 auto;box-sizing:border-box">
+
+  <header style="display:flex;flex-direction:column;gap:28px;max-width:1160px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5C6B70">KAIST Physics · Quantum Information Theory · Visual design proposal</div>
+    <h1 style="margin:0;font-family:'STIX Two Text',Georgia,serif;font-size:52px;line-height:1.12;font-weight:400;letter-spacing:-.012em;max-width:20ch">Evidence, quietly placed.</h1>
+    <p style="margin:0;font-size:16px;line-height:1.65;color:#3B474B;max-width:74ch;text-wrap:pretty">브리프 §7의 산출물 다섯 가지를 순서대로 담았습니다. 모든 화면은 첨부된 실제 데이터(논문 34편 · 구성원 12명 · 태그 28개)로 렌더링되어 있고, 필터는 실제로 동작합니다.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:1px solid #C0CCCE;border-bottom:1px solid #C0CCCE;padding:22px 0;max-width:1160px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8A4A16;margin-bottom:9px">첨부 레퍼런스 해석 — 한 가지 짚고 갑니다</div>
+        <p style="margin:0;font-size:13.5px;line-height:1.62;color:#3B474B;text-wrap:pretty">보내주신 세 이미지(성운형 원자 · 청색 소용돌이 · 실험실 사진)는 브리프 §5.2가 명시적으로 금지한 클리셰와 정확히 겹칩니다. 그래서 §5.4의 규칙 <em style="font-family:'STIX Two Text',serif">“복제하지 말고 파생시켜라 — 색이 아니라 기하와 리듬만”</em> 을 그대로 적용했습니다.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5C6B70">동심 궤도 (①)</span><span style="font-size:13px;line-height:1.5;color:#3B474B">→ 원점 대칭 간섭 무늬. 사이트의 시그니처 텍스처.</span></div>
+        <div style="display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5C6B70">수렴하는 선다발 (②)</span><span style="font-size:13px;line-height:1.5;color:#3B474B">→ 간격이 변하는 헤어라인 리듬. 목록의 골격.</span></div>
+        <div style="display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5C6B70">실험실 조명 (③)</span><span style="font-size:13px;line-height:1.5;color:#3B474B">→ 배경. 검은 우주가 아니라 <strong style="font-weight:600">유리와 금속에 반사된 차가운 낮빛</strong>.</span></div>
+        <div style="display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#C2571F">가져오지 않은 것</span><span style="font-size:13px;line-height:1.5;color:#3B474B">네온 발광 · 검은 배경 · 보라–파랑 그라디언트 · 입자 렌더.</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════ PART 1 — TOKENS ══════════ -->
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;align-items:baseline;gap:20px;border-bottom:2px solid #121719;padding-bottom:12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8C9A9E">01</span>
+      <h2 style="margin:0;font-family:Archivo,sans-serif;font-size:26px;font-weight:500;letter-spacing:-.01em">Design tokens</h2>
+      <span style="font-size:13.5px;color:#5C6B70">컬러 7 · 타이포 3역할 · 스케일 · 라운딩 · 보더</span>
+    </div>
+
+    <div style="background:#ECF0F1;border:1px solid #C9D3D5;padding:40px 44px;display:flex;flex-direction:column;gap:40px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:18px">1.1 Color — light</div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:16px">
+          <div><div style="height:92px;background:#ECF0F1;border:1px solid #C9D3D5;border-radius:3px"></div><div style="margin-top:10px;font-size:13px;font-weight:600">Ground</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5C6B70;margin-top:2px">#ECF0F1</div><p style="margin:7px 0 0;font-size:11.5px;line-height:1.5;color:#5C6B70">종이 아님. 실험실 조명이 유리에 반사된 차가운 회색.</p></div>
+          <div><div style="height:92px;background:#F8FAFA;border:1px solid #C9D3D5;border-radius:3px"></div><div style="margin-top:10px;font-size:13px;font-weight:600">Pane</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5C6B70;margin-top:2px">#F8FAFA</div><p style="margin:7px 0 0;font-size:11.5px;line-height:1.5;color:#5C6B70">카드·필드. Ground 위에 아주 얕게 뜬 한 겹.</p></div>
+          <div><div style="height:92px;background:#121719;border-radius:3px"></div><div style="margin-top:10px;font-size:13px;font-weight:600">Ink</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5C6B70;margin-top:2px">#121719</div><p style="margin:7px 0 0;font-size:11.5px;line-height:1.5;color:#5C6B70">순검정 금지. 청록으로 2° 기운 먹 — Ground와 같은 온도.</p></div>
+          <div><div style="height:92px;background:#5C6B70;border-radius:3px"></div><div style="margin-top:10px;font-size:13px;font-weight:600">Muted</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5C6B70;margin-top:2px">#5C6B70</div><p style="margin:7px 0 0;font-size:11.5px;line-height:1.5;color:#5C6B70">저자·인용문. Ground 대비 4.7:1 — 본문 AA 통과 하한선.</p></div>
+          <div><div style="height:92px;background:#C9D3D5;border-radius:3px"></div><div style="margin-top:10px;font-size:13px;font-weight:600">Rule</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5C6B70;margin-top:2px">#C9D3D5</div><p style="margin:7px 0 0;font-size:11.5px;line-height:1.5;color:#5C6B70">모든 헤어라인. 회로도의 선이자 목록의 등간격 리듬.</p></div>
+          <div><div style="height:92px;background:#145661;border-radius:3px"></div><div style="margin-top:10px;font-size:13px;font-weight:600">Cyanotype</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5C6B70;margin-top:2px">#145661</div><p style="margin:7px 0 0;font-size:11.5px;line-height:1.5;color:#5C6B70">유일한 기능색: 링크·저널 배지·활성 필터. 청사진의 색이지 네온 아님.</p></div>
+          <div><div style="height:92px;background:#ECF0F1;border:1px solid #C9D3D5;border-radius:3px;display:flex;align-items:center;justify-content:center"><span style="width:16px;height:16px;background:#C2571F;border-radius:50%"></span></div><div style="margin-top:10px;font-size:13px;font-weight:600">Core</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5C6B70;margin-top:2px">#C2571F</div><p style="margin:7px 0 0;font-size:11.5px;line-height:1.5;color:#5C6B70">레퍼런스 ①의 중앙 온점. 점·별표·경계 마크로만. 면으로 절대 쓰지 않음.</p></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:18px">1.2 Color — dark <span style="text-transform:none;letter-spacing:0;color:#8C9A9E">(반전이 아니라 조도만 낮춘 같은 방)</span></div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:16px;background:#0F1416;padding:24px;border-radius:3px">
+          <div><div style="height:72px;background:#0F1416;border:1px solid #2B3437;border-radius:3px"></div><div style="margin-top:9px;font-size:12.5px;font-weight:600;color:#E4EAEA">Ground</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#93A3A7">#0F1416</div></div>
+          <div><div style="height:72px;background:#171D1F;border:1px solid #2B3437;border-radius:3px"></div><div style="margin-top:9px;font-size:12.5px;font-weight:600;color:#E4EAEA">Pane</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#93A3A7">#171D1F</div></div>
+          <div><div style="height:72px;background:#E4EAEA;border-radius:3px"></div><div style="margin-top:9px;font-size:12.5px;font-weight:600;color:#E4EAEA">Ink</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#93A3A7">#E4EAEA</div></div>
+          <div><div style="height:72px;background:#93A3A7;border-radius:3px"></div><div style="margin-top:9px;font-size:12.5px;font-weight:600;color:#E4EAEA">Muted</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#93A3A7">#93A3A7</div></div>
+          <div><div style="height:72px;background:#2B3437;border-radius:3px"></div><div style="margin-top:9px;font-size:12.5px;font-weight:600;color:#E4EAEA">Rule</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#93A3A7">#2B3437</div></div>
+          <div><div style="height:72px;background:#79C3CE;border-radius:3px"></div><div style="margin-top:9px;font-size:12.5px;font-weight:600;color:#E4EAEA">Cyanotype</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#93A3A7">#79C3CE</div></div>
+          <div><div style="height:72px;background:#0F1416;border:1px solid #2B3437;border-radius:3px;display:flex;align-items:center;justify-content:center"><span style="width:16px;height:16px;background:#E88742;border-radius:50%"></span></div><div style="margin-top:9px;font-size:12.5px;font-weight:600;color:#E4EAEA">Core</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#93A3A7">#E88742</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:18px">1.3 Typeface roles — 세 역할, 각자 하나의 일</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px">
+          <div style="border-top:2px solid #121719;padding-top:16px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5C6B70">Display / UI</div>
+            <div style="font-family:Archivo,sans-serif;font-size:34px;font-weight:300;line-height:1.15;margin-top:14px;letter-spacing:-.015em">Archivo</div>
+            <div style="font-family:Archivo,sans-serif;font-size:15px;font-weight:300;line-height:1.5;margin-top:10px;color:#2C3639">Light 300 · Regular 400 · Medium 500 · Semibold 600</div>
+            <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:#5C6B70;text-wrap:pretty">그로테스크지만 중립적이지만은 않음 — 살짝 좁은 폭과 낮은 대비가 <strong style="font-weight:600">계측기 눈금판</strong>의 인상을 줍니다. 히어로 문장을 300 웨이트로 크게 쓰면 목소리를 높이지 않고도 크기를 얻습니다. Inter·Roboto 회피.</p>
+          </div>
+          <div style="border-top:2px solid #121719;padding-top:16px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5C6B70">Text / 논문 제목</div>
+            <div style="font-family:'STIX Two Text',Georgia,serif;font-size:34px;line-height:1.15;margin-top:14px">STIX Two Text</div>
+            <div style="font-family:'STIX Two Text',Georgia,serif;font-size:17px;line-height:1.45;margin-top:10px;color:#2C3639">Cramér–Rao · ⟨ψ|Û|ψ⟩ · χ² · ×10⁻³ · “quotes” · α β γ Δ Ω</div>
+            <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:#5C6B70;text-wrap:pretty">STIX는 <strong style="font-weight:600">학술 출판을 위해 설계된</strong> 서체입니다. 그리스 문자·수학 기호·유니코드 대시가 전부 한 파일 안에 있어 폴백으로 튀지 않습니다. 논문 제목 34개가 여기서 우아해집니다 — §5.5의 “숨은 관건”.</p>
+          </div>
+          <div style="border-top:2px solid #121719;padding-top:16px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5C6B70">Utility / 데이터</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:32px;line-height:1.15;margin-top:14px">IBM Plex Mono</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:1.5;margin-top:10px;color:#2C3639">arXiv:2604.27838 (2026)<br>Phys. Rev. Lett. 133, 230604</div>
+            <p style="margin:14px 0 0;font-size:12.5px;line-height:1.6;color:#5C6B70;text-wrap:pretty">인용문·배지·연도·개수. 고정폭이 34줄의 인용문을 <strong style="font-weight:600">세로로 정렬</strong>시켜 목록에 격자 리듬을 만듭니다. 라벨은 10px / .12em 자간으로만.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:36px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:16px">1.4 Type scale — 9단, 비율 ≈ 1.28</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">64 / 300</span><span style="font-family:Archivo,sans-serif;font-size:38px;font-weight:300;letter-spacing:-.02em;line-height:1">Hero sentence</span></div>
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">46 / 400</span><span style="font-family:'STIX Two Text',serif;font-size:30px;line-height:1">Page title</span></div>
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">34 / 300</span><span style="font-family:Archivo,sans-serif;font-size:26px;font-weight:300;line-height:1">Year marker</span></div>
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">24 / 400</span><span style="font-family:'STIX Two Text',serif;font-size:22px;line-height:1">Section heading</span></div>
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">19 / 400</span><span style="font-family:'STIX Two Text',serif;font-size:19px;line-height:1">Publication title</span></div>
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">15 / 400</span><span style="font-family:Archivo,sans-serif;font-size:15px;line-height:1">Body paragraph</span></div>
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">13 / 400</span><span style="font-family:Archivo,sans-serif;font-size:13px;line-height:1">Author line, meta</span></div>
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">11.5 mono</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1">Citation string</span></div>
+            <div style="display:grid;grid-template-columns:74px 1fr;align-items:baseline;gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">10 mono</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;line-height:1">Label / badge</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:16px">1.5 Spacing — 4의 배수, 광학 벤치 눈금</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">4</span><span style="height:9px;width:4px;background:#145661;display:block"></span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">8</span><span style="height:9px;width:8px;background:#145661;display:block"></span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">12</span><span style="height:9px;width:12px;background:#145661;display:block"></span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">20</span><span style="height:9px;width:20px;background:#145661;display:block"></span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">32</span><span style="height:9px;width:32px;background:#145661;display:block"></span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">56</span><span style="height:9px;width:56px;background:#145661;display:block"></span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">88</span><span style="height:9px;width:88px;background:#145661;display:block"></span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">140</span><span style="height:9px;width:140px;background:#145661;display:block"></span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;width:32px">220</span><span style="height:9px;width:220px;background:#B9CACC;display:block"></span></div>
+          </div>
+          <p style="margin:16px 0 0;font-size:12px;line-height:1.6;color:#5C6B70;text-wrap:pretty">140·220은 <strong style="font-weight:600">섹션 사이 침묵</strong> 전용입니다. §5.1의 “여백이 콘텐츠” 를 토큰 레벨에서 강제하려고 큰 값을 스케일에 넣어 두었습니다.</p>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:16px">1.6 Radius & border</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;gap:14px"><span style="width:46px;height:34px;background:#DBE7E8;border-radius:0"></span><div><div style="font-size:12.5px;font-weight:600">0 — rules, fields, figures</div><div style="font-size:11.5px;color:#5C6B70;line-height:1.5">선은 선이다. 회로도에 둥근 모서리는 없음.</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><span style="width:46px;height:34px;background:#DBE7E8;border-radius:2px"></span><div><div style="font-size:12.5px;font-weight:600">2 — chips, badges</div><div style="font-size:11.5px;color:#5C6B70;line-height:1.5">눈에 안 띄지만 0도 아님. 광학 부품의 모따기.</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><span style="width:46px;height:34px;background:#F8FAFA;border:1px solid #DCE3E4;border-radius:3px"></span><div><div style="font-size:12.5px;font-weight:600">3 — cards</div><div style="font-size:11.5px;color:#5C6B70;line-height:1.5">최대치. 8px는 부트스트랩 냄새라 금지(§5.1).</div></div></div>
+            <div style="height:1px;background:#C9D3D5;margin:4px 0"></div>
+            <div style="display:flex;align-items:center;gap:14px"><span style="width:46px;height:0;border-top:1px solid #C9D3D5"></span><div><div style="font-size:12.5px;font-weight:600">1px Rule — 구조선</div><div style="font-size:11.5px;color:#5C6B70;line-height:1.5">목록 항목 구분, 섹션 경계.</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><span style="width:46px;height:0;border-top:1px solid #DCE3E4"></span><div><div style="font-size:12.5px;font-weight:600">1px Soft — 담는 선</div><div style="font-size:11.5px;color:#5C6B70;line-height:1.5">카드·칩 테두리.</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><span style="width:46px;height:3px;background-image:repeating-linear-gradient(90deg,#145661 0 1px,transparent 1px 3px)"></span><div><div style="font-size:12.5px;font-weight:600">Fringe 3px — 활성 표시</div><div style="font-size:11.5px;color:#5C6B70;line-height:1.5">nav 언더라인. 시그니처의 최소 단위.</div></div></div>
+            <div style="display:flex;align-items:center;gap:14px"><span style="width:46px;height:34px;border-radius:2px;box-shadow:none;background:#ECF0F1;border:1px dashed #C9D3D5;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#8C9A9E">none</span><div><div style="font-size:12.5px;font-weight:600">Shadow — 없음</div><div style="font-size:11.5px;color:#5C6B70;line-height:1.5">깊이는 명도로만. 균일한 그림자 = 관리자 페이지(§5.1).</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PART 2 — COMPONENTS ══════════ -->
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;align-items:baseline;gap:20px;border-bottom:2px solid #121719;padding-bottom:12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8C9A9E">02</span>
+      <h2 style="margin:0;font-family:Archivo,sans-serif;font-size:26px;font-weight:500;letter-spacing:-.01em">컴포넌트 시안 5종 / 6장</h2>
+      <span style="font-size:13.5px;color:#5C6B70">전부 첨부 JSON의 실제 레코드</span>
+    </div>
+
+    <!-- 2.1 PublicationItem -->
+    <div style="background:#ECF0F1;border:1px solid #C9D3D5;padding:36px 44px 44px">
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">Board 1</span><h3 style="margin:0;font-family:Archivo,sans-serif;font-size:19px;font-weight:500">PublicationItem</h3><span style="font-size:13px;color:#5C6B70">— 저자 1명과 15명이 같은 리듬으로</span></div>
+      <p style="margin:0 0 28px;font-size:13.5px;line-height:1.6;color:#3B474B;max-width:96ch;text-wrap:pretty">고정폭 136px 배지 레일 + 유동 본문. 항목마다 위에 헤어라인이 하나 지나가고 배지가 그 선 위에 놓입니다 — 회로도의 등간격 수평선과 게이트 박스(§5.4). 저자 수가 1이든 15든 <strong style="font-weight:600">레일과 헤어라인이 수직 리듬을 고정</strong>하므로 본문만 늘어납니다. 저자는 칩이 아니라 한 문단의 텍스트 런으로 흘려서 15명이 두 줄로 접힐 때도 목록이 흔들리지 않습니다.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:44px;align-items:start">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:10px">양극단 — 15 authors / 1 author</div>
+          <div style="background:#ECF0F1;border-bottom:1px solid #C9D3D5">
+            <sc-for list="{{ extremes }}" as="p" hint-placeholder-count="2"><article style="display:grid;grid-template-columns:136px 1fr;gap:0 28px;padding:17px 12px 19px 0;border-top:1px solid #C9D3D5;align-items:start" style-hover="background:#F4F8F8"><div style="display:flex;justify-content:flex-end;padding-top:4px"><sc-if value="{{ p.isJournal }}" hint-placeholder-val="{{ true }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#0E3D45;background:#DBE7E8;padding:4px 7px;border-radius:2px;white-space:nowrap">{{ p.badge }}</span></sc-if><sc-if value="{{ p.isPreprint }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#6C7B80;border:1px solid #C9D3D5;padding:3px 6px;border-radius:2px;white-space:nowrap">{{ p.badge }}</span></sc-if></div><div style="min-width:0"><a href="{{ p.url }}" target="_blank" rel="noopener" style="font-family:'STIX Two Text',Georgia,serif;font-size:19px;line-height:1.33;color:#121719;display:block;text-wrap:pretty;letter-spacing:-.002em" style-hover="color:#145661;text-decoration:underline;text-underline-offset:3px">{{ p.title }}</a><p style="margin:8px 0 0;font-family:Archivo,sans-serif;font-size:13px;line-height:1.6;color:#5C6B70;text-wrap:pretty"><sc-for list="{{ p.authorList }}" as="a" hint-placeholder-count="4"><span><sc-if value="{{ a.group }}" hint-placeholder-val="{{ false }}"><span style="color:#121719;font-weight:600">{{ a.name }}</span></sc-if><sc-if value="{{ a.outside }}" hint-placeholder-val="{{ true }}"><span>{{ a.name }}</span></sc-if><sc-if value="{{ a.corr }}" hint-placeholder-val="{{ false }}"><span style="color:#C2571F">∗</span></sc-if>{{ a.sep }}</span></sc-for></p><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:7px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.5;color:#5C6B70">{{ p.citation }}</span><sc-if value="{{ p.hasNote }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8A4A16;border-bottom:1px solid #DFB08D;padding-bottom:1px">{{ p.note }}</span></sc-if></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><sc-for list="{{ p.tagList }}" as="t" hint-placeholder-count="4"><sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo,sans-serif;font-size:11.5px;line-height:1;color:#0E3D45;border:1px solid #145661;border-radius:2px;padding:3px 7px;background:#DBE7E8">{{ t.label }}</span></sc-if><sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}"><span style="font-family:Archivo,sans-serif;font-size:11.5px;line-height:1;color:#5C6B70;border:1px solid #DCE3E4;border-radius:2px;padding:3px 7px;background:#F8FAFA">{{ t.label }}</span></sc-if></sc-for></div></div></article></sc-for>
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin:32px 0 10px">상태 — hover / preprint / note / 태그 일치</div>
+          <div style="background:#ECF0F1;border-bottom:1px solid #C9D3D5">
+            <sc-for list="{{ statePubs }}" as="p" hint-placeholder-count="3"><article style="display:grid;grid-template-columns:136px 1fr;gap:0 28px;padding:17px 12px 19px 0;border-top:1px solid #C9D3D5;align-items:start" style-hover="background:#F4F8F8"><div style="display:flex;justify-content:flex-end;padding-top:4px"><sc-if value="{{ p.isJournal }}" hint-placeholder-val="{{ true }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#0E3D45;background:#DBE7E8;padding:4px 7px;border-radius:2px;white-space:nowrap">{{ p.badge }}</span></sc-if><sc-if value="{{ p.isPreprint }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#6C7B80;border:1px solid #C9D3D5;padding:3px 6px;border-radius:2px;white-space:nowrap">{{ p.badge }}</span></sc-if></div><div style="min-width:0"><a href="{{ p.url }}" target="_blank" rel="noopener" style="font-family:'STIX Two Text',Georgia,serif;font-size:19px;line-height:1.33;color:#121719;display:block;text-wrap:pretty;letter-spacing:-.002em" style-hover="color:#145661;text-decoration:underline;text-underline-offset:3px">{{ p.title }}</a><p style="margin:8px 0 0;font-family:Archivo,sans-serif;font-size:13px;line-height:1.6;color:#5C6B70;text-wrap:pretty"><sc-for list="{{ p.authorList }}" as="a" hint-placeholder-count="4"><span><sc-if value="{{ a.group }}" hint-placeholder-val="{{ false }}"><span style="color:#121719;font-weight:600">{{ a.name }}</span></sc-if><sc-if value="{{ a.outside }}" hint-placeholder-val="{{ true }}"><span>{{ a.name }}</span></sc-if><sc-if value="{{ a.corr }}" hint-placeholder-val="{{ false }}"><span style="color:#C2571F">∗</span></sc-if>{{ a.sep }}</span></sc-for></p><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:7px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.5;color:#5C6B70">{{ p.citation }}</span><sc-if value="{{ p.hasNote }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8A4A16;border-bottom:1px solid #DFB08D;padding-bottom:1px">{{ p.note }}</span></sc-if></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><sc-for list="{{ p.tagList }}" as="t" hint-placeholder-count="4"><sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo,sans-serif;font-size:11.5px;line-height:1;color:#0E3D45;border:1px solid #145661;border-radius:2px;padding:3px 7px;background:#DBE7E8">{{ t.label }}</span></sc-if><sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}"><span style="font-family:Archivo,sans-serif;font-size:11.5px;line-height:1;color:#5C6B70;border:1px solid #DCE3E4;border-radius:2px;padding:3px 7px;background:#F8FAFA">{{ t.label }}</span></sc-if></sc-for></div></div></article></sc-for>
+          </div>
+          <div style="margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">↑ 세 번째 항목은 Boson Sampling 필터가 걸린 상태 — 일치한 칩만 채워집니다. 마우스를 올려 보세요.</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:22px;border-left:1px solid #C9D3D5;padding-left:28px">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:9px">Anatomy</div>
+            <div style="display:flex;flex-direction:column;gap:9px;font-size:12.5px;line-height:1.5;color:#3B474B">
+              <div style="display:grid;grid-template-columns:16px 1fr;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#8C9A9E">a</span><span><strong style="font-weight:600">Venue 배지</strong> — 저널은 채운 블록, 프리프린트는 헤어라인 아웃라인. “측정된 것 / 아직인 것”.</span></div>
+              <div style="display:grid;grid-template-columns:16px 1fr;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#8C9A9E">b</span><span><strong style="font-weight:600">제목</strong> — STIX 19px, 유일한 링크. Science라고 크게 쓰지 않습니다.</span></div>
+              <div style="display:grid;grid-template-columns:16px 1fr;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#8C9A9E">c</span><span><strong style="font-weight:600">저자</strong> — 연구실원은 Ink 600, 외부는 Muted 400. 교신저자는 Core ∗.</span></div>
+              <div style="display:grid;grid-template-columns:16px 1fr;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#8C9A9E">d</span><span><strong style="font-weight:600">인용문</strong> — mono 11.5px. 34줄이 세로로 맞습니다.</span></div>
+              <div style="display:grid;grid-template-columns:16px 1fr;gap:10px"><span style="font-family:'IBM Plex Mono',monospace;color:#8C9A9E">e</span><span><strong style="font-weight:600">태그</strong> — 항상 3~4개. 현재 필터와 일치하면 채워짐.</span></div>
+            </div>
+          </div>
+          <div style="border-top:1px solid #C9D3D5;padding-top:18px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:9px">Venue 배지 전량</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ venueBadges }}" as="v" hint-placeholder-count="8">
+                <sc-if value="{{ v.journal }}" hint-placeholder-val="{{ true }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#0E3D45;background:#DBE7E8;padding:4px 7px;border-radius:2px">{{ v.label }}</span></sc-if>
+                <sc-if value="{{ v.preprint }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#6C7B80;border:1px solid #C9D3D5;padding:3px 6px;border-radius:2px">{{ v.label }}</span></sc-if>
+              </sc-for>
+            </div>
+          </div>
+          <div style="border-top:1px solid #C9D3D5;padding-top:18px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:9px">저자 표기 규칙</div>
+            <p style="margin:0;font-size:12.5px;line-height:1.6;color:#3B474B;text-wrap:pretty"><span style="color:#121719;font-weight:600">C. Oh</span><span style="color:#C2571F">∗</span> <span style="color:#5C6B70">= 연구실원 · 교신저자</span><br><span style="color:#121719;font-weight:600">M. Shin</span> <span style="color:#5C6B70">= 연구실원 (학부생 제1저자)</span><br><span style="color:#5C6B70">L. Jiang = 외부 공저자</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.2 TagChip -->
+    <div style="background:#ECF0F1;border:1px solid #C9D3D5;padding:36px 44px 44px">
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">Board 2</span><h3 style="margin:0;font-family:Archivo,sans-serif;font-size:19px;font-weight:500">TagChip</h3><span style="font-size:13px;color:#5C6B70">— area는 사각 마커, keyword는 없음</span></div>
+      <p style="margin:0 0 28px;font-size:13.5px;line-height:1.6;color:#3B474B;max-width:96ch;text-wrap:pretty">두 종류를 색이 아니라 <strong style="font-weight:600">마커 유무</strong>로 가릅니다 — area 3개는 연구분야이므로 Cyanotype 정사각형을 달고, keyword 25개는 맨몸입니다. 선택되면 칩이 반전되고 마커가 Core로 바뀌며 <span style="font-family:'IBM Plex Mono',monospace">×</span> 가 붙습니다: 해제 방법이 칩 자체에 있습니다.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:36px">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:12px">Default</div><div style="display:flex;flex-wrap:wrap;gap:8px"><dc-import name="TagChip" label="Quantum Learning" count="{{ n10 }}" has-count="{{ yes }}" is-area="{{ yes }}" unsel="{{ yes }}" hint-size="180px,32px"></dc-import><dc-import name="TagChip" label="Boson Sampling" count="{{ n10 }}" has-count="{{ yes }}" unsel="{{ yes }}" hint-size="160px,32px"></dc-import><dc-import name="TagChip" label="IQP Sampling" count="{{ n1 }}" has-count="{{ yes }}" unsel="{{ yes }}" hint-size="150px,32px"></dc-import></div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:12px">Hover</div><div style="display:flex;flex-wrap:wrap;gap:8px"><span style="display:inline-flex;align-items:center;gap:8px;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1;padding:7px 10px;border:1px solid #145661;border-radius:2px;background:#EAF1F2;color:#0E3D45"><span style="width:7px;height:7px;background:#145661;display:block"></span>NISQ Devices<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7A888C">20</span></span><span style="display:inline-flex;align-items:center;gap:8px;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1;padding:7px 10px;border:1px solid #145661;border-radius:2px;background:#EAF1F2;color:#0E3D45">Noise &amp; Loss<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7A888C">12</span></span></div><div style="margin-top:12px;font-size:12px;line-height:1.55;color:#5C6B70">테두리만 Cyanotype으로. 배경은 2% 이동 — 목록을 읽는 눈을 방해하지 않는 크기.</div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:12px">Selected</div><div style="display:flex;flex-wrap:wrap;gap:8px"><dc-import name="TagChip" label="Boson Sampling" count="{{ n10 }}" has-count="{{ yes }}" sel="{{ yes }}" hint-size="170px,32px"></dc-import><dc-import name="TagChip" label="Metrology" count="{{ n7 }}" has-count="{{ yes }}" is-area="{{ yes }}" sel="{{ yes }}" hint-size="150px,32px"></dc-import></div><div style="margin-top:12px;font-size:12px;line-height:1.55;color:#5C6B70">한 번에 하나만 선택됩니다(URL 상태 <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">?tag=</span> 와 1:1).</div></div>
+      </div>
+      <div style="margin-top:28px;border-top:1px solid #C9D3D5;padding-top:22px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:12px">전체 28개 — 개수는 빌드 타임 계산값</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ allChips }}" as="c" hint-placeholder-count="10"><span style="display:inline-flex;align-items:center;gap:8px;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1;padding:7px 10px;border:1px solid #C9D3D5;border-radius:2px;background:#F8FAFA;color:#2C3639"><sc-if value="{{ c.isArea }}" hint-placeholder-val="{{ false }}"><span style="width:7px;height:7px;background:#145661;display:block"></span></sc-if><span>{{ c.label }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7A888C">{{ c.count }}</span></span></sc-for>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.3 MemberCard -->
+    <div style="background:#ECF0F1;border:1px solid #C9D3D5;padding:36px 44px 44px">
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">Board 3</span><h3 style="margin:0;font-family:Archivo,sans-serif;font-size:19px;font-weight:500">MemberCard</h3><span style="font-size:13px;color:#5C6B70">— 빈 필드를 견딘다 · 클릭하면 펼쳐짐</span></div>
+      <p style="margin:0 0 28px;font-size:13.5px;line-height:1.6;color:#3B474B;max-width:96ch;text-wrap:pretty">사진이 없으므로 회색 아바타 대신 <strong style="font-weight:600">간섭 무늬 플레이스홀더</strong>를 씁니다 — 시그니처 텍스처를 재사용하니 “빠진 것”이 아니라 “아직 노출 안 된 것”처럼 보입니다. 접힌 상태는 사진·이름·역할·한 줄뿐(§3). bio가 없으면 학위 한 줄이, 그것도 없으면 소속이 그 자리를 대신합니다. links가 비면 그 줄 자체가 사라집니다. 아래 카드들을 눌러 보세요.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:start">
+        <sc-for list="{{ memberDemo }}" as="m" hint-placeholder-count="4">
+          <dc-import name="MemberCard" member="{{ m }}" initial-open="{{ m.openDefault }}" hint-size="100%,380px"></dc-import>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:14px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.5;color:#8C9A9E">PI · 펼침 · 링크 2 · 경력 2</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.5;color:#8C9A9E">Postdoc · 접힘 · bio 한 문장</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.5;color:#8C9A9E">Undergrad · 펼침 · bio 없음 · links 없음 · 학위 한 줄만</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.5;color:#8C9A9E">Grad · 접힘 · 논문 3편</div>
+      </div>
+      <div style="margin-top:34px;border-top:1px solid #C9D3D5;padding-top:24px">
+        <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E">People 페이지 격자 — 실제 12명, 역할 순서</span></div>
+        <sc-for list="{{ roleGroups }}" as="g" hint-placeholder-count="3">
+          <div style="margin-bottom:32px">
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#145661">{{ g.label }}</span><span style="flex:1;height:1px;background:#C9D3D5;display:block"></span></div>
+            <sc-if value="{{ g.hasPeople }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:start">
+                <sc-for list="{{ g.people }}" as="m" hint-placeholder-count="4">
+                  <dc-import name="MemberCard" member="{{ m }}" hint-size="100%,340px"></dc-import>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ g.empty }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1px dashed #C9D3D5;border-radius:3px;padding:20px 22px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#8C9A9E">아직 없습니다 — 자리는 비워 둡니다.</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- 2.4 ResearchAreaBlock -->
+    <div style="background:#ECF0F1;border:1px solid #C9D3D5;padding:36px 44px 44px">
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">Board 4</span><h3 style="margin:0;font-family:Archivo,sans-serif;font-size:19px;font-weight:500">ResearchAreaBlock</h3><span style="font-size:13px;color:#5C6B70">— 번호 없음. 세 분야는 순서가 없다(§5.2)</span></div>
+      <p style="margin:0 0 32px;font-size:13.5px;line-height:1.6;color:#3B474B;max-width:96ch;text-wrap:pretty">01/02/03 대신 <strong style="font-weight:600">교대 배치</strong>로 구분합니다 — figure가 좌·우·좌로 번갈아 놓이면 서열 없이 리듬만 생깁니다. 논문은 여기 나열하지 않고 필터된 Publications로 보냅니다.</p>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <sc-for list="{{ areas }}" as="a" hint-placeholder-count="3">
+          <div style="border-top:1px solid #C9D3D5;padding:36px 0">
+            <sc-if value="{{ a.figLeft }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:420px 1fr;gap:56px;align-items:start">
+                <div style="aspect-ratio:4/3;background-color:#E4EBEC;background-image:repeating-radial-gradient(circle at 50% 50%,rgba(20,86,97,.20) 0 1px,transparent 1px 11px),repeating-linear-gradient(90deg,rgba(18,23,25,.10) 0 1px,transparent 1px 8px);display:flex;align-items:flex-end;padding:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5C6B70;background:#ECF0F1;padding:3px 6px">figure — {{ a.figure }}</span></div>
+                <div>
+                  <h4 style="margin:0;font-family:'STIX Two Text',Georgia,serif;font-size:30px;font-weight:400;line-height:1.15">{{ a.label }}</h4>
+                  <p style="margin:14px 0 0;font-family:Archivo,sans-serif;font-size:17px;font-weight:300;line-height:1.45;color:#145661;max-width:44ch;text-wrap:pretty">{{ a.tagline }}</p>
+                  <p style="margin:18px 0 0;font-size:14.5px;line-height:1.7;color:#3B474B;max-width:62ch;text-wrap:pretty">{{ a.description }}</p>
+                  <div style="margin-top:24px;display:flex;align-items:center;gap:12px">
+                    <div style="display:flex;gap:3px;align-items:flex-end"><sc-for list="{{ a.ticks }}" as="t" hint-placeholder-count="10"><span style="width:1px;height:14px;background:#145661;display:block"></span></sc-for></div>
+                    <a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#145661;border-bottom:1px solid #B9CACC;padding-bottom:2px" style-hover="border-color:#145661">See all papers →</a>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ a.figRight }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:start">
+                <div>
+                  <h4 style="margin:0;font-family:'STIX Two Text',Georgia,serif;font-size:30px;font-weight:400;line-height:1.15">{{ a.label }}</h4>
+                  <p style="margin:14px 0 0;font-family:Archivo,sans-serif;font-size:17px;font-weight:300;line-height:1.45;color:#145661;max-width:44ch;text-wrap:pretty">{{ a.tagline }}</p>
+                  <p style="margin:18px 0 0;font-size:14.5px;line-height:1.7;color:#3B474B;max-width:62ch;text-wrap:pretty">{{ a.description }}</p>
+                  <div style="margin-top:24px;display:flex;align-items:center;gap:12px">
+                    <div style="display:flex;gap:3px;align-items:flex-end"><sc-for list="{{ a.ticks }}" as="t" hint-placeholder-count="10"><span style="width:1px;height:14px;background:#145661;display:block"></span></sc-for></div>
+                    <a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#145661;border-bottom:1px solid #B9CACC;padding-bottom:2px" style-hover="border-color:#145661">See all papers →</a>
+                  </div>
+                </div>
+                <div style="aspect-ratio:4/3;background-color:#E4EBEC;background-image:repeating-radial-gradient(circle at 50% 50%,rgba(20,86,97,.20) 0 1px,transparent 1px 11px),repeating-linear-gradient(90deg,rgba(18,23,25,.10) 0 1px,transparent 1px 8px);display:flex;align-items:flex-end;padding:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5C6B70;background:#ECF0F1;padding:3px 6px">figure — {{ a.figure }}</span></div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- 2.5 Nav + page header -->
+    <div style="background:#ECF0F1;border:1px solid #C9D3D5;padding:36px 0 44px">
+      <div style="padding:0 44px">
+        <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">Board 5</span><h3 style="margin:0;font-family:Archivo,sans-serif;font-size:19px;font-weight:500">Nav · Page header</h3></div>
+        <p style="margin:0 0 28px;font-size:13.5px;line-height:1.6;color:#3B474B;max-width:96ch;text-wrap:pretty">워드마크는 로고가 아니라 <strong style="font-weight:600">간섭 무늬 일곱 줄</strong>입니다(레퍼런스 ①의 동심 궤도에서 파생 — 가운데가 밝고 바깥으로 갈수록 옅어지는 그 리듬). 활성 메뉴는 밑줄 대신 같은 무늬 3px.</p>
+      </div>
+      <nav style="display:flex;align-items:center;justify-content:space-between;padding:22px 44px;border-top:1px solid #C9D3D5;border-bottom:1px solid #C9D3D5;background:#ECF0F1">
+        <a href="#" style="display:flex;align-items:center;gap:14px">
+          <span style="display:flex;gap:2px;align-items:center;height:22px"><span style="width:1px;height:7px;background:#145661;opacity:.35"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:2px;height:22px;background:#C2571F"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:7px;background:#145661;opacity:.35"></span></span>
+          <span style="font-family:Archivo,sans-serif;font-size:14.5px;font-weight:500;color:#121719;letter-spacing:.005em">Quantum Information Theory</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;border-left:1px solid #C9D3D5;padding-left:14px">KAIST Physics</span>
+        </a>
+        <div style="display:flex;align-items:center;gap:34px">
+          <a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Research</a>
+          <span style="display:flex;flex-direction:column;gap:7px;align-items:center"><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#121719;font-weight:500">Publications</a><span style="width:100%;height:3px;background-image:repeating-linear-gradient(90deg,#145661 0 1px,transparent 1px 3px);display:block"></span></span>
+          <a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">People</a>
+          <a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Join</a>
+        </div>
+      </nav>
+      <div style="padding:56px 44px 0;display:grid;grid-template-columns:1fr 380px;gap:56px;align-items:end;border-bottom:1px solid #C9D3D5;padding-bottom:28px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8C9A9E;margin-bottom:16px">Page header</div>
+          <h1 style="margin:0;font-family:'STIX Two Text',Georgia,serif;font-size:46px;font-weight:400;line-height:1.08;letter-spacing:-.012em">Publications</h1>
+        </div>
+        <p style="margin:0;font-size:14px;line-height:1.65;color:#5C6B70;text-wrap:pretty">Every paper the group has authored, newest first. Filter by topic below.</p>
+      </div>
+      <div style="padding:28px 44px 0;font-size:12.5px;line-height:1.6;color:#5C6B70;max-width:90ch">페이지 헤더는 큰 제목 + 오른쪽 아래 붙은 한 문장뿐입니다. 설명이 제목 옆 바닥에 정렬되면서 제목 위쪽으로 큰 여백이 남습니다 — 모든 페이지가 같은 방식으로 숨을 쉽니다.</div>
+    </div>
+
+    <!-- 2.6 Footer + mobile -->
+    <div style="background:#ECF0F1;border:1px solid #C9D3D5;padding:36px 0 0">
+      <div style="padding:0 44px">
+        <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">Board 6</span><h3 style="margin:0;font-family:Archivo,sans-serif;font-size:19px;font-weight:500">Footer · Mobile</h3></div>
+        <p style="margin:0 0 28px;font-size:13.5px;line-height:1.6;color:#3B474B;max-width:96ch;text-wrap:pretty">모바일에서 배지 레일은 사라지고 배지가 제목 위로 올라갑니다 — 136px를 좁은 화면에서 버리는 대신 수직 순서를 바꿉니다. 탭 타깃은 전부 44px 이상.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 390px;gap:0;align-items:end">
+        <div style="padding:0 44px 44px">
+          <footer style="border-top:1px solid #C9D3D5;padding-top:32px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px">
+            <div>
+              <span style="display:flex;gap:2px;align-items:center;height:18px;margin-bottom:16px"><span style="width:1px;height:6px;background:#145661;opacity:.35"></span><span style="width:1px;height:10px;background:#145661;opacity:.55"></span><span style="width:1px;height:15px;background:#145661;opacity:.8"></span><span style="width:2px;height:18px;background:#C2571F"></span><span style="width:1px;height:15px;background:#145661;opacity:.8"></span><span style="width:1px;height:10px;background:#145661;opacity:.55"></span><span style="width:1px;height:6px;background:#145661;opacity:.35"></span></span>
+              <div style="font-family:Archivo,sans-serif;font-size:14px;font-weight:500;color:#121719">Quantum Information Theory</div>
+              <div style="font-size:13px;line-height:1.6;color:#5C6B70;margin-top:6px">Department of Physics, KAIST<br>291 Daehak-ro, Yuseong-gu<br>Daejeon 34141, Republic of Korea</div>
+            </div>
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:10px">Contact</div>
+              <a href="mailto:changhun0218@kaist.ac.kr" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#145661;border-bottom:1px solid #B9CACC">changhun0218@kaist.ac.kr</a>
+              <div style="margin-top:14px"><a href="#" style="font-family:Archivo,sans-serif;font-size:13px;color:#145661;border-bottom:1px solid #B9CACC;padding-bottom:1px">Openings →</a></div>
+            </div>
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;margin-bottom:10px">Elsewhere</div>
+              <div style="display:flex;flex-direction:column;gap:7px"><a href="#" style="font-family:Archivo,sans-serif;font-size:13px;color:#3B474B">Google Scholar ↗</a><a href="#" style="font-family:Archivo,sans-serif;font-size:13px;color:#3B474B">arXiv ↗</a><a href="#" style="font-family:Archivo,sans-serif;font-size:13px;color:#3B474B">KAIST Physics ↗</a></div>
+            </div>
+          </footer>
+          <div style="margin-top:28px;padding-top:16px;border-top:1px solid #DCE3E4;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E"><span>© 2026 QIT Group</span><span>Est. April 2024</span></div>
+        </div>
+        <div style="border-left:1px solid #C9D3D5;background:#ECF0F1;width:390px">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #C9D3D5">
+            <span style="display:flex;align-items:center;gap:10px"><span style="display:flex;gap:2px;align-items:center;height:18px"><span style="width:1px;height:6px;background:#145661;opacity:.35"></span><span style="width:1px;height:10px;background:#145661;opacity:.55"></span><span style="width:1px;height:15px;background:#145661;opacity:.8"></span><span style="width:2px;height:18px;background:#C2571F"></span><span style="width:1px;height:15px;background:#145661;opacity:.8"></span><span style="width:1px;height:10px;background:#145661;opacity:.55"></span><span style="width:1px;height:6px;background:#145661;opacity:.35"></span></span><span style="font-family:Archivo,sans-serif;font-size:13px;font-weight:500">QIT</span></span>
+            <span style="width:44px;height:44px;display:flex;flex-direction:column;justify-content:center;gap:5px;align-items:flex-end"><span style="width:22px;height:1px;background:#121719;display:block"></span><span style="width:22px;height:1px;background:#121719;display:block"></span><span style="width:14px;height:1px;background:#121719;display:block"></span></span>
+          </div>
+          <div style="padding:24px 20px 8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#0E3D45;background:#DBE7E8;padding:4px 7px;border-radius:2px">Science</span></div>
+          <div style="padding:10px 20px 24px;border-bottom:1px solid #C9D3D5">
+            <div style="font-family:'STIX Two Text',Georgia,serif;font-size:19px;line-height:1.33;color:#121719;text-wrap:pretty">Quantum learning advantage on a scalable photonic platform</div>
+            <p style="margin:8px 0 0;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1.6;color:#5C6B70">Z.-H. Liu, R. Brunel, E. E. B. Østergaard, O. Cordero, S. Chen, Y. Wong, J. A. H. Nielsen, A. B. Bregnsbo, S. Zhou, H.-Y. Huang, <span style="color:#121719;font-weight:600">C. Oh</span>, L. Jiang, J. Preskill, J. S. Neergaard-Nielsen, U. L. Andersen</p>
+            <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5C6B70">Science 389, 1332 (2025)</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span style="font-family:Archivo,sans-serif;font-size:11.5px;color:#5C6B70;border:1px solid #DCE3E4;border-radius:2px;padding:3px 7px;background:#F8FAFA">Quantum Learning</span><span style="font-family:Archivo,sans-serif;font-size:11.5px;color:#5C6B70;border:1px solid #DCE3E4;border-radius:2px;padding:3px 7px;background:#F8FAFA">Entanglement</span><span style="font-family:Archivo,sans-serif;font-size:11.5px;color:#5C6B70;border:1px solid #DCE3E4;border-radius:2px;padding:3px 7px;background:#F8FAFA">Experimental Collaboration</span></div>
+          </div>
+          <div style="padding:20px 20px 28px;border-bottom:1px solid #C9D3D5">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#6C7B80;border:1px solid #C9D3D5;padding:3px 6px;border-radius:2px">arXiv</span>
+            <div style="font-family:'STIX Two Text',Georgia,serif;font-size:19px;line-height:1.33;color:#121719;margin-top:10px;text-wrap:pretty">Heisenberg-limited Hamiltonian learning without short-time control</div>
+            <p style="margin:8px 0 0;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1.6;color:#5C6B70"><span style="color:#121719;font-weight:600">M. Shin</span>, J. Lee, <span style="color:#121719;font-weight:600">C. Oh</span><span style="color:#C2571F">∗</span></p>
+            <div style="margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5C6B70">arXiv:2604.27838 (2026)</div>
+          </div>
+          <div style="padding:16px 20px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8C9A9E">390 × mobile</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PART 3 — HOME HERO ══════════ -->
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;align-items:baseline;gap:20px;border-bottom:2px solid #121719;padding-bottom:12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8C9A9E">03</span>
+      <h2 style="margin:0;font-family:Archivo,sans-serif;font-size:26px;font-weight:500;letter-spacing:-.01em">Home 히어로 3안</h2>
+      <span style="font-size:13.5px;color:#5C6B70">스크롤 전 화면에는 문장 하나뿐 — 숫자·배지·통계 없음</span>
+    </div>
+
+    <!-- Hero A -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">A — 순수 타이포</span><span style="font-size:13px;color:#5C6B70">문장이 화면이다. 그래픽 0개.</span></div>
+      <div style="border:1px solid #C9D3D5;background:#ECF0F1">
+        <nav style="display:flex;align-items:center;justify-content:space-between;padding:22px 56px;border-bottom:1px solid #C9D3D5">
+          <a href="#" style="display:flex;align-items:center;gap:14px"><span style="display:flex;gap:2px;align-items:center;height:22px"><span style="width:1px;height:7px;background:#145661;opacity:.35"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:2px;height:22px;background:#C2571F"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:7px;background:#145661;opacity:.35"></span></span><span style="font-family:Archivo,sans-serif;font-size:14.5px;font-weight:500;color:#121719">Quantum Information Theory</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;border-left:1px solid #C9D3D5;padding-left:14px">KAIST Physics</span></a>
+          <div style="display:flex;align-items:center;gap:34px"><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Research</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Publications</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">People</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Join</a></div>
+        </nav>
+        <div style="padding:150px 56px 0;min-height:520px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+          <h1 style="margin:0;font-family:Archivo,sans-serif;font-size:62px;font-weight:300;line-height:1.14;letter-spacing:-.022em;max-width:19ch;color:#121719;text-wrap:pretty">We study the <span style="border-bottom:3px solid transparent;background-image:repeating-linear-gradient(90deg,#145661 0 1px,transparent 1px 3px);background-repeat:no-repeat;background-position:0 100%;background-size:100% 3px;padding-bottom:6px">boundary</span> between what quantum computers can do and what classical ones cannot.</h1>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:64px 0 40px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E">Department of Physics · KAIST</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5C6B70">↓</span></div>
+        </div>
+      </div>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#5C6B70;max-width:100ch;text-wrap:pretty">Archivo 300 / 62px. 위험을 하나도 쓰지 않은 안. 단어 <em style="font-family:'STIX Two Text',serif">boundary</em> 아래에만 간섭 무늬 밑줄이 들어갑니다 — 사이트 전체에서 이 무늬가 “경계”를 뜻하게 됩니다. 가장 안전하고 가장 조용합니다.</p>
+    </div>
+
+    <!-- Hero B -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">B — figure 파생 그래픽</span><span style="font-size:13px;color:#5C6B70">레퍼런스 ①②를 기하로만 번역한 간섭장(場)</span></div>
+      <div style="border:1px solid #C9D3D5;background:#ECF0F1;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background-image:repeating-radial-gradient(circle at 78% 46%,rgba(20,86,97,.30) 0 1px,transparent 1px 10px),repeating-radial-gradient(circle at 96% 62%,rgba(20,86,97,.20) 0 1px,transparent 1px 13px),repeating-linear-gradient(74deg,rgba(18,23,25,.07) 0 1px,transparent 1px 9px);-webkit-mask-image:linear-gradient(100deg,transparent 34%,#000 78%);mask-image:linear-gradient(100deg,transparent 34%,#000 78%);pointer-events:none"></div>
+        <nav style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:22px 56px;border-bottom:1px solid #C9D3D5">
+          <a href="#" style="display:flex;align-items:center;gap:14px"><span style="display:flex;gap:2px;align-items:center;height:22px"><span style="width:1px;height:7px;background:#145661;opacity:.35"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:2px;height:22px;background:#C2571F"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:7px;background:#145661;opacity:.35"></span></span><span style="font-family:Archivo,sans-serif;font-size:14.5px;font-weight:500;color:#121719">Quantum Information Theory</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;border-left:1px solid #C9D3D5;padding-left:14px">KAIST Physics</span></a>
+          <div style="display:flex;align-items:center;gap:34px"><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Research</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Publications</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">People</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Join</a></div>
+        </nav>
+        <div style="position:relative;padding:132px 56px 0;min-height:520px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+          <h1 style="margin:0;font-family:'STIX Two Text',Georgia,serif;font-size:46px;font-weight:400;line-height:1.28;letter-spacing:-.008em;max-width:24ch;color:#121719;text-wrap:pretty">We study the boundary between what quantum computers can do and what classical ones cannot.</h1>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:64px 0 40px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E">Department of Physics · KAIST</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;max-width:34ch;text-align:right;line-height:1.6">간섭 무늬 두 개가 겹치며 생긴 모아레 — 이미지 파일이 아니라 CSS 그라디언트 세 줄</span></div>
+        </div>
+      </div>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#5C6B70;max-width:100ch;text-wrap:pretty">문장은 STIX로 내려가고 오른쪽에서 간섭장이 화면 밖으로 흘러 나갑니다. 중심이 화면 <strong style="font-weight:600">바깥</strong>에 있어서 “보이지 않는 것의 가장자리”가 됩니다. 스톡 이미지 0장, 네트워크 요청 0회 — 전부 그라디언트라 초기 로드가 가볍습니다.</p>
+    </div>
+
+    <!-- Hero C -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">C — 여백 극대화 · 추천</span><span style="font-size:13px;color:#5C6B70">경계선이 문장을 가른다</span></div>
+      <div style="border:1px solid #C9D3D5;background:#ECF0F1">
+        <nav style="display:flex;align-items:center;justify-content:space-between;padding:22px 56px">
+          <a href="#" style="display:flex;align-items:center;gap:14px"><span style="display:flex;gap:2px;align-items:center;height:22px"><span style="width:1px;height:7px;background:#145661;opacity:.35"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:2px;height:22px;background:#C2571F"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:7px;background:#145661;opacity:.35"></span></span><span style="font-family:Archivo,sans-serif;font-size:14.5px;font-weight:500;color:#121719">Quantum Information Theory</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;border-left:1px solid #C9D3D5;padding-left:14px">KAIST Physics</span></a>
+          <div style="display:flex;align-items:center;gap:34px"><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Research</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Publications</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">People</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Join</a></div>
+        </nav>
+        <div style="padding:132px 56px 0"><h1 style="margin:0;font-family:Archivo,sans-serif;font-size:52px;font-weight:300;line-height:1.2;letter-spacing:-.02em;max-width:22ch;color:#121719;text-wrap:pretty">We study the boundary between what quantum computers can do</h1></div>
+        <div style="position:relative;margin:52px 0 0;height:1px;background:#121719"><span style="position:absolute;left:38%;top:-3.5px;width:8px;height:8px;border-radius:50%;background:#C2571F"></span></div>
+        <div style="padding:52px 56px 150px;display:flex;justify-content:flex-end"><h2 style="margin:0;font-family:Archivo,sans-serif;font-size:52px;font-weight:300;line-height:1.2;letter-spacing:-.02em;color:#5C6B70;text-align:right;text-wrap:pretty">and what classical ones cannot.</h2></div>
+        <div style="padding:0 56px 40px;display:flex;justify-content:space-between;align-items:flex-end"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E">Department of Physics · KAIST</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5C6B70">↓</span></div>
+      </div>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#5C6B70;max-width:100ch;text-wrap:pretty">문장을 가르는 <strong style="font-weight:600">한 줄이 곧 경계</strong>입니다. 위는 Ink, 아래는 Muted — 할 수 있는 쪽과 못 하는 쪽이 명도로 갈립니다. 선 위 Core 점 하나가 “지금 우리가 밀고 있는 지점”이고, 사이트에서 이 점은 여기 딱 한 번 나옵니다. 이 안을 추천합니다: 아무것도 자랑하지 않는데 무엇을 하는 곳인지 5초 만에 전달됩니다.</p>
+    </div>
+
+    <!-- Dark + rest of home -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">C — dark</span><span style="font-size:13px;color:#5C6B70">그리고 히어로 아래로 이어지는 홈 나머지 (스크롤 ①②③)</span></div>
+      <div style="border:1px solid #2B3437;background:#0F1416">
+        <nav style="display:flex;align-items:center;justify-content:space-between;padding:22px 56px">
+          <a href="#" style="display:flex;align-items:center;gap:14px"><span style="display:flex;gap:2px;align-items:center;height:22px"><span style="width:1px;height:7px;background:#79C3CE;opacity:.35"></span><span style="width:1px;height:12px;background:#79C3CE;opacity:.55"></span><span style="width:1px;height:18px;background:#79C3CE;opacity:.8"></span><span style="width:2px;height:22px;background:#E88742"></span><span style="width:1px;height:18px;background:#79C3CE;opacity:.8"></span><span style="width:1px;height:12px;background:#79C3CE;opacity:.55"></span><span style="width:1px;height:7px;background:#79C3CE;opacity:.35"></span></span><span style="font-family:Archivo,sans-serif;font-size:14.5px;font-weight:500;color:#E4EAEA">Quantum Information Theory</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#93A3A7;border-left:1px solid #2B3437;padding-left:14px">KAIST Physics</span></a>
+          <div style="display:flex;align-items:center;gap:34px"><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#C4CFD1">Research</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#C4CFD1">Publications</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#C4CFD1">People</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#C4CFD1">Join</a></div>
+        </nav>
+        <div style="padding:110px 56px 0"><h1 style="margin:0;font-family:Archivo,sans-serif;font-size:52px;font-weight:300;line-height:1.2;letter-spacing:-.02em;max-width:22ch;color:#E4EAEA;text-wrap:pretty">We study the boundary between what quantum computers can do</h1></div>
+        <div style="position:relative;margin:52px 0 0;height:1px;background:#E4EAEA"><span style="position:absolute;left:38%;top:-3.5px;width:8px;height:8px;border-radius:50%;background:#E88742"></span></div>
+        <div style="padding:52px 56px 110px;display:flex;justify-content:flex-end"><h2 style="margin:0;font-family:Archivo,sans-serif;font-size:52px;font-weight:300;line-height:1.2;letter-spacing:-.02em;color:#93A3A7;text-align:right">and what classical ones cannot.</h2></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">Home — 스크롤 ①②③</span><span style="font-size:13px;color:#5C6B70">연구분야 3개 → Selected papers 4편 → 위치·연락</span></div>
+      <div style="border:1px solid #C9D3D5;background:#ECF0F1;padding:88px 56px">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding-bottom:88px">
+          <sc-for list="{{ areas }}" as="a" hint-placeholder-count="3">
+            <a href="#" style="display:block;border-top:1px solid #121719;padding-top:20px" style-hover="border-color:#C2571F">
+              <div style="font-family:'STIX Two Text',Georgia,serif;font-size:24px;color:#121719;line-height:1.2">{{ a.label }}</div>
+              <div style="margin-top:10px;font-family:Archivo,sans-serif;font-size:14.5px;font-weight:300;line-height:1.5;color:#3B474B;text-wrap:pretty">{{ a.tagline }}</div>
+            </a>
+          </sc-for>
+        </div>
+        <div style="border-top:1px solid #C9D3D5;padding-top:36px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">Selected papers</span>
+            <a href="#" style="font-family:Archivo,sans-serif;font-size:13.5px;color:#145661;border-bottom:1px solid #B9CACC;padding-bottom:1px">All publications →</a>
+          </div>
+          <div>
+            <sc-for list="{{ selected }}" as="p" hint-placeholder-count="4"><article style="display:grid;grid-template-columns:136px 1fr;gap:0 28px;padding:17px 12px 19px 0;border-top:1px solid #C9D3D5;align-items:start" style-hover="background:#F4F8F8"><div style="display:flex;justify-content:flex-end;padding-top:4px"><sc-if value="{{ p.isJournal }}" hint-placeholder-val="{{ true }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#0E3D45;background:#DBE7E8;padding:4px 7px;border-radius:2px;white-space:nowrap">{{ p.badge }}</span></sc-if><sc-if value="{{ p.isPreprint }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#6C7B80;border:1px solid #C9D3D5;padding:3px 6px;border-radius:2px;white-space:nowrap">{{ p.badge }}</span></sc-if></div><div style="min-width:0"><a href="{{ p.url }}" target="_blank" rel="noopener" style="font-family:'STIX Two Text',Georgia,serif;font-size:19px;line-height:1.33;color:#121719;display:block;text-wrap:pretty;letter-spacing:-.002em" style-hover="color:#145661;text-decoration:underline;text-underline-offset:3px">{{ p.title }}</a><p style="margin:8px 0 0;font-family:Archivo,sans-serif;font-size:13px;line-height:1.6;color:#5C6B70;text-wrap:pretty"><sc-for list="{{ p.authorList }}" as="a" hint-placeholder-count="4"><span><sc-if value="{{ a.group }}" hint-placeholder-val="{{ false }}"><span style="color:#121719;font-weight:600">{{ a.name }}</span></sc-if><sc-if value="{{ a.outside }}" hint-placeholder-val="{{ true }}"><span>{{ a.name }}</span></sc-if><sc-if value="{{ a.corr }}" hint-placeholder-val="{{ false }}"><span style="color:#C2571F">∗</span></sc-if>{{ a.sep }}</span></sc-for></p><div style="margin-top:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#7A888C">{{ p.citation }}</span></div></div></article></sc-for>
+          </div>
+        </div>
+        <div style="border-top:1px solid #C9D3D5;margin-top:88px;padding-top:36px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px">
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:12px">Where</div><div style="font-size:14.5px;line-height:1.65;color:#3B474B">Department of Physics, KAIST<br>291 Daehak-ro, Yuseong-gu<br>Daejeon 34141, Korea</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:12px">Contact</div><a href="mailto:changhun0218@kaist.ac.kr" style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#145661;border-bottom:1px solid #B9CACC">changhun0218@kaist.ac.kr</a></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70;margin-bottom:12px">Join</div><p style="margin:0 0 12px;font-size:14.5px;line-height:1.6;color:#3B474B;text-wrap:pretty">We are looking for students who want to prove things.</p><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#145661;border-bottom:1px solid #B9CACC;padding-bottom:2px">How to join →</a></div>
+        </div>
+      </div>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#5C6B70;max-width:100ch;text-wrap:pretty">Selected papers 4편은 <strong style="font-weight:600">compact 모드</strong>의 같은 PublicationItem입니다 — 태그를 떼고 인용문만 남겼습니다. 홈에서는 <em style="font-family:'STIX Two Text',serif">Science</em>·<em style="font-family:'STIX Two Text',serif">Nat. Phys.</em> 배지가 통계 배너를 대신합니다.</p>
+    </div>
+  </section>
+
+  <!-- ══════════ PART 4 — PUBLICATIONS ══════════ -->
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;align-items:baseline;gap:20px;border-bottom:2px solid #121719;padding-bottom:12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8C9A9E">04</span>
+      <h2 style="margin:0;font-family:Archivo,sans-serif;font-size:26px;font-weight:500;letter-spacing:-.01em">Publications — 필터 전 / 후</h2>
+      <span style="font-size:13.5px;color:#5C6B70">두 보드 모두 실제로 동작합니다. 칩을 눌러 보세요.</span>
+    </div>
+    <sc-for list="{{ boards }}" as="b" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5C6B70">{{ b.boardLabel }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8C9A9E">{{ b.urlLabel }}</span></div>
+        <div style="border:1px solid #C9D3D5;background:#ECF0F1">
+          <nav style="display:flex;align-items:center;justify-content:space-between;padding:22px 56px;border-bottom:1px solid #C9D3D5">
+            <a href="#" style="display:flex;align-items:center;gap:14px"><span style="display:flex;gap:2px;align-items:center;height:22px"><span style="width:1px;height:7px;background:#145661;opacity:.35"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:2px;height:22px;background:#C2571F"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:7px;background:#145661;opacity:.35"></span></span><span style="font-family:Archivo,sans-serif;font-size:14.5px;font-weight:500;color:#121719">Quantum Information Theory</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8C9A9E;border-left:1px solid #C9D3D5;padding-left:14px">KAIST Physics</span></a>
+            <div style="display:flex;align-items:center;gap:34px"><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Research</a><span style="display:flex;flex-direction:column;gap:7px;align-items:center"><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#121719;font-weight:500">Publications</a><span style="width:100%;height:3px;background-image:repeating-linear-gradient(90deg,#145661 0 1px,transparent 1px 3px);display:block"></span></span><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">People</a><a href="#" style="font-family:Archivo,sans-serif;font-size:14px;color:#3B474B">Join</a></div>
+          </nav>
+          <div style="padding:72px 56px 0;display:grid;grid-template-columns:1fr 380px;gap:56px;align-items:end">
+            <h1 style="margin:0;font-family:'STIX Two Text',Georgia,serif;font-size:46px;font-weight:400;line-height:1.08;letter-spacing:-.012em">Publications</h1>
+            <p style="margin:0;font-size:14px;line-height:1.65;color:#5C6B70;text-wrap:pretty">Every paper the group has authored, newest first. Filter by topic below.</p>
+          </div>
+          <div style="padding:40px 56px 0">
+            <div style="border-top:1px solid #C9D3D5;padding-top:24px">
+              <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8C9A9E">Research areas</span></div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+                <sc-for list="{{ b.areaChips }}" as="c" hint-placeholder-count="3"><sc-if value="{{ c.unsel }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ c.onClick }}" style="display:inline-flex;align-items:center;gap:8px;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1;padding:7px 10px;border:1px solid #C9D3D5;border-radius:2px;background:#F8FAFA;color:#2C3639;cursor:pointer" style-hover="border-color:#145661;color:#0E3D45;background:#EAF1F2"><span style="width:7px;height:7px;background:#145661;display:block"></span><span>{{ c.label }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7A888C">{{ c.count }}</span></button></sc-if><sc-if value="{{ c.sel }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ c.onClick }}" style="display:inline-flex;align-items:center;gap:8px;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1;padding:7px 10px;border:1px solid #145661;border-radius:2px;background:#145661;color:#EAF1F2;cursor:pointer"><span style="width:7px;height:7px;background:#C2571F;display:block"></span><span>{{ c.label }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9FC5CB">{{ c.count }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#C2571F">×</span></button></sc-if></sc-for>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8C9A9E">Keywords</span></div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <sc-for list="{{ b.keywordChips }}" as="c" hint-placeholder-count="12"><sc-if value="{{ c.unsel }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ c.onClick }}" style="display:inline-flex;align-items:center;gap:8px;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1;padding:7px 10px;border:1px solid #C9D3D5;border-radius:2px;background:#F8FAFA;color:#2C3639;cursor:pointer" style-hover="border-color:#145661;color:#0E3D45;background:#EAF1F2"><span>{{ c.label }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7A888C">{{ c.count }}</span></button></sc-if><sc-if value="{{ c.sel }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ c.onClick }}" style="display:inline-flex;align-items:center;gap:8px;font-family:Archivo,sans-serif;font-size:12.5px;line-height:1;padding:7px 10px;border:1px solid #145661;border-radius:2px;background:#145661;color:#EAF1F2;cursor:pointer"><span>{{ c.label }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9FC5CB">{{ c.count }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#C2571F">×</span></button></sc-if></sc-for>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:28px;padding:16px 0;border-top:1px solid #C9D3D5;border-bottom:1px solid #C9D3D5;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:14px;min-height:32px">
+                <sc-if value="{{ b.filtered }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;align-items:center;gap:12px">
+                    <span style="font-family:Archivo,sans-serif;font-size:14px;color:#121719">Showing <strong style="font-weight:600">{{ b.resultLabel }}</strong> tagged <em style="font-family:'STIX Two Text',serif;font-style:italic">{{ b.tagLabel }}</em></span>
+                    <button type="button" onClick="{{ b.clear }}" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8A4A16;background:transparent;border:1px solid #DFB08D;border-radius:2px;padding:6px 9px;cursor:pointer;min-height:32px" style-hover="background:#F4E6DC;border-color:#C2571F">Clear filter ×</button>
+                  </span>
+                </sc-if>
+                <sc-if value="{{ b.unfiltered }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-family:Archivo,sans-serif;font-size:14px;color:#5C6B70">All papers, newest first</span>
+                </sc-if>
+              </div>
+              <div style="display:flex;align-items:center;gap:0;border:1px solid #C9D3D5;border-radius:2px;overflow:hidden">
+                <sc-for list="{{ b.types }}" as="t" hint-placeholder-count="3">
+                  <sc-if value="{{ t.sel }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ t.onClick }}" style="font-family:Archivo,sans-serif;font-size:12.5px;padding:8px 14px;min-height:32px;background:#145661;color:#EAF1F2;border:0;cursor:pointer">{{ t.label }}</button></sc-if>
+                  <sc-if value="{{ t.unsel }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ t.onClick }}" style="font-family:Archivo,sans-serif;font-size:12.5px;padding:8px 14px;min-height:32px;background:#F8FAFA;color:#3B474B;border:0;border-left:1px solid #C9D3D5;cursor:pointer" style-hover="background:#EAF1F2;color:#0E3D45">{{ t.label }}</button></sc-if>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          <div style="padding:0 56px 88px">
+            <sc-for list="{{ b.years }}" as="y" hint-placeholder-count="3">
+              <div style="padding-top:52px">
+                <div style="display:flex;align-items:flex-end;gap:20px;margin-bottom:4px">
+                  <span style="font-family:Archivo,sans-serif;font-size:34px;font-weight:300;letter-spacing:-.02em;line-height:1;color:#121719;width:116px">{{ y.year }}</span>
+                  <span style="display:flex;gap:3px;align-items:flex-end;padding-bottom:5px"><sc-for list="{{ y.ticks }}" as="t" hint-placeholder-count="8"><span style="width:1px;height:18px;background:#145661;display:block"></span></sc-for></span>
+                </div>
+                <div>
+                  <sc-for list="{{ y.items }}" as="p" hint-placeholder-count="4"><article style="display:grid;grid-template-columns:136px 1fr;gap:0 28px;padding:17px 12px 19px 0;border-top:1px solid #C9D3D5;align-items:start" style-hover="background:#F4F8F8"><div style="display:flex;justify-content:flex-end;padding-top:4px"><sc-if value="{{ p.isJournal }}" hint-placeholder-val="{{ true }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#0E3D45;background:#DBE7E8;padding:4px 7px;border-radius:2px;white-space:nowrap">{{ p.badge }}</span></sc-if><sc-if value="{{ p.isPreprint }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#6C7B80;border:1px solid #C9D3D5;padding:3px 6px;border-radius:2px;white-space:nowrap">{{ p.badge }}</span></sc-if></div><div style="min-width:0"><a href="{{ p.url }}" target="_blank" rel="noopener" style="font-family:'STIX Two Text',Georgia,serif;font-size:19px;line-height:1.33;color:#121719;display:block;text-wrap:pretty;letter-spacing:-.002em" style-hover="color:#145661;text-decoration:underline;text-underline-offset:3px">{{ p.title }}</a><p style="margin:8px 0 0;font-family:Archivo,sans-serif;font-size:13px;line-height:1.6;color:#5C6B70;text-wrap:pretty"><sc-for list="{{ p.authorList }}" as="a" hint-placeholder-count="4"><span><sc-if value="{{ a.group }}" hint-placeholder-val="{{ false }}"><span style="color:#121719;font-weight:600">{{ a.name }}</span></sc-if><sc-if value="{{ a.outside }}" hint-placeholder-val="{{ true }}"><span>{{ a.name }}</span></sc-if><sc-if value="{{ a.corr }}" hint-placeholder-val="{{ false }}"><span style="color:#C2571F">∗</span></sc-if>{{ a.sep }}</span></sc-for></p><div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:7px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.5;color:#5C6B70">{{ p.citation }}</span><sc-if value="{{ p.hasNote }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8A4A16;border-bottom:1px solid #DFB08D;padding-bottom:1px">{{ p.note }}</span></sc-if></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><sc-for list="{{ p.tagList }}" as="t" hint-placeholder-count="4"><sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo,sans-serif;font-size:11.5px;line-height:1;color:#0E3D45;border:1px solid #145661;border-radius:2px;padding:3px 7px;background:#DBE7E8">{{ t.label }}</span></sc-if><sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}"><span style="font-family:Archivo,sans-serif;font-size:11.5px;line-height:1;color:#5C6B70;border:1px solid #DCE3E4;border-radius:2px;padding:3px 7px;background:#F8FAFA">{{ t.label }}</span></sc-if></sc-for></div></div></article></sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ b.none }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:64px 0;font-family:Archivo,sans-serif;font-size:15px;color:#5C6B70">No papers match this combination. <button type="button" onClick="{{ b.clear }}" style="font-family:Archivo,sans-serif;font-size:15px;color:#145661;background:transparent;border:0;border-bottom:1px solid #B9CACC;cursor:pointer;padding:0">Clear the filter.</button></div>
+            </sc-if>
+          </div>
+        </div>
+        <p style="margin:0;font-size:13px;line-height:1.6;color:#5C6B70;max-width:100ch;text-wrap:pretty">{{ b.note }}</p>
+      </div>
+    </sc-for>
+  </section>
+
+  <!-- ══════════ PART 5 — SIGNATURE ══════════ -->
+  <section style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;align-items:baseline;gap:20px;border-bottom:2px solid #121719;padding-bottom:12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8C9A9E">05</span>
+      <h2 style="margin:0;font-family:Archivo,sans-serif;font-size:26px;font-weight:500;letter-spacing:-.01em">시그니처 — The fringe</h2>
+      <span style="font-size:13.5px;color:#5C6B70">숫자 대신 밀도</span>
+    </div>
+    <div style="background:#ECF0F1;border:1px solid #C9D3D5;padding:48px 56px 56px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+        <div>
+          <h3 style="margin:0;font-family:'STIX Two Text',Georgia,serif;font-size:34px;font-weight:400;line-height:1.2;letter-spacing:-.01em">밀도가 숫자를 대신한다</h3>
+          <p style="margin:22px 0 0;font-size:15px;line-height:1.75;color:#3B474B;text-wrap:pretty">사이트 전체에서 하나의 형태만 반복됩니다: <strong style="font-weight:600">1px 세로선의 간섭 무늬</strong>. 레퍼런스 ①의 동심 궤도와 ②의 수렴하는 선다발을 색을 버리고 기하만 남겨 번역한 것이고, 동시에 이 그룹이 실제로 논문에 그리는 위상공간 간섭 줄무늬이기도 합니다.</p>
+          <p style="margin:18px 0 0;font-size:15px;line-height:1.75;color:#3B474B;text-wrap:pretty">그런데 이 무늬는 장식이 아닙니다. <strong style="font-weight:600">선의 개수가 곧 논문 수</strong>입니다. Publications의 연도 옆, 연구분야 옆, 구성원 카드 안 — 어디서든 줄 하나가 논문 한 편입니다.</p>
+          <div style="border-left:2px solid #C2571F;padding-left:18px;margin:26px 0 0">
+            <p style="margin:0;font-family:'STIX Two Text',Georgia,serif;font-size:19px;line-height:1.55;color:#121719;text-wrap:pretty">“34편”이라고 쓰지 않습니다. 2026년 칸이 2024년 칸보다 촘촘하다는 것만 보입니다. 세어 보고 싶은 사람은 셀 수 있고, 대부분은 세지 않은 채로 <em style="font-style:italic">빨라지고 있다</em>는 것만 알고 지나갑니다.</p>
+          </div>
+          <p style="margin:26px 0 0;font-size:14px;line-height:1.7;color:#5C6B70;text-wrap:pretty">§2가 금지한 것은 통계 배너지 사실 자체가 아닙니다. 이 요소는 사실을 <strong style="font-weight:600">읽는 게 아니라 보이게</strong> 만들어서, 자랑하지 않고 증거를 놓습니다. 그리고 §5.6대로 시각적 위험은 여기 한 곳에만 몰려 있습니다 — 나머지 화면은 전부 회색 위의 검은 글자입니다.</p>
+          <div style="margin-top:32px;border-top:1px solid #C9D3D5;padding-top:20px;display:flex;flex-direction:column;gap:11px">
+            <div style="display:grid;grid-template-columns:140px 1fr;gap:16px;font-size:13px;line-height:1.55"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;padding-top:2px">비용</span><span style="color:#3B474B">이미지 0장, JS 0줄. <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">&lt;span&gt;</span> 반복 또는 CSS 그라디언트.</span></div>
+            <div style="display:grid;grid-template-columns:140px 1fr;gap:16px;font-size:13px;line-height:1.55"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;padding-top:2px">접근성</span><span style="color:#3B474B"><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">aria-hidden</span> + 옆에 텍스트 라벨. 스크린리더는 “15 papers in 2026”을 그대로 읽습니다.</span></div>
+            <div style="display:grid;grid-template-columns:140px 1fr;gap:16px;font-size:13px;line-height:1.55"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E;padding-top:2px">모션</span><span style="color:#3B474B">없음. 떠다니는 큐비트도, 파티클도 없습니다(§5.2).</span></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:30px">
+          <div style="background:#F8FAFA;border:1px solid #DCE3E4;border-radius:3px;padding:28px 30px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8C9A9E;margin-bottom:20px">연도 구분자 — 있는 그대로</div>
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <sc-for list="{{ density }}" as="d" hint-placeholder-count="3">
+                <div style="display:flex;align-items:flex-end;gap:20px">
+                  <span style="font-family:Archivo,sans-serif;font-size:34px;font-weight:300;letter-spacing:-.02em;line-height:1;width:100px">{{ d.year }}</span>
+                  <span style="display:flex;gap:3px;align-items:flex-end;padding-bottom:5px"><sc-for list="{{ d.ticks }}" as="t" hint-placeholder-count="9"><span style="width:1px;height:22px;background:#145661;display:block"></span></sc-for></span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:20px;font-size:12.5px;line-height:1.6;color:#5C6B70">창립은 2024년 4월입니다. 아래에서 위로 촘촘해지는 것 — 그게 이 연구실이 하고 싶은 유일한 자랑이고, 한 글자도 쓰지 않았습니다.</div>
+          </div>
+          <div style="background:#F8FAFA;border:1px solid #DCE3E4;border-radius:3px;padding:28px 30px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8C9A9E;margin-bottom:20px">같은 형태의 다섯 가지 축척</div>
+            <div style="display:flex;flex-direction:column;gap:18px">
+              <div style="display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">워드마크</span><span style="display:flex;gap:2px;align-items:center;height:22px"><span style="width:1px;height:7px;background:#145661;opacity:.35"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:2px;height:22px;background:#C2571F"></span><span style="width:1px;height:18px;background:#145661;opacity:.8"></span><span style="width:1px;height:12px;background:#145661;opacity:.55"></span><span style="width:1px;height:7px;background:#145661;opacity:.35"></span></span></div>
+              <div style="display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">nav 활성</span><span style="width:96px;height:3px;background-image:repeating-linear-gradient(90deg,#145661 0 1px,transparent 1px 3px);display:block"></span></div>
+              <div style="display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">단어 밑줄</span><span style="font-family:Archivo,sans-serif;font-size:22px;font-weight:300"><span style="background-image:repeating-linear-gradient(90deg,#145661 0 1px,transparent 1px 3px);background-repeat:no-repeat;background-position:0 100%;background-size:100% 3px;padding-bottom:5px">boundary</span></span></div>
+              <div style="display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">사진 자리</span><span style="width:88px;height:60px;background-color:#E4EBEC;background-image:repeating-linear-gradient(90deg,#C3D0D2 0 1px,transparent 1px 6px),repeating-linear-gradient(90deg,#C3D0D2 0 1px,transparent 1px 7px);display:block"></span></div>
+              <div style="display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8C9A9E">히어로 배경</span><span style="height:60px;background-color:#ECF0F1;background-image:repeating-radial-gradient(circle at 80% 50%,rgba(20,86,97,.30) 0 1px,transparent 1px 10px),repeating-linear-gradient(74deg,rgba(18,23,25,.07) 0 1px,transparent 1px 9px);display:block;border:1px solid #E1E8E9"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid #C0CCCE;padding-top:24px;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8C9A9E">
+    <span>KAIST Physics QIT — visual design proposal</span>
+    <span>실제 데이터 · 34 papers / 12 members / 28 tags</span>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { tagA: null, typeA: 'all', tagB: 'boson-sampling', typeB: 'all' };
+
+  TAGS = [
+    ['quantum-learning','Quantum Learning','area','When can quantum resources make learning provably easier?','Quantum learning theory investigates how quantum mechanics affects fundamental aspects of learning, such as sample complexity, efficiency, and computational power. The goal is to characterize when and how quantum systems can provide advantages over classical approaches in learning tasks.','quantum-learning.jpg'],
+    ['nisq','NISQ Devices','area','Where does the classical–quantum boundary actually lie?','We study the presence or absence of quantum advantage in NISQ devices, the boundaries of their classical simulability, and the potential applications that emerge from these regimes. Our research particularly focuses on boson sampling, IQP sampling, and quantum error correction.','nisq.jpg'],
+    ['metrology','Quantum Metrology','area','Pushing parameter estimation past the classical limit.','Quantum metrology studies how quantum resources—squeezing, entanglement, and nonclassical measurements—can boost the precision of parameter estimation beyond classical limits. By tailoring probe states, evolutions, and measurements, it aims to saturate the quantum Cramér–Rao bound and approach Heisenberg-limited scaling.','metrology.jpg'],
+    ['noise-and-loss','Noise & Loss','keyword'], ['classical-simulation','Classical Simulation','keyword'],
+    ['boson-sampling','Boson Sampling','keyword'], ['entanglement','Entanglement','keyword'],
+    ['continuous-variable','Continuous Variable','keyword'], ['sample-complexity','Sample Complexity','keyword'],
+    ['linear-optics','Linear Optics','keyword'], ['computational-complexity','Computational Complexity','keyword'],
+    ['gaussian-states','Gaussian States','keyword'], ['channel-learning','Channel Learning','keyword'],
+    ['tensor-networks','Tensor Networks','keyword'], ['error-correction','Error Correction','keyword'],
+    ['magic-states','Magic States','keyword'], ['error-mitigation','Error Mitigation','keyword'],
+    ['distributed-sensing','Distributed Sensing','keyword'], ['random-circuits','Random Circuits','keyword'],
+    ['state-learning','State Learning','keyword'], ['experiment','Experimental Collaboration','keyword'],
+    ['hamiltonian-learning','Hamiltonian Learning','keyword'], ['quantum-chemistry','Quantum Chemistry','keyword'],
+    ['generative-models','Generative Models','keyword'], ['squeezing','Squeezing','keyword'],
+    ['quantum-imaging','Quantum Imaging','keyword'], ['certification','Certification & Testing','keyword'],
+    ['iqp-sampling','IQP Sampling','keyword']
+  ];
+
+  PUBS = [
+    { id:'kim2026haldane', t:'Disentangling Haldane Phase by Generalized Clifford Circuits', a:['M. Kim|g','C. Oh|gc','D. Kim|c'], y:2026, o:0, ty:'preprint', v:'arXiv', c:'arXiv:2607.03939 (2026)', u:'https://arxiv.org/abs/2607.03939', g:['nisq','classical-simulation','tensor-networks','entanglement'] },
+    { id:'sohn2026gkp', t:'When to Skip Syndrome Extraction in Surface-GKP Codes', a:['V. Sohn|g','C. Oh|gc'], y:2026, o:1, ty:'preprint', v:'arXiv', c:'arXiv:2606.24469 (2026)', u:'https://arxiv.org/abs/2606.24469', g:['nisq','error-correction','continuous-variable','noise-and-loss'] },
+    { id:'shin2026hamiltonian', t:'Heisenberg-limited Hamiltonian learning without short-time control', a:['M. Shin|g','J. Lee','C. Oh|gc'], y:2026, o:2, ty:'preprint', v:'arXiv', c:'arXiv:2604.27838 (2026)', u:'https://arxiv.org/abs/2604.27838', g:['quantum-learning','metrology','hamiltonian-learning','sample-complexity'] },
+    { id:'oh2026freefermion', t:'Classical simulation of free-fermionic dynamics and quantum chemistry with magic input', a:['C. Oh|gc','M. Oszmaniec','O. Reardon-Smith','Z. Zimborás'], y:2026, o:3, ty:'preprint', v:'arXiv', c:'arXiv:2604.26813 (2026)', u:'https://arxiv.org/abs/2604.26813', g:['nisq','classical-simulation','magic-states','quantum-chemistry'] },
+    { id:'go2026cvcluster', t:'Complexity phase transition for continuous-variable cluster state', a:['B. Go','H. Jeong','C. Oh|gc'], y:2026, o:4, ty:'preprint', v:'arXiv', c:'arXiv:2604.07804 (2026)', u:'https://arxiv.org/abs/2604.07804', g:['nisq','continuous-variable','computational-complexity','gaussian-states'] },
+    { id:'kwon2026virtual', t:'Virtual purification complements quantum error correction in quantum metrology', a:['H. Kwon','C. Oh|g','Y. Lim','H. Jeong','S.-W. Lee','L. Jiang'], y:2026, o:5, ty:'journal', v:'npj Quantum Information', c:'npj Quantum Inf. 12, 88 (2026)', u:'https://www.nature.com/articles/s41534-026-01231-0', g:['metrology','error-mitigation','error-correction','noise-and-loss'] },
+    { id:'kolarovszki2026born', t:'Generative modeling with Gaussian Boson Sampling: classically trainable Bosonic Born Machines', a:['Z. Kolarovszki','B. Bakó','M. Oszmaniec','C. Oh|g','Z. Zimborás'], y:2026, o:6, ty:'preprint', v:'arXiv', c:'arXiv:2603.11195 (2026)', u:'https://arxiv.org/abs/2603.11195', g:['nisq','quantum-learning','boson-sampling','generative-models'] },
+    { id:'go2026shallowboson', t:'On computational complexity and average-case hardness of shallow-depth boson sampling', a:['B. Go','C. Oh|gc','H. Jeong|c'], y:2026, o:7, ty:'journal', v:'Quantum', c:'Quantum 10, 2026 (2026)', u:'https://quantum-journal.org/papers/q-2026-03-13-2026/', g:['nisq','boson-sampling','computational-complexity','linear-optics'] },
+    { id:'oh2026measurement', t:'Classical algorithms for measurement-adaptive Gaussian circuits', a:['C. Oh|gc','Y. Lim'], y:2026, o:8, ty:'journal', v:'PRX Quantum', c:'PRX Quantum 7, 010329 (2026)', u:'https://journals.aps.org/prxquantum/abstract/10.1103/rpl7-ylg8', g:['nisq','classical-simulation','gaussian-states','linear-optics'] },
+    { id:'kim2026channel', t:'On the fundamental resource for exponential advantage in quantum channel learning', a:['M. Kim|g','C. Oh|gc'], y:2026, o:9, ty:'journal', v:'Nature Communications', c:'Nat. Commun. 17, 1822 (2026)', u:'https://www.nature.com/articles/s41467-026-68532-y', g:['quantum-learning','channel-learning','entanglement','sample-complexity'], h:true },
+    { id:'kim2026petermann', t:'Classical Petermann factor as a measure of quantum squeezing in photonic time crystals', a:['Y. Kim','K. Lee','C. Oh|g','Y.-S. Ra','K. W. Kim','B. Min'], y:2026, o:10, ty:'preprint', v:'arXiv', c:'arXiv:2601.17369 (2026)', u:'https://arxiv.org/abs/2601.17369', g:['metrology','squeezing','continuous-variable'] },
+    { id:'nehra2026distributed', t:'All-optical loss-tolerant distributed quantum sensing', a:['R. Nehra|c','C. Oh|gc','L. Jiang','A. Marandi'], y:2026, o:11, ty:'journal', v:'npj Quantum Information', c:'npj Quantum Inf. 12, 18 (2026)', u:'https://www.nature.com/articles/s41534-025-01123-9', g:['metrology','distributed-sensing','linear-optics','noise-and-loss'] },
+    { id:'wang2026imaging', t:'Advancing quantum imaging through learning theory', a:['Y. Wang','C. Oh|g','J. Liu','L. Jiang','S. Zhou'], y:2026, o:12, ty:'journal', v:'Nature Communications', c:'Nat. Commun. 17, 1124 (2026)', u:'https://www.nature.com/articles/s41467-025-67884-1', g:['metrology','quantum-learning','quantum-imaging','sample-complexity'], h:true },
+    { id:'heo2026noisymagic', t:'Classical simulation of a quantum circuit with noisy magic inputs', a:['J. Heo|g','S. Park|g','C. Oh|gc'], y:2026, o:13, ty:'preprint', v:'arXiv', c:'arXiv:2601.10111 (2026)', u:'https://arxiv.org/abs/2601.10111', g:['nisq','classical-simulation','magic-states','noise-and-loss'] },
+    { id:'jeon2026unitary', t:'On the query complexity of unitary channel certification', a:['S. Jeon|g','C. Oh|gc'], y:2026, o:14, ty:'journal', v:'npj Quantum Information', c:'npj Quantum Inf. 12, 2 (2026)', u:'https://www.nature.com/articles/s41534-025-01135-5', g:['quantum-learning','certification','channel-learning','sample-complexity'] },
+    { id:'go2025lossygbs', t:'Sufficient conditions for hardness of lossy Gaussian boson sampling', a:['B. Go','C. Oh|gc','H. Jeong|c'], y:2025, o:15, ty:'preprint', v:'arXiv', c:'arXiv:2511.07853 (2025)', u:'https://arxiv.org/abs/2511.07853', g:['nisq','boson-sampling','noise-and-loss','computational-complexity'] },
+    { id:'park2025mps', t:'Matrix product state approach to lossy boson sampling and noisy IQP sampling', a:['S. Park|g','C. Oh|gc'], y:2025, o:16, ty:'preprint', v:'arXiv', c:'arXiv:2510.24137 (2025)', u:'https://arxiv.org/abs/2510.24137', g:['nisq','boson-sampling','iqp-sampling','tensor-networks'] },
+    { id:'lee2025noisyrandom', t:'Classical simulation of noisy random circuits from exponential decay of correlation', a:['S.-u. Lee','S. Ghosh','C. Oh|g','K. Noh','B. Fefferman','L. Jiang'], y:2025, o:17, ty:'preprint', v:'arXiv', c:'arXiv:2510.06328 (2025)', u:'https://arxiv.org/abs/2510.06328', g:['nisq','classical-simulation','random-circuits','noise-and-loss'] },
+    { id:'iosue2025moment', t:'Higher moment theory and learnability of bosonic states', a:['J. T. Iosue','Y.-X. Wang','I. Datta','S. Ghosh','C. Oh|g','B. Fefferman','A. V. Gorshkov'], y:2025, o:18, ty:'preprint', v:'arXiv', c:'arXiv:2510.01610 (2025)', u:'https://arxiv.org/abs/2510.01610', g:['quantum-learning','state-learning','continuous-variable','sample-complexity'] },
+    { id:'liu2025photonic', t:'Quantum learning advantage on a scalable photonic platform', a:['Z.-H. Liu','R. Brunel','E. E. B. Østergaard','O. Cordero','S. Chen','Y. Wong','J. A. H. Nielsen','A. B. Bregnsbo','S. Zhou','H.-Y. Huang','C. Oh|g','L. Jiang','J. Preskill','J. S. Neergaard-Nielsen','U. L. Andersen'], y:2025, o:19, ty:'journal', v:'Science', c:'Science 389, 1332 (2025)', u:'https://www.science.org/doi/10.1126/science.adv2560', g:['quantum-learning','entanglement','continuous-variable','experiment'], h:true },
+    { id:'go2025distinguishable', t:'Quantum computational advantage of noisy boson sampling with partially distinguishable photons', a:['B. Go','C. Oh|gc','H. Jeong|c'], y:2025, o:20, ty:'journal', v:'PRX Quantum', c:'PRX Quantum 6, 030362 (2025)', u:'https://journals.aps.org/prxquantum/abstract/10.1103/rflv-gc66', g:['nisq','boson-sampling','noise-and-loss','computational-complexity'] },
+    { id:'oh2025constantdepth', t:'Classical simulability of constant-depth linear-optical circuits with noise', a:['C. Oh|gc'], y:2025, o:21, ty:'journal', v:'npj Quantum Information', c:'npj Quantum Inf. 11, 126 (2025)', u:'https://www.nature.com/articles/s41534-025-01041-w', g:['nisq','classical-simulation','linear-optics','noise-and-loss'] },
+    { id:'lim2025linearoptical', t:'Efficient classical algorithms for linear optical circuits', a:['Y. Lim','C. Oh|gc'], y:2025, o:22, ty:'preprint', v:'arXiv', c:'arXiv:2502.12882 (2025)', u:'https://arxiv.org/abs/2502.12882', g:['nisq','classical-simulation','linear-optics','gaussian-states'] },
+    { id:'oh2025review', t:'Recent theoretical and experimental progress on boson sampling', a:['C. Oh|gc'], y:2025, o:23, ty:'journal', v:'Current Optics and Photonics', c:'Curr. Opt. Photon. 9, 1-18 (2025)', u:'https://www.coppjournal.org/journal/view.html?uid=1651', g:['nisq','boson-sampling','linear-optics','experiment'], n:'Review article' },
+    { id:'coroi2025cvstate', t:'Exponential advantage in continuous-variable quantum state learning', a:['E. Coroi|g','C. Oh|gc'], y:2025, o:24, ty:'preprint', v:'arXiv', c:'arXiv:2501.17633 (2025)', u:'https://arxiv.org/abs/2501.17633', g:['quantum-learning','state-learning','continuous-variable','sample-complexity'] },
+    { id:'oh2024randomdisp', t:'Entanglement-enabled advantage for learning a bosonic random displacement channel', a:['C. Oh|gc','S. Chen|c','Y. Wong','S. Zhou','H.-Y. Huang','J. A. H. Nielsen','Z.-H. Liu','J. S. Neergaard-Nielsen','U. L. Andersen','L. Jiang','J. Preskill'], y:2024, o:25, ty:'journal', v:'Physical Review Letters', c:'Phys. Rev. Lett. 133, 230604 (2024)', u:'https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.133.230604', g:['quantum-learning','channel-learning','entanglement','continuous-variable'], h:true },
+    { id:'lee2024cmi', t:'Universal spreading of conditional mutual information in noisy random circuits', a:['S.-u. Lee|c','C. Oh|g','Y. Wong','S. Chen','L. Jiang'], y:2024, o:26, ty:'journal', v:'Physical Review Letters', c:'Phys. Rev. Lett. 133, 200402 (2024)', u:'https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.133.200402', g:['nisq','random-circuits','noise-and-loss','entanglement'] },
+    { id:'wang2024correlated', t:'Exponential entanglement advantage in sensing correlated noise', a:['Y.-X. Wang|c','J. Bringewatt','A. Seif','A. J. Brady','C. Oh|g','A. V. Gorshkov'], y:2024, o:27, ty:'preprint', v:'arXiv', c:'arXiv:2410.05878 (2024)', u:'https://arxiv.org/abs/2410.05878', g:['metrology','entanglement','noise-and-loss','distributed-sensing'] },
+    { id:'oh2024expgbs', t:'Classical algorithm for simulating experimental Gaussian boson sampling', a:['C. Oh|gc','M. Liu|c','Y. Alexeev','B. Fefferman','L. Jiang'], y:2024, o:28, ty:'journal', v:'Nature Physics', c:'Nat. Phys. 20, 1461 (2024)', u:'https://www.nature.com/articles/s41567-024-02535-8', g:['nisq','boson-sampling','classical-simulation','noise-and-loss'], h:true },
+    { id:'oh2024graphgbs', t:'Quantum-inspired classical algorithm for graph problems by Gaussian boson sampling', a:['C. Oh|gc','B. Fefferman','L. Jiang','N. Quesada'], y:2024, o:29, ty:'journal', v:'PRX Quantum', c:'PRX Quantum 5, 020341 (2024)', u:'https://journals.aps.org/prxquantum/abstract/10.1103/PRXQuantum.5.020341', g:['nisq','boson-sampling','classical-simulation','gaussian-states'] },
+    { id:'go2024shallowdepth', t:'Exploring shallow-depth boson sampling: towards scalable quantum supremacy', a:['B. Go','C. Oh|gc','L. Jiang','H. Jeong'], y:2024, o:30, ty:'journal', v:'Physical Review A', c:'Phys. Rev. A 109, 052613 (2024)', u:'https://journals.aps.org/pra/abstract/10.1103/PhysRevA.109.052613', g:['nisq','boson-sampling','computational-complexity','linear-optics'], n:"Editors' Suggestion" },
+    { id:'chen2024pauli', t:'Tight bounds on Pauli channel learning without entanglement', a:['S. Chen|c','C. Oh|g','S. Zhou','H.-Y. Huang','L. Jiang|c'], y:2024, o:31, ty:'journal', v:'Physical Review Letters', c:'Phys. Rev. Lett. 132, 180805 (2024)', u:'https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.180805', g:['quantum-learning','channel-learning','entanglement','sample-complexity'] },
+    { id:'kwon2024virtual', t:'Efficacy of virtual purification-based error mitigation on quantum metrology', a:['H. Kwon','C. Oh|gc','Y. Lim','H. Jeong','L. Jiang'], y:2024, o:32, ty:'journal', v:'Physical Review A', c:'Phys. Rev. A 109, 022410 (2024)', u:'https://journals.aps.org/pra/abstract/10.1103/PhysRevA.109.022410', g:['metrology','error-mitigation','noise-and-loss'] },
+    { id:'oh2024vibronic', t:'Quantum-inspired classical algorithm for molecular vibronic spectra', a:['C. Oh|gc','Y. Lim','Y. Wong','B. Fefferman','L. Jiang'], y:2024, o:33, ty:'journal', v:'Nature Physics', c:'Nat. Phys. 20, 225 (2024)', u:'https://www.nature.com/articles/s41567-023-02308-9', g:['nisq','boson-sampling','classical-simulation','gaussian-states'], h:true }
+  ];
+
+  MEMBERS = [
+    { id:'oh-changhun', name:'Changhun Oh', key:'C. Oh', role:'pi', roleLabel:'Team Leader', affiliation:'Department of Physics, KAIST', bio:null, title:'Assistant Professor', interests:[], education:[['Assistant Professor','2024.04 – present · Department of Physics, KAIST'],['Postdoctoral Scholar','2020.03 – 2024.03 · Pritzker School of Molecular Engineering, University of Chicago']], emails:['changhun0218@kaist.ac.kr'], links:[['Google Scholar','https://scholar.google.com/citations?user=_nHHP-cAAAAJ'],['Website','https://sites.google.com/view/changhun/home']] },
+    { id:'kumar-chandan', name:'Chandan Kumar', key:null, role:'postdoc', roleLabel:'Postdoctoral Researcher', affiliation:'KAIST Physics', bio:'Chandan studied physics for an integrated BS-MS at IISER Mohali and subsequently completed his PhD at the same institute.', interests:['Continuous variable quantum information theory','Quantum metrology and quantum communication'], education:[], emails:['chandan@kaist.ac.kr'], links:[] },
+    { id:'kim-minsoo', name:'Minsoo Kim', key:'M. Kim', role:'grad', roleLabel:'Graduate Student', affiliation:'KAIST Physics', bio:'Minsoo studied physics in his undergraduate.', interests:['Quantum learning','Tensor network'], education:[], emails:['nijgnuy@kaist.ac.kr'], links:[] },
+    { id:'park-sojeong', name:'Sojeong Park', key:'S. Park', role:'grad', roleLabel:'Graduate Student', affiliation:'KAIST Physics', bio:'Sojeong studied physics as her major with a CS minor in her undergraduate.', interests:['Boson sampling','Quantum simulation'], education:[], emails:['sojeong.park@kaist.ac.kr'], links:[] },
+    { id:'heo-jiwon', name:'Jiwon Heo', key:'J. Heo', role:'grad', roleLabel:'Graduate Student', affiliation:'KAIST Graduate School of Quantum Science and Technology', bio:'Jiwon studied physics as a first major and mathematics as a second major, with a minor in economics, at Korea University.', interests:['Quantum information theory'], education:[], emails:['4865sj@kaist.ac.kr'], links:[] },
+    { id:'sohn-vaughan', name:'Vaughan Sohn', key:'V. Sohn', role:'grad', roleLabel:'Graduate Student', affiliation:'KAIST Electrical Engineering', bio:'Vaughan studied computer science in her undergraduate.', interests:['Quantum error correction'], education:[], emails:['webb41@kaist.ac.kr'], links:[] },
+    { id:'coroi-eugen', name:'Eugen Coroi', key:'E. Coroi', role:'grad', roleLabel:'Graduate Student', affiliation:'KAIST Physics', bio:'Eugen studied physics with a minor in artificial intelligence as an undergraduate.', interests:['Quantum learning theory','Quantum algorithms'], education:[], emails:['eugen@kaist.ac.kr'], links:[] },
+    { id:'yang-eunbin', name:'Eunbin Yang', key:null, role:'undergrad', roleLabel:'Undergraduate Student', affiliation:'KAIST Physics', bio:null, interests:['Quantum learning theory','Quantum information theory','Quantum algorithms'], education:[['B.Sc. Physics','']], emails:['ybse1013@kaist.ac.kr'], links:[] },
+    { id:'kang-hyeongu', name:'Hyeongu Kang', key:null, role:'undergrad', roleLabel:'Undergraduate Student', affiliation:'KAIST Physics', bio:null, interests:['Quantum metrology','Quantum learning theory','Quantum information theory'], education:[['B.Sc. Physics & Mathematics','']], emails:['venator2021@kaist.ac.kr'], links:[] },
+    { id:'lee-hodong', name:'Hodong Lee', key:null, role:'undergrad', roleLabel:'Undergraduate Student', affiliation:'KAIST Physics', bio:null, interests:['Quantum machine learning','Quantum information theory'], education:[['B.Sc. Physics & Computer Science','']], emails:['ghehd1024@kaist.ac.kr'], links:[] },
+    { id:'shin-myeongjin', name:'Myeongjin Shin', key:'M. Shin', role:'undergrad', roleLabel:'Undergraduate Student', affiliation:'KAIST Computer Science & Mathematics', bio:null, interests:['Quantum learning theory','Quantum property testing','Quantum algorithms'], education:[['B.Sc. Computer Science & Mathematics','']], emails:['hanwoolmj@kaist.ac.kr'], links:[] },
+    { id:'jeon-sangwoo', name:'Sangwoo Jeon', key:'S. Jeon', role:'ra', roleLabel:'Research Assistant', affiliation:'KAIST Physics', bio:'Sangwoo studied electrical engineering and mathematics in his undergraduate.', interests:['Quantum learning','Quantum information theory'], education:[], emails:['swjeon@kaist.ac.kr'], links:[] }
+  ];
+
+  BADGE = { 'Nature Communications':'Nat. Commun.', 'Nature Physics':'Nat. Phys.', 'Physical Review Letters':'PRL', 'Physical Review A':'PRA', 'npj Quantum Information':'npj QI', 'Current Optics and Photonics':'Curr. Opt. Photon.' };
+
+  tagLabel(id) { const t = this.TAGS.find(x => x[0] === id); return t ? t[1] : id; }
+
+  count(id) { return this.PUBS.filter(p => p.g.indexOf(id) >= 0).length; }
+
+  ticks(n) { return Array.from({ length: n }, (_, i) => ({ i })); }
+
+  shape(p, mode, activeTag) {
+    const full = mode !== 'compact';
+    return {
+      title: p.t, url: p.u, citation: p.c,
+      badge: this.BADGE[p.v] || p.v,
+      isJournal: p.ty === 'journal', isPreprint: p.ty === 'preprint',
+      full, compact: !full,
+      hasNote: !!p.n, note: p.n || '',
+      authorList: p.a.map((s, i) => {
+        const parts = s.split('|'); const f = parts[1] || '';
+        return { name: parts[0], group: f.indexOf('g') >= 0, outside: f.indexOf('g') < 0, corr: f.indexOf('c') >= 0, sep: i < p.a.length - 1 ? ', ' : '' };
+      }),
+      tagList: p.g.map(id => ({ label: this.tagLabel(id), on: id === activeTag, off: id !== activeTag }))
+    };
+  }
+
+  board(key, tag, type, boardLabel, note) {
+    const set = (t) => key === 'A' ? this.setState({ tagA: t }) : this.setState({ tagB: t });
+    const setT = (t) => key === 'A' ? this.setState({ typeA: t }) : this.setState({ typeB: t });
+    let items = this.PUBS.slice();
+    if (tag) items = items.filter(p => p.g.indexOf(tag) >= 0);
+    if (type !== 'all') items = items.filter(p => p.ty === type);
+    const years = [];
+    [2026, 2025, 2024].forEach(y => {
+      const list = items.filter(p => p.y === y).sort((a, b) => a.o - b.o);
+      if (list.length) years.push({ year: String(y), ticks: this.ticks(list.length), items: list.map(p => this.shape(p, 'full', tag)) });
+    });
+    const chip = (t) => ({
+      label: t[1], count: this.count(t[0]), hasCount: true, isArea: t[2] === 'area',
+      sel: tag === t[0], unsel: tag !== t[0],
+      onClick: () => set(tag === t[0] ? null : t[0])
+    });
+    const n = items.length;
+    return {
+      boardLabel, note, urlLabel: tag ? '/publications?tag=' + tag : '/publications',
+      areaChips: this.TAGS.filter(t => t[2] === 'area').map(chip),
+      keywordChips: this.TAGS.filter(t => t[2] === 'keyword').map(chip),
+      types: [['all', 'All'], ['journal', 'Journal'], ['preprint', 'Preprint']].map(t => ({ label: t[1], sel: type === t[0], unsel: type !== t[0], onClick: () => setT(t[0]) })),
+      filtered: !!tag, unfiltered: !tag, tagLabel: tag ? this.tagLabel(tag) : '',
+      resultLabel: n === 1 ? '1 paper' : n + ' papers',
+      years, none: n === 0, clear: () => { set(null); setT('all'); }
+    };
+  }
+
+  member(m, openDefault) {
+    const papers = m.key ? this.PUBS.filter(p => p.a.some(a => a.split('|')[0] === m.key)).length : 0;
+    const oneLine = m.bio || (m.education[0] ? m.education[0][0] + ' · ' + m.affiliation : m.affiliation);
+    return {
+      id: m.id, name: m.name, roleLabel: m.roleLabel, oneLine, papers, openDefault: !!openDefault,
+      initials: m.name.split(' ').map(w => w[0]).join(''),
+      hasInterests: m.interests.length > 0,
+      interests: m.interests.map(i => ({ label: i })),
+      hasEdu: m.education.length > 0,
+      education: m.education.map(e => ({ position: e[0], meta: e[1] })),
+      emails: m.emails.map(e => ({ text: e, href: 'mailto:' + e })),
+      links: m.links.map(l => ({ text: l[0], href: l[1] }))
+    };
+  }
+
+  renderVals() {
+    const byId = (id) => this.PUBS.find(p => p.id === id);
+    const roles = [['pi', 'Team Leader'], ['postdoc', 'Postdoctoral Researcher'], ['grad', 'Graduate Students'], ['undergrad', 'Undergraduate Students'], ['ra', 'Research Assistant'], ['alumni', 'Alumni']];
+    return {
+      yes: true, n1: 1, n7: this.count('metrology'), n10: this.count('boson-sampling'),
+      extremes: [this.shape(byId('liu2025photonic'), 'full', null), this.shape(byId('oh2025constantdepth'), 'full', null)],
+      statePubs: [
+        this.shape(byId('shin2026hamiltonian'), 'full', null),
+        this.shape(byId('go2024shallowdepth'), 'full', null),
+        this.shape(byId('park2025mps'), 'full', 'boson-sampling')
+      ],
+      selected: ['kim2026channel', 'wang2026imaging', 'liu2025photonic', 'oh2024expgbs'].map(id => this.shape(byId(id), 'compact', null)),
+      venueBadges: ['Science', 'Nature Physics', 'Nature Communications', 'Physical Review Letters', 'PRX Quantum', 'npj Quantum Information', 'Physical Review A', 'Quantum', 'Current Optics and Photonics'].map(v => ({ label: this.BADGE[v] || v, journal: true, preprint: false })).concat([{ label: 'arXiv', journal: false, preprint: true }]),
+      allChips: this.TAGS.map(t => ({ label: t[1], count: this.count(t[0]), hasCount: true, isArea: t[2] === 'area', unsel: true })),
+      areas: this.TAGS.filter(t => t[2] === 'area').map((t, i) => ({
+        label: t[1], tagline: t[3], description: t[4], figure: t[5],
+        ticks: this.ticks(this.count(t[0])), figLeft: i % 2 === 0, figRight: i % 2 === 1
+      })),
+      memberDemo: [
+        this.member(this.MEMBERS[0], true),
+        this.member(this.MEMBERS[1], false),
+        this.member(this.MEMBERS[10], true),
+        this.member(this.MEMBERS[2], false)
+      ],
+      roleGroups: roles.map(r => {
+        const people = this.MEMBERS.filter(m => m.role === r[0]).map(m => this.member(m, false));
+        return { label: r[1], people, hasPeople: people.length > 0, empty: people.length === 0 };
+      }),
+      boards: [
+        this.board('A', this.state.tagA, this.state.typeA, '필터 전 — 기본 상태', '연도 내림차순, 같은 해 안에서는 order 오름차순. 연도 옆 눈금이 그 해의 편수입니다 — 숫자를 쓰지 않고도 2026이 가장 촘촘하다는 게 보입니다. 상단에는 총계를 쓰지 않습니다(§2).'),
+        this.board('B', this.state.tagB, this.state.typeB, '필터 후 — Boson Sampling', '필터가 걸리면 ① 칩이 반전되고 ② 결과 줄에 문장으로 상태가 뜨고 ③ Clear 버튼이 Core 색으로 나타나고 ④ 각 논문의 일치 태그만 채워집니다 — 해제 방법이 세 군데에 있습니다. 논문 1편짜리 태그(IQP Sampling 등)를 눌러도 “1 paper”로 자연스럽게 읽힙니다.')
+      ],
+      density: [2026, 2025, 2024].map(y => ({ year: String(y), ticks: this.ticks(this.PUBS.filter(p => p.y === y).length) }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>

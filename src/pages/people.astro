@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import MemberCard from '../components/MemberCard.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { getMembers, getPublications } from '../lib/collections';
+
+const members = await getMembers();
+const pubs = await getPublications();
+
+// papers per member (linked by memberId)
+const paperCount = new Map<string, number>();
+for (const p of pubs)
+  for (const a of p.authors)
+    if (a.memberId) paperCount.set(a.memberId, (paperCount.get(a.memberId) ?? 0) + 1);
+
+// role groups in fixed display order; Alumni kept even while empty (brief §3).
+const roleGroups = [
+  { role: 'pi', label: 'Team Leader' },
+  { role: 'postdoc', label: 'Postdoctoral Researcher' },
+  { role: 'grad', label: 'Graduate Students' },
+  { role: 'undergrad', label: 'Undergraduate Students' },
+  { role: 'ra', label: 'Research Assistant' },
+  { role: 'alumni', label: 'Alumni' },
+].map((g) => ({
+  ...g,
+  people: members.filter((m) => m.role === g.role).sort((a, b) => a.order - b.order),
+}));
+---
+
+<Base
+  title="People"
+  current="people"
+  description="The people of the Quantum Information Theory group at KAIST — twelve members, ten of them students."
+>
+  <PageHeader
+    title="People"
+    lead="Twelve people. Ten of them students. Click any card for interests, education and contact."
+  />
+
+  <div class="wrap people">
+    <div class="groupphoto">
+      <Placeholder variant="figure" ratio="16 / 6" label="Group photo — coming soon" />
+    </div>
+
+    {
+      roleGroups.map((g) => (
+        <section class="rolegroup">
+          <div class="rolegroup__head">
+            <span class="rolegroup__label">{g.label}</span>
+            <span class="rolegroup__rule" aria-hidden="true" />
+          </div>
+
+          {g.people.length > 0 ? (
+            <div class="grid">
+              {g.people.map((m) => (
+                <MemberCard member={m} paperCount={paperCount.get(m.id) ?? 0} />
+              ))}
+            </div>
+          ) : (
+            <div class="rolegroup__empty">None yet — the seat is kept open.</div>
+          )}
+        </section>
+      ))
+    }
+  </div>
+
+  <script>
+    // Open and scroll to a member card when arriving via /people#member-id
+    function openTarget() {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (el instanceof HTMLDetailsElement) {
+        el.open = true;
+        el.scrollIntoView({ block: 'start' });
+      }
+    }
+    window.addEventListener('hashchange', openTarget);
+    openTarget();
+  </script>
+</Base>
+
+<style>
+  .people {
+    padding-top: 40px;
+    padding-bottom: 24px;
+  }
+  .groupphoto {
+    margin-bottom: 8px;
+  }
+  .rolegroup {
+    margin-top: 40px;
+  }
+  .rolegroup__head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .rolegroup__label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    white-space: nowrap;
+  }
+  .rolegroup__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    display: block;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+  .rolegroup__empty {
+    border: 1px dashed var(--rule);
+    border-radius: var(--radius-card);
+    padding: 20px 22px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+</style>

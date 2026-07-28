@@ -1,0 +1,65 @@
+---
+// Stand-in for photos/figures that don't exist yet. Reuses the signature
+// interference texture so a missing image reads as "not yet exposed" rather
+// than "broken" (brief board 3). Token-coloured so it adapts to dark mode.
+interface Props {
+  variant?: 'photo' | 'figure';
+  ratio?: string; // aspect-ratio, e.g. "1", "4 / 3"
+  label?: string; // small caption chip (figure only)
+  class?: string;
+}
+const { variant = 'photo', ratio, label, class: className } = Astro.props;
+const defaultRatio = variant === 'figure' ? '4 / 3' : '1';
+---
+
+<div
+  class:list={['ph', `ph--${variant}`, className]}
+  style={`aspect-ratio:${ratio ?? defaultRatio}`}
+  role="img"
+  aria-label={label ?? 'Placeholder — image coming soon'}
+>
+  {label && <span class="ph__cap" aria-hidden="true">{label}</span>}
+</div>
+
+<style>
+  .ph {
+    width: 100%;
+    background-color: color-mix(in srgb, var(--cyan) 8%, var(--pane));
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--soft);
+  }
+  /* concentric interference rings — the "not yet exposed" texture */
+  .ph--photo {
+    background-image: repeating-radial-gradient(
+      circle at 50% 42%,
+      color-mix(in srgb, var(--cyan) 22%, transparent) 0 1px,
+      transparent 1px 9px
+    );
+  }
+  /* figures add a hairline vertical rhythm over the rings */
+  .ph--figure {
+    background-image:
+      repeating-radial-gradient(
+        circle at 50% 50%,
+        color-mix(in srgb, var(--cyan) 20%, transparent) 0 1px,
+        transparent 1px 11px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--ink) 10%, transparent) 0 1px,
+        transparent 1px 8px
+      );
+  }
+  .ph__cap {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--ground);
+    padding: 3px 6px;
+  }
+</style>

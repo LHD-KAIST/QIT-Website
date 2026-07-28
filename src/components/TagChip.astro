@@ -1,0 +1,89 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  count: number;
+  isArea?: boolean;
+  /** URL to navigate to when clicked (select this tag). The filter script
+   *  intercepts clicks for pushState; without JS it's a normal link. */
+  href: string;
+  /** Server-render as selected. On the static page this is false; the filter
+   *  script adds `.is-selected` at runtime from the URL. */
+  selected?: boolean;
+}
+const { id, label, count, isArea = false, href, selected = false } = Astro.props;
+---
+
+<a
+  class:list={['chip', { 'is-selected': selected }]}
+  href={href}
+  data-tag-chip
+  data-tag-id={id}
+  aria-pressed={selected ? 'true' : 'false'}
+>
+  {isArea && <span class="chip__marker" aria-hidden="true"></span>}
+  <span class="chip__label">{label}</span>
+  <span class="chip__count">{count}</span>
+  <span class="chip__x" aria-hidden="true">×</span>
+</a>
+
+<style>
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 12.5px;
+    line-height: 1;
+    padding: 7px 10px;
+    min-height: 32px;
+    box-sizing: border-box;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-chip);
+    background: var(--pane);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .chip:hover {
+    border-color: var(--cyan);
+    color: var(--cyan-ink);
+    background: var(--cyan-bg-hover);
+  }
+  .chip__marker {
+    width: 7px;
+    height: 7px;
+    background: var(--cyan);
+    display: block;
+    flex: none;
+  }
+  .chip__count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .chip__x {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--core);
+    display: none; /* revealed only when selected */
+  }
+
+  /* Selected: inverted fill, marker turns Core, × appears. */
+  .chip.is-selected {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: var(--pane);
+  }
+  .chip.is-selected:hover {
+    background: var(--cyan);
+  }
+  .chip.is-selected .chip__marker {
+    background: var(--core);
+  }
+  .chip.is-selected .chip__count {
+    color: color-mix(in srgb, var(--pane) 65%, var(--cyan));
+  }
+  .chip.is-selected .chip__x {
+    display: inline;
+  }
+</style>

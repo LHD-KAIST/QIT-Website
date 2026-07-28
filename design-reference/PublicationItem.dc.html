@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<article style="display:grid;grid-template-columns:136px 1fr;gap:0 28px;padding:17px 12px 19px 0;border-top:1px solid #C9D3D5;align-items:start" style-hover="background:#F4F8F8">
+  <div style="display:flex;justify-content:flex-end;padding-top:4px">
+    <sc-if value="{{ pub.isJournal }}" hint-placeholder-val="{{ true }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#0E3D45;background:#DBE7E8;padding:4px 7px;border-radius:2px;white-space:nowrap">{{ pub.badge }}</span></sc-if>
+    <sc-if value="{{ pub.isPreprint }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#6C7B80;border:1px solid #C9D3D5;padding:3px 6px;border-radius:2px;white-space:nowrap">{{ pub.badge }}</span></sc-if>
+  </div>
+  <div style="min-width:0">
+    <a href="{{ pub.url }}" target="_blank" rel="noopener" style="font-family:'STIX Two Text',Georgia,serif;font-size:19px;line-height:1.33;color:#121719;display:block;text-wrap:pretty;letter-spacing:-.002em" style-hover="color:#145661;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px">{{ pub.title }}</a>
+    <p style="margin:8px 0 0;font-family:Archivo,sans-serif;font-size:13px;line-height:1.6;color:#5C6B70;text-wrap:pretty"><sc-for list="{{ pub.authorList }}" as="a" hint-placeholder-count="4"><span><sc-if value="{{ a.group }}" hint-placeholder-val="{{ false }}"><span style="color:#121719;font-weight:600">{{ a.name }}</span></sc-if><sc-if value="{{ a.outside }}" hint-placeholder-val="{{ true }}"><span>{{ a.name }}</span></sc-if><sc-if value="{{ a.corr }}" hint-placeholder-val="{{ false }}"><span style="color:#C2571F">∗</span></sc-if>{{ a.sep }}</span></sc-for></p>
+    <sc-if value="{{ pub.full }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:7px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.5;color:#5C6B70">{{ pub.citation }}</span>
+        <sc-if value="{{ pub.hasNote }}" hint-placeholder-val="{{ false }}"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8A4A16;border-bottom:1px solid #DFB08D;padding-bottom:1px">{{ pub.note }}</span></sc-if>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
+        <sc-for list="{{ pub.tagList }}" as="t" hint-placeholder-count="4">
+          <sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}"><span style="font-family:Archivo,sans-serif;font-size:11.5px;line-height:1;color:#0E3D45;border:1px solid #145661;border-radius:2px;padding:3px 7px;background:#DBE7E8">{{ t.label }}</span></sc-if>
+          <sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}"><span style="font-family:Archivo,sans-serif;font-size:11.5px;line-height:1;color:#5C6B70;border:1px solid #DCE3E4;border-radius:2px;padding:3px 7px;background:#F8FAFA">{{ t.label }}</span></sc-if>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ pub.compact }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#7A888C">{{ pub.citation }}</span></div>
+    </sc-if>
+  </div>
+</article>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:180},&quot;pub&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;Publication&quot;}}"></script>
+</body>
+</html>

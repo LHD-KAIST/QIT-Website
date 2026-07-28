@@ -1,0 +1,10 @@
+# Normalize all text files to LF so edits made in GitHub's web editor
+# (which uses LF) don't produce noisy line-ending diffs.
+* text=auto eol=lf
+
+# Binary assets — never touch
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary

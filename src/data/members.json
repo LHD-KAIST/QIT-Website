@@ -1,0 +1,417 @@
+[
+  {
+    "id": "oh-changhun",
+    "name": "Changhun Oh",
+    "authorKey": "C. Oh",
+    "role": "pi",
+    "roleLabel": "Team Leader",
+    "order": 0,
+    "title": "Assistant Professor",
+    "affiliation": "Department of Physics, KAIST",
+    "emails": [
+      {
+        "user": "changhun0218",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      },
+      {
+        "user": "changhun0218",
+        "domain": "gmail.com",
+        "primary": false
+      }
+    ],
+    "photo": "/images/people/oh-changhun.jpg",
+    "bio": null,
+    "education": [
+      {
+        "period": "2024.04 – present",
+        "position": "Assistant Professor",
+        "org": "Department of Physics, Korea Advanced Institute of Science and Technology (KAIST)"
+      },
+      {
+        "period": "2020.03 – 2024.03",
+        "position": "Postdoctoral Scholar",
+        "org": "Pritzker School of Molecular Engineering, The University of Chicago"
+      }
+    ],
+    "interests": [],
+    "links": {
+      "scholar": "https://scholar.google.com/citations?user=_nHHP-cAAAAJ",
+      "website": "https://sites.google.com/view/changhun/home",
+      "arxiv": null,
+      "orcid": null
+    },
+    "period": {
+      "start": "2024-04",
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 1
+  },
+  {
+    "id": "kumar-chandan",
+    "name": "Chandan Kumar",
+    "authorKey": null,
+    "role": "postdoc",
+    "roleLabel": "Postdoctoral Researcher",
+    "order": 0,
+    "title": null,
+    "affiliation": "KAIST Physics",
+    "emails": [
+      {
+        "user": "chandan",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/kumar-chandan.jpg",
+    "bio": "Chandan studied physics for an integrated BS-MS at IISER Mohali and subsequently completed his PhD at the same institute.",
+    "education": [],
+    "interests": [
+      "Continuous variable quantum information theory",
+      "Quantum metrology and quantum communication"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 2
+  },
+  {
+    "id": "kim-minsoo",
+    "name": "Minsoo Kim",
+    "authorKey": "M. Kim",
+    "role": "grad",
+    "roleLabel": "Graduate Student",
+    "order": 0,
+    "title": null,
+    "affiliation": "KAIST Physics",
+    "emails": [
+      {
+        "user": "nijgnuy",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/kim-minsoo.jpg",
+    "bio": "Minsoo studied physics in his undergraduate.",
+    "education": [],
+    "interests": [
+      "Quantum learning",
+      "Tensor network"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 3
+  },
+  {
+    "id": "park-sojeong",
+    "name": "Sojeong Park",
+    "authorKey": "S. Park",
+    "role": "grad",
+    "roleLabel": "Graduate Student",
+    "order": 1,
+    "title": null,
+    "affiliation": "KAIST Physics",
+    "emails": [
+      {
+        "user": "sojeong.park",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/park-sojeong.jpg",
+    "bio": "Sojeong studied physics as her major with a CS minor in her undergraduate.",
+    "education": [],
+    "interests": [
+      "Boson sampling",
+      "Quantum simulation"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 3
+  },
+  {
+    "id": "heo-jiwon",
+    "name": "Jiwon Heo",
+    "authorKey": "J. Heo",
+    "role": "grad",
+    "roleLabel": "Graduate Student",
+    "order": 2,
+    "title": null,
+    "affiliation": "KAIST Graduate School of Quantum Science and Technology",
+    "emails": [
+      {
+        "user": "4865sj",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/heo-jiwon.jpg",
+    "bio": "Jiwon studied physics as a first major and mathematics as a second major, with a minor in economics, at Korea University.",
+    "education": [],
+    "interests": [
+      "Quantum information theory"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 3
+  },
+  {
+    "id": "sohn-vaughan",
+    "name": "Vaughan Sohn",
+    "authorKey": "V. Sohn",
+    "role": "grad",
+    "roleLabel": "Graduate Student",
+    "order": 3,
+    "title": null,
+    "affiliation": "KAIST Electrical Engineering",
+    "emails": [
+      {
+        "user": "webb41",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/sohn-vaughan.jpg",
+    "bio": "Vaughan studied computer science in her undergraduate.",
+    "education": [],
+    "interests": [
+      "Quantum error correction"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 3
+  },
+  {
+    "id": "coroi-eugen",
+    "name": "Eugen Coroi",
+    "authorKey": "E. Coroi",
+    "role": "grad",
+    "roleLabel": "Graduate Student",
+    "order": 4,
+    "title": null,
+    "affiliation": "KAIST Physics",
+    "emails": [
+      {
+        "user": "eugen",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/coroi-eugen.jpg",
+    "bio": "Eugen studied physics with a minor in artificial intelligence as an undergraduate.",
+    "education": [],
+    "interests": [
+      "Quantum learning theory",
+      "Quantum algorithms"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 3
+  },
+  {
+    "id": "yang-eunbin",
+    "name": "Eunbin Yang",
+    "authorKey": null,
+    "role": "undergrad",
+    "roleLabel": "Undergraduate Student",
+    "order": 0,
+    "title": null,
+    "affiliation": "KAIST Physics",
+    "emails": [
+      {
+        "user": "ybse1013",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/yang-eunbin.jpg",
+    "bio": null,
+    "education": [
+      {
+        "period": null,
+        "position": "B.Sc. Physics",
+        "org": null
+      }
+    ],
+    "interests": [
+      "Quantum learning theory",
+      "Quantum information theory",
+      "Quantum algorithms"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 4
+  },
+  {
+    "id": "kang-hyeongu",
+    "name": "Hyeongu Kang",
+    "authorKey": null,
+    "role": "undergrad",
+    "roleLabel": "Undergraduate Student",
+    "order": 1,
+    "title": null,
+    "affiliation": "KAIST Physics",
+    "emails": [
+      {
+        "user": "venator2021",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/kang-hyeongu.jpg",
+    "bio": null,
+    "education": [
+      {
+        "period": null,
+        "position": "B.Sc. Physics & Mathematics",
+        "org": null
+      }
+    ],
+    "interests": [
+      "Quantum metrology",
+      "Quantum learning theory",
+      "Quantum information theory"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 4
+  },
+  {
+    "id": "lee-hodong",
+    "name": "Hodong Lee",
+    "authorKey": null,
+    "role": "undergrad",
+    "roleLabel": "Undergraduate Student",
+    "order": 2,
+    "title": null,
+    "affiliation": "KAIST Physics",
+    "emails": [
+      {
+        "user": "ghehd1024",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/lee-hodong.jpg",
+    "bio": null,
+    "education": [
+      {
+        "period": null,
+        "position": "B.Sc. Physics & Computer Science",
+        "org": null
+      }
+    ],
+    "interests": [
+      "Quantum machine learning",
+      "Quantum information theory"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 4
+  },
+  {
+    "id": "shin-myeongjin",
+    "name": "Myeongjin Shin",
+    "authorKey": "M. Shin",
+    "role": "undergrad",
+    "roleLabel": "Undergraduate Student",
+    "order": 3,
+    "title": null,
+    "affiliation": "KAIST Computer Science & Mathematics",
+    "emails": [
+      {
+        "user": "hanwoolmj",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/shin-myeongjin.jpg",
+    "bio": null,
+    "education": [
+      {
+        "period": null,
+        "position": "B.Sc. Computer Science & Mathematics",
+        "org": null
+      }
+    ],
+    "interests": [
+      "Quantum learning theory",
+      "Quantum property testing",
+      "Quantum algorithms"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 4
+  },
+  {
+    "id": "jeon-sangwoo",
+    "name": "Sangwoo Jeon",
+    "authorKey": "S. Jeon",
+    "role": "ra",
+    "roleLabel": "Research Assistant",
+    "order": 0,
+    "title": null,
+    "affiliation": "KAIST Physics",
+    "emails": [
+      {
+        "user": "swjeon",
+        "domain": "kaist.ac.kr",
+        "primary": true
+      }
+    ],
+    "photo": "/images/people/jeon-sangwoo.jpg",
+    "bio": "Sangwoo studied electrical engineering and mathematics in his undergraduate.",
+    "education": [],
+    "interests": [
+      "Quantum learning",
+      "Quantum information theory"
+    ],
+    "links": {},
+    "period": {
+      "start": null,
+      "end": null
+    },
+    "nextPosition": null,
+    "roleOrder": 5
+  }
+]

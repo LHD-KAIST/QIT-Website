@@ -1,0 +1,158 @@
+@import 'tailwindcss';
+
+/* Self-hosted fonts — no external request. Three roles, one job each:
+   Archivo = display/UI · STIX Two Text = paper titles (math-safe) · IBM Plex Mono = data */
+@import '@fontsource/archivo/300.css';
+@import '@fontsource/archivo/400.css';
+@import '@fontsource/archivo/500.css';
+@import '@fontsource/archivo/600.css';
+@import '@fontsource/stix-two-text/400.css';
+@import '@fontsource/stix-two-text/400-italic.css';
+@import '@fontsource/stix-two-text/500.css';
+@import '@fontsource/stix-two-text/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+/* ── Palette ───────────────────────────────────────────────────────────────
+   Semantic variables. Dark is not an inversion — it is the same room at lower
+   illumination (per the design brief). Switches automatically with the OS. */
+:root {
+  --ground: #ecf0f1; /* page background — cool grey, glass-reflected lab light */
+  --pane: #f8fafa; /* cards / fields — one shade lifted off ground */
+  --ink: #121719; /* text — near-black tilted 2° toward teal */
+  --muted: #5c6b70; /* authors, citations, meta — AA on ground */
+  --rule: #c9d3d5; /* hairlines — list dividers, section edges */
+  --soft: #dce3e4; /* softer 1px — card & chip borders */
+  --cyan: #145661; /* the one functional colour: links, active filter */
+  --cyan-ink: #0e3d45; /* text on cyan-tinted fills */
+  --cyan-bg: #dbe7e8; /* journal badge / selected-tag fill */
+  --cyan-bg-hover: #eaf1f2;
+  --core: #c2571f; /* signature dot / corresponding-author * / active marker */
+  --note-ink: #8a4a16; /* note text (Editors' Suggestion, etc.) */
+  --note-line: #dfb08d; /* note underline */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0f1416;
+    --pane: #171d1f;
+    --ink: #e4eaea;
+    --muted: #93a3a7;
+    --rule: #2b3437;
+    --soft: #2b3437;
+    --cyan: #79c3ce;
+    --cyan-ink: #a9dbe2;
+    --cyan-bg: #143138;
+    --cyan-bg-hover: #1b3e45;
+    --core: #e88742;
+    --note-ink: #e0a063;
+    --note-line: #7a5433;
+  }
+}
+
+/* ── Tailwind theme mapping ──────────────────────────────────────────────────
+   Exposes tokens as utilities: bg-ground, text-ink, border-rule, text-cyan … */
+@theme inline {
+  --color-ground: var(--ground);
+  --color-pane: var(--pane);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-soft: var(--soft);
+  --color-cyan: var(--cyan);
+  --color-cyan-ink: var(--cyan-ink);
+  --color-cyan-bg: var(--cyan-bg);
+  --color-cyan-bg-hover: var(--cyan-bg-hover);
+  --color-core: var(--core);
+  --color-note-ink: var(--note-ink);
+  --color-note-line: var(--note-line);
+
+  --font-display: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: 'STIX Two Text', Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* radius: 0 = rules/figures, 2px = chips/badges, 3px = cards (max, per brief) */
+  --radius-chip: 2px;
+  --radius-card: 3px;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+html {
+  font-family: var(--font-display);
+  color: var(--ink);
+  background: var(--ground);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+}
+
+/* ensure the `hidden` attribute always wins over component display rules
+   (used by the publications filter to show/hide papers, ticks, groups) */
+[hidden] {
+  display: none !important;
+}
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--core) 18%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* centered content column with responsive gutters — every section uses this */
+.wrap {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 56px);
+}
+
+/* skip-link: visually hidden until focused */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 50;
+  background: var(--pane);
+  color: var(--cyan);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-chip);
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

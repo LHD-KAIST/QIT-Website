@@ -1,0 +1,1270 @@
+[
+  {
+    "id": "kim2026haldane",
+    "title": "Disentangling Haldane Phase by Generalized Clifford Circuits",
+    "authors": [
+      {
+        "name": "M. Kim",
+        "group": true,
+        "memberId": "kim-minsoo"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "D. Kim",
+        "corresponding": true
+      }
+    ],
+    "year": 2026,
+    "order": 0,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2607.03939 (2026)",
+    "arxiv": "2607.03939",
+    "url": "https://arxiv.org/abs/2607.03939",
+    "tags": [
+      "nisq",
+      "classical-simulation",
+      "tensor-networks",
+      "entanglement"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "sohn2026gkp",
+    "title": "When to Skip Syndrome Extraction in Surface-GKP Codes",
+    "authors": [
+      {
+        "name": "V. Sohn",
+        "group": true,
+        "memberId": "sohn-vaughan"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2026,
+    "order": 1,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2606.24469 (2026)",
+    "arxiv": "2606.24469",
+    "url": "https://arxiv.org/abs/2606.24469",
+    "tags": [
+      "nisq",
+      "error-correction",
+      "continuous-variable",
+      "noise-and-loss"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "shin2026hamiltonian",
+    "title": "Heisenberg-limited Hamiltonian learning without short-time control",
+    "authors": [
+      {
+        "name": "M. Shin",
+        "group": true,
+        "memberId": "shin-myeongjin"
+      },
+      {
+        "name": "J. Lee"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2026,
+    "order": 2,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2604.27838 (2026)",
+    "arxiv": "2604.27838",
+    "url": "https://arxiv.org/abs/2604.27838",
+    "tags": [
+      "quantum-learning",
+      "metrology",
+      "hamiltonian-learning",
+      "sample-complexity"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "oh2026freefermion",
+    "title": "Classical simulation of free-fermionic dynamics and quantum chemistry with magic input",
+    "authors": [
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "M. Oszmaniec"
+      },
+      {
+        "name": "O. Reardon-Smith"
+      },
+      {
+        "name": "Z. Zimborás"
+      }
+    ],
+    "year": 2026,
+    "order": 3,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2604.26813 (2026)",
+    "arxiv": "2604.26813",
+    "url": "https://arxiv.org/abs/2604.26813",
+    "tags": [
+      "nisq",
+      "classical-simulation",
+      "magic-states",
+      "quantum-chemistry"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "go2026cvcluster",
+    "title": "Complexity phase transition for continuous-variable cluster state",
+    "authors": [
+      {
+        "name": "B. Go"
+      },
+      {
+        "name": "H. Jeong"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2026,
+    "order": 4,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2604.07804 (2026)",
+    "arxiv": "2604.07804",
+    "url": "https://arxiv.org/abs/2604.07804",
+    "tags": [
+      "nisq",
+      "continuous-variable",
+      "computational-complexity",
+      "gaussian-states"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "kwon2026virtualpurification",
+    "title": "Virtual purification complements quantum error correction in quantum metrology",
+    "authors": [
+      {
+        "name": "H. Kwon"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "Y. Lim"
+      },
+      {
+        "name": "H. Jeong"
+      },
+      {
+        "name": "S.-W. Lee"
+      },
+      {
+        "name": "L. Jiang"
+      }
+    ],
+    "year": 2026,
+    "order": 5,
+    "type": "journal",
+    "venue": "npj Quantum Information",
+    "citation": "npj Quantum Inf. 12, 88 (2026)",
+    "arxiv": null,
+    "url": "https://www.nature.com/articles/s41534-026-01231-0",
+    "tags": [
+      "metrology",
+      "error-mitigation",
+      "error-correction",
+      "noise-and-loss"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "kolarovszki2026bornmachine",
+    "title": "Generative modeling with Gaussian Boson Sampling: classically trainable Bosonic Born Machines",
+    "authors": [
+      {
+        "name": "Z. Kolarovszki"
+      },
+      {
+        "name": "B. Bakó"
+      },
+      {
+        "name": "M. Oszmaniec"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "Z. Zimborás"
+      }
+    ],
+    "year": 2026,
+    "order": 6,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2603.11195 (2026)",
+    "arxiv": "2603.11195",
+    "url": "https://arxiv.org/abs/2603.11195",
+    "tags": [
+      "nisq",
+      "quantum-learning",
+      "boson-sampling",
+      "generative-models"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "go2026shallowboson",
+    "title": "On computational complexity and average-case hardness of shallow-depth boson sampling",
+    "authors": [
+      {
+        "name": "B. Go"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "H. Jeong",
+        "corresponding": true
+      }
+    ],
+    "year": 2026,
+    "order": 7,
+    "type": "journal",
+    "venue": "Quantum",
+    "citation": "Quantum 10, 2026 (2026)",
+    "arxiv": null,
+    "url": "https://quantum-journal.org/papers/q-2026-03-13-2026/",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "computational-complexity",
+      "linear-optics"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "oh2026measurementadaptive",
+    "title": "Classical algorithms for measurement-adaptive Gaussian circuits",
+    "authors": [
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "Y. Lim"
+      }
+    ],
+    "year": 2026,
+    "order": 8,
+    "type": "journal",
+    "venue": "PRX Quantum",
+    "citation": "PRX Quantum 7, 010329 (2026)",
+    "arxiv": null,
+    "url": "https://journals.aps.org/prxquantum/abstract/10.1103/rpl7-ylg8",
+    "tags": [
+      "nisq",
+      "classical-simulation",
+      "gaussian-states",
+      "linear-optics"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "kim2026channellearning",
+    "title": "On the fundamental resource for exponential advantage in quantum channel learning",
+    "authors": [
+      {
+        "name": "M. Kim",
+        "group": true,
+        "memberId": "kim-minsoo"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2026,
+    "order": 9,
+    "type": "journal",
+    "venue": "Nature Communications",
+    "citation": "Nat. Commun. 17, 1822 (2026)",
+    "arxiv": null,
+    "url": "https://www.nature.com/articles/s41467-026-68532-y",
+    "tags": [
+      "quantum-learning",
+      "channel-learning",
+      "entanglement",
+      "sample-complexity"
+    ],
+    "highlight": true,
+    "note": null
+  },
+  {
+    "id": "kim2026petermann",
+    "title": "Classical Petermann factor as a measure of quantum squeezing in photonic time crystals",
+    "authors": [
+      {
+        "name": "Y. Kim"
+      },
+      {
+        "name": "K. Lee"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "Y.-S. Ra"
+      },
+      {
+        "name": "K. W. Kim"
+      },
+      {
+        "name": "B. Min"
+      }
+    ],
+    "year": 2026,
+    "order": 10,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2601.17369 (2026)",
+    "arxiv": "2601.17369",
+    "url": "https://arxiv.org/abs/2601.17369",
+    "tags": [
+      "metrology",
+      "squeezing",
+      "continuous-variable"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "nehra2026distributedsensing",
+    "title": "All-optical loss-tolerant distributed quantum sensing",
+    "authors": [
+      {
+        "name": "R. Nehra",
+        "corresponding": true
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "L. Jiang"
+      },
+      {
+        "name": "A. Marandi"
+      }
+    ],
+    "year": 2026,
+    "order": 11,
+    "type": "journal",
+    "venue": "npj Quantum Information",
+    "citation": "npj Quantum Inf. 12, 18 (2026)",
+    "arxiv": null,
+    "url": "https://www.nature.com/articles/s41534-025-01123-9",
+    "tags": [
+      "metrology",
+      "distributed-sensing",
+      "linear-optics",
+      "noise-and-loss"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "wang2026quantumimaging",
+    "title": "Advancing quantum imaging through learning theory",
+    "authors": [
+      {
+        "name": "Y. Wang"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "J. Liu"
+      },
+      {
+        "name": "L. Jiang"
+      },
+      {
+        "name": "S. Zhou"
+      }
+    ],
+    "year": 2026,
+    "order": 12,
+    "type": "journal",
+    "venue": "Nature Communications",
+    "citation": "Nat. Commun. 17, 1124 (2026)",
+    "arxiv": null,
+    "url": "https://www.nature.com/articles/s41467-025-67884-1",
+    "tags": [
+      "metrology",
+      "quantum-learning",
+      "quantum-imaging",
+      "sample-complexity"
+    ],
+    "highlight": true,
+    "note": null
+  },
+  {
+    "id": "heo2026noisymagic",
+    "title": "Classical simulation of a quantum circuit with noisy magic inputs",
+    "authors": [
+      {
+        "name": "J. Heo",
+        "group": true,
+        "memberId": "heo-jiwon"
+      },
+      {
+        "name": "S. Park",
+        "group": true,
+        "memberId": "park-sojeong"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2026,
+    "order": 13,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2601.10111 (2026)",
+    "arxiv": "2601.10111",
+    "url": "https://arxiv.org/abs/2601.10111",
+    "tags": [
+      "nisq",
+      "classical-simulation",
+      "magic-states",
+      "noise-and-loss"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "jeon2026unitarycertification",
+    "title": "On the query complexity of unitary channel certification",
+    "authors": [
+      {
+        "name": "S. Jeon",
+        "group": true,
+        "memberId": "jeon-sangwoo"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2026,
+    "order": 14,
+    "type": "journal",
+    "venue": "npj Quantum Information",
+    "citation": "npj Quantum Inf. 12, 2 (2026)",
+    "arxiv": null,
+    "url": "https://www.nature.com/articles/s41534-025-01135-5",
+    "tags": [
+      "quantum-learning",
+      "certification",
+      "channel-learning",
+      "sample-complexity"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "go2025lossygbs",
+    "title": "Sufficient conditions for hardness of lossy Gaussian boson sampling",
+    "authors": [
+      {
+        "name": "B. Go"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "H. Jeong",
+        "corresponding": true
+      }
+    ],
+    "year": 2025,
+    "order": 15,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2511.07853 (2025)",
+    "arxiv": "2511.07853",
+    "url": "https://arxiv.org/abs/2511.07853",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "noise-and-loss",
+      "computational-complexity"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "park2025mps",
+    "title": "Matrix product state approach to lossy boson sampling and noisy IQP sampling",
+    "authors": [
+      {
+        "name": "S. Park",
+        "group": true,
+        "memberId": "park-sojeong"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2025,
+    "order": 16,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2510.24137 (2025)",
+    "arxiv": "2510.24137",
+    "url": "https://arxiv.org/abs/2510.24137",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "iqp-sampling",
+      "tensor-networks"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "lee2025noisyrandomcircuits",
+    "title": "Classical simulation of noisy random circuits from exponential decay of correlation",
+    "authors": [
+      {
+        "name": "S.-u. Lee"
+      },
+      {
+        "name": "S. Ghosh"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "K. Noh"
+      },
+      {
+        "name": "B. Fefferman"
+      },
+      {
+        "name": "L. Jiang"
+      }
+    ],
+    "year": 2025,
+    "order": 17,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2510.06328 (2025)",
+    "arxiv": "2510.06328",
+    "url": "https://arxiv.org/abs/2510.06328",
+    "tags": [
+      "nisq",
+      "classical-simulation",
+      "random-circuits",
+      "noise-and-loss"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "iosue2025highermoment",
+    "title": "Higher moment theory and learnability of bosonic states",
+    "authors": [
+      {
+        "name": "J. T. Iosue"
+      },
+      {
+        "name": "Y.-X. Wang"
+      },
+      {
+        "name": "I. Datta"
+      },
+      {
+        "name": "S. Ghosh"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "B. Fefferman"
+      },
+      {
+        "name": "A. V. Gorshkov"
+      }
+    ],
+    "year": 2025,
+    "order": 18,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2510.01610 (2025)",
+    "arxiv": "2510.01610",
+    "url": "https://arxiv.org/abs/2510.01610",
+    "tags": [
+      "quantum-learning",
+      "state-learning",
+      "continuous-variable",
+      "sample-complexity"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "liu2025photonicplatform",
+    "title": "Quantum learning advantage on a scalable photonic platform",
+    "authors": [
+      {
+        "name": "Z.-H. Liu"
+      },
+      {
+        "name": "R. Brunel"
+      },
+      {
+        "name": "E. E. B. Østergaard"
+      },
+      {
+        "name": "O. Cordero"
+      },
+      {
+        "name": "S. Chen"
+      },
+      {
+        "name": "Y. Wong"
+      },
+      {
+        "name": "J. A. H. Nielsen"
+      },
+      {
+        "name": "A. B. Bregnsbo"
+      },
+      {
+        "name": "S. Zhou"
+      },
+      {
+        "name": "H.-Y. Huang"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "L. Jiang"
+      },
+      {
+        "name": "J. Preskill"
+      },
+      {
+        "name": "J. S. Neergaard-Nielsen"
+      },
+      {
+        "name": "U. L. Andersen"
+      }
+    ],
+    "year": 2025,
+    "order": 19,
+    "type": "journal",
+    "venue": "Science",
+    "citation": "Science 389, 1332 (2025)",
+    "arxiv": null,
+    "url": "https://www.science.org/doi/10.1126/science.adv2560",
+    "tags": [
+      "quantum-learning",
+      "entanglement",
+      "continuous-variable",
+      "experiment"
+    ],
+    "highlight": true,
+    "note": null
+  },
+  {
+    "id": "go2025distinguishablephotons",
+    "title": "Quantum computational advantage of noisy boson sampling with partially distinguishable photons",
+    "authors": [
+      {
+        "name": "B. Go"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "H. Jeong",
+        "corresponding": true
+      }
+    ],
+    "year": 2025,
+    "order": 20,
+    "type": "journal",
+    "venue": "PRX Quantum",
+    "citation": "PRX Quantum 6, 030362 (2025)",
+    "arxiv": null,
+    "url": "https://journals.aps.org/prxquantum/abstract/10.1103/rflv-gc66",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "noise-and-loss",
+      "computational-complexity"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "oh2025constantdepth",
+    "title": "Classical simulability of constant-depth linear-optical circuits with noise",
+    "authors": [
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2025,
+    "order": 21,
+    "type": "journal",
+    "venue": "npj Quantum Information",
+    "citation": "npj Quantum Inf. 11, 126 (2025)",
+    "arxiv": null,
+    "url": "https://www.nature.com/articles/s41534-025-01041-w",
+    "tags": [
+      "nisq",
+      "classical-simulation",
+      "linear-optics",
+      "noise-and-loss"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "lim2025linearoptical",
+    "title": "Efficient classical algorithms for linear optical circuits",
+    "authors": [
+      {
+        "name": "Y. Lim"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2025,
+    "order": 22,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2502.12882 (2025)",
+    "arxiv": "2502.12882",
+    "url": "https://arxiv.org/abs/2502.12882",
+    "tags": [
+      "nisq",
+      "classical-simulation",
+      "linear-optics",
+      "gaussian-states"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "oh2025bosonsamplingreview",
+    "title": "Recent theoretical and experimental progress on boson sampling",
+    "authors": [
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2025,
+    "order": 23,
+    "type": "journal",
+    "venue": "Current Optics and Photonics",
+    "citation": "Curr. Opt. Photon. 9, 1-18 (2025)",
+    "arxiv": null,
+    "url": "https://www.coppjournal.org/journal/view.html?uid=1651",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "linear-optics",
+      "experiment"
+    ],
+    "highlight": false,
+    "note": "Review article"
+  },
+  {
+    "id": "coroi2025cvstatelearning",
+    "title": "Exponential advantage in continuous-variable quantum state learning",
+    "authors": [
+      {
+        "name": "E. Coroi",
+        "group": true,
+        "memberId": "coroi-eugen"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      }
+    ],
+    "year": 2025,
+    "order": 24,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2501.17633 (2025)",
+    "arxiv": "2501.17633",
+    "url": "https://arxiv.org/abs/2501.17633",
+    "tags": [
+      "quantum-learning",
+      "state-learning",
+      "continuous-variable",
+      "sample-complexity"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "oh2024randomdisplacement",
+    "title": "Entanglement-enabled advantage for learning a bosonic random displacement channel",
+    "authors": [
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "S. Chen",
+        "corresponding": true
+      },
+      {
+        "name": "Y. Wong"
+      },
+      {
+        "name": "S. Zhou"
+      },
+      {
+        "name": "H.-Y. Huang"
+      },
+      {
+        "name": "J. A. H. Nielsen"
+      },
+      {
+        "name": "Z.-H. Liu"
+      },
+      {
+        "name": "J. S. Neergaard-Nielsen"
+      },
+      {
+        "name": "U. L. Andersen"
+      },
+      {
+        "name": "L. Jiang"
+      },
+      {
+        "name": "J. Preskill"
+      }
+    ],
+    "year": 2024,
+    "order": 25,
+    "type": "journal",
+    "venue": "Physical Review Letters",
+    "citation": "Phys. Rev. Lett. 133, 230604 (2024)",
+    "arxiv": null,
+    "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.133.230604",
+    "tags": [
+      "quantum-learning",
+      "channel-learning",
+      "entanglement",
+      "continuous-variable"
+    ],
+    "highlight": true,
+    "note": null
+  },
+  {
+    "id": "lee2024cmispreading",
+    "title": "Universal spreading of conditional mutual information in noisy random circuits",
+    "authors": [
+      {
+        "name": "S.-u. Lee",
+        "corresponding": true
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "Y. Wong"
+      },
+      {
+        "name": "S. Chen"
+      },
+      {
+        "name": "L. Jiang"
+      }
+    ],
+    "year": 2024,
+    "order": 26,
+    "type": "journal",
+    "venue": "Physical Review Letters",
+    "citation": "Phys. Rev. Lett. 133, 200402 (2024)",
+    "arxiv": null,
+    "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.133.200402",
+    "tags": [
+      "nisq",
+      "random-circuits",
+      "noise-and-loss",
+      "entanglement"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "wang2024correlatednoise",
+    "title": "Exponential entanglement advantage in sensing correlated noise",
+    "authors": [
+      {
+        "name": "Y.-X. Wang",
+        "corresponding": true
+      },
+      {
+        "name": "J. Bringewatt"
+      },
+      {
+        "name": "A. Seif"
+      },
+      {
+        "name": "A. J. Brady"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "A. V. Gorshkov"
+      }
+    ],
+    "year": 2024,
+    "order": 27,
+    "type": "preprint",
+    "venue": "arXiv",
+    "citation": "arXiv:2410.05878 (2024)",
+    "arxiv": "2410.05878",
+    "url": "https://arxiv.org/abs/2410.05878",
+    "tags": [
+      "metrology",
+      "entanglement",
+      "noise-and-loss",
+      "distributed-sensing"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "oh2024experimentalgbs",
+    "title": "Classical algorithm for simulating experimental Gaussian boson sampling",
+    "authors": [
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "M. Liu",
+        "corresponding": true
+      },
+      {
+        "name": "Y. Alexeev"
+      },
+      {
+        "name": "B. Fefferman"
+      },
+      {
+        "name": "L. Jiang"
+      }
+    ],
+    "year": 2024,
+    "order": 28,
+    "type": "journal",
+    "venue": "Nature Physics",
+    "citation": "Nat. Phys. 20, 1461 (2024)",
+    "arxiv": null,
+    "url": "https://www.nature.com/articles/s41567-024-02535-8",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "classical-simulation",
+      "noise-and-loss"
+    ],
+    "highlight": true,
+    "note": null
+  },
+  {
+    "id": "oh2024graphgbs",
+    "title": "Quantum-inspired classical algorithm for graph problems by Gaussian boson sampling",
+    "authors": [
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "B. Fefferman"
+      },
+      {
+        "name": "L. Jiang"
+      },
+      {
+        "name": "N. Quesada"
+      }
+    ],
+    "year": 2024,
+    "order": 29,
+    "type": "journal",
+    "venue": "PRX Quantum",
+    "citation": "PRX Quantum 5, 020341 (2024)",
+    "arxiv": null,
+    "url": "https://journals.aps.org/prxquantum/abstract/10.1103/PRXQuantum.5.020341",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "classical-simulation",
+      "gaussian-states"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "go2024shallowdepth",
+    "title": "Exploring shallow-depth boson sampling: towards scalable quantum supremacy",
+    "authors": [
+      {
+        "name": "B. Go"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "L. Jiang"
+      },
+      {
+        "name": "H. Jeong"
+      }
+    ],
+    "year": 2024,
+    "order": 30,
+    "type": "journal",
+    "venue": "Physical Review A",
+    "citation": "Phys. Rev. A 109, 052613 (2024)",
+    "arxiv": null,
+    "url": "https://journals.aps.org/pra/abstract/10.1103/PhysRevA.109.052613",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "computational-complexity",
+      "linear-optics"
+    ],
+    "highlight": false,
+    "note": "Editors' Suggestion"
+  },
+  {
+    "id": "chen2024paulilearning",
+    "title": "Tight bounds on Pauli channel learning without entanglement",
+    "authors": [
+      {
+        "name": "S. Chen",
+        "corresponding": true
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "S. Zhou"
+      },
+      {
+        "name": "H.-Y. Huang"
+      },
+      {
+        "name": "L. Jiang",
+        "corresponding": true
+      }
+    ],
+    "year": 2024,
+    "order": 31,
+    "type": "journal",
+    "venue": "Physical Review Letters",
+    "citation": "Phys. Rev. Lett. 132, 180805 (2024)",
+    "arxiv": null,
+    "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.180805",
+    "tags": [
+      "quantum-learning",
+      "channel-learning",
+      "entanglement",
+      "sample-complexity"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "kwon2024virtualpurification",
+    "title": "Efficacy of virtual purification-based error mitigation on quantum metrology",
+    "authors": [
+      {
+        "name": "H. Kwon"
+      },
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "Y. Lim"
+      },
+      {
+        "name": "H. Jeong"
+      },
+      {
+        "name": "L. Jiang"
+      }
+    ],
+    "year": 2024,
+    "order": 32,
+    "type": "journal",
+    "venue": "Physical Review A",
+    "citation": "Phys. Rev. A 109, 022410 (2024)",
+    "arxiv": null,
+    "url": "https://journals.aps.org/pra/abstract/10.1103/PhysRevA.109.022410",
+    "tags": [
+      "metrology",
+      "error-mitigation",
+      "noise-and-loss"
+    ],
+    "highlight": false,
+    "note": null
+  },
+  {
+    "id": "oh2024vibronic",
+    "title": "Quantum-inspired classical algorithm for molecular vibronic spectra",
+    "authors": [
+      {
+        "name": "C. Oh",
+        "group": true,
+        "corresponding": true,
+        "memberId": "oh-changhun"
+      },
+      {
+        "name": "Y. Lim"
+      },
+      {
+        "name": "Y. Wong"
+      },
+      {
+        "name": "B. Fefferman"
+      },
+      {
+        "name": "L. Jiang"
+      }
+    ],
+    "year": 2024,
+    "order": 33,
+    "type": "journal",
+    "venue": "Nature Physics",
+    "citation": "Nat. Phys. 20, 225 (2024)",
+    "arxiv": null,
+    "url": "https://www.nature.com/articles/s41567-023-02308-9",
+    "tags": [
+      "nisq",
+      "boson-sampling",
+      "classical-simulation",
+      "gaussian-states"
+    ],
+    "highlight": true,
+    "note": null
+  }
+]

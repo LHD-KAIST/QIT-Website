@@ -1,0 +1,18 @@
+# Netlify build settings. A non-developer never needs to touch this file.
+# When someone edits a JSON file in src/data/ on GitHub and commits, Netlify
+# re-runs `npm run build` and redeploys automatically.
+#
+# IMPORTANT: if a data edit breaks the schema (e.g. a missing field), the build
+# FAILS on purpose and the previously deployed site stays live untouched.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
