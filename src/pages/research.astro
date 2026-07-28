@@ -2,30 +2,22 @@
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ResearchAreaBlock from '../components/ResearchAreaBlock.astro';
-import { getAreaTags, getTagCounts } from '../lib/collections';
+import { getAreaTags } from '../lib/collections';
 
 const areas = await getAreaTags();
-const counts = await getTagCounts();
 ---
 
 <Base
-  title="Research"
+  title="Research Topics"
   current="research"
   description="Three research directions — quantum learning, NISQ devices, and quantum metrology — mapping the boundary between quantum and classical."
 >
-  <PageHeader
-    title="Research"
-    lead="Three directions, no ranking. Each links to its papers rather than listing them here."
-  />
+  <PageHeader title="Research Topics" />
 
   <div class="wrap research">
     {
       areas.map((a, i) => (
-        <ResearchAreaBlock
-          area={a}
-          paperCount={counts.get(a.id) ?? 0}
-          figureLeft={i % 2 === 0}
-        />
+        <ResearchAreaBlock area={a} figureLeft={i % 2 === 0} />
       ))
     }
   </div>

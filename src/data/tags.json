@@ -6,8 +6,8 @@
     "order": 1,
     "tagline": "When can quantum resources make learning provably easier?",
     "description": "Quantum learning theory investigates how quantum mechanics affects fundamental aspects of learning, such as sample complexity, efficiency, and computational power. The goal is to characterize when and how quantum systems can provide advantages over classical approaches in learning tasks.",
-    "figure": "/images/research/quantum-learning.jpg",
-    "figureAlt": "TODO: describe the figure for screen readers"
+    "figure": "/images/research/quantum_learning.png",
+    "figureAlt": "Quantum learning research figure"
   },
   {
     "id": "nisq",
@@ -16,8 +16,8 @@
     "order": 2,
     "tagline": "Where does the classical–quantum boundary actually lie?",
     "description": "We study the presence or absence of quantum advantage in NISQ devices, the boundaries of their classical simulability, and the potential applications that emerge from these regimes. Our research particularly focuses on boson sampling, IQP sampling, and quantum error correction.",
-    "figure": "/images/research/nisq.jpg",
-    "figureAlt": "TODO: describe the figure for screen readers"
+    "figure": "/images/research/nisq_devices.png",
+    "figureAlt": "NISQ devices research figure"
   },
   {
     "id": "metrology",
@@ -26,8 +26,8 @@
     "order": 3,
     "tagline": "Pushing parameter estimation past the classical limit.",
     "description": "Quantum metrology studies how quantum resources—squeezing, entanglement, and nonclassical measurements—can boost the precision of parameter estimation beyond classical limits. By tailoring probe states, evolutions, and measurements, it aims to saturate the quantum Cramér–Rao bound and approach Heisenberg-limited scaling. Applications span interferometry, clocks, imaging, sensing of fields and forces, and distributed/networked sensing.",
-    "figure": "/images/research/metrology.jpg",
-    "figureAlt": "TODO: describe the figure for screen readers"
+    "figure": "/images/research/quantum_metrology.png",
+    "figureAlt": "Quantum metrology research figure"
   },
   {
     "id": "noise-and-loss",

@@ -2,14 +2,12 @@
 import type { AreaTag } from '../lib/collections';
 import { publicAssetExists } from '../lib/assets';
 import Placeholder from './Placeholder.astro';
-import Fringe from './Fringe.astro';
 
 interface Props {
   area: AreaTag;
-  paperCount: number;
   figureLeft?: boolean;
 }
-const { area, paperCount, figureLeft = true } = Astro.props;
+const { area, figureLeft = true } = Astro.props;
 
 const hasFigure = publicAssetExists(area.figure);
 const figureName = area.figure.split('/').pop();
@@ -32,8 +30,7 @@ const seeAll = `/publications?tag=${area.id}`;
     <p class="area__tagline">{area.tagline}</p>
     <p class="area__desc">{area.description}</p>
     <div class="area__foot">
-      <Fringe count={paperCount} label={`${paperCount} papers in ${area.label}`} h={14} />
-      <a class="area__link" href={seeAll}>See all papers →</a>
+      <a class="area__link" href={seeAll}>See related publications →</a>
     </div>
   </div>
 </section>
@@ -45,7 +42,7 @@ const seeAll = `/publications?tag=${area.id}`;
     display: grid;
     grid-template-columns: 420px 1fr;
     gap: 56px;
-    align-items: start;
+    align-items: center;
   }
   .area--fig-right {
     grid-template-columns: 1fr 420px;
@@ -57,22 +54,23 @@ const seeAll = `/publications?tag=${area.id}`;
   .area__figure img {
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
     display: block;
+    border: 1px solid var(--soft);
+    border-radius: var(--radius-card);
+    background: #fff;
   }
 
   .area__title {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: clamp(24px, 4vw, 30px);
+    font-size: clamp(28px, 4.6vw, 36px);
     font-weight: 400;
     line-height: 1.15;
   }
   .area__tagline {
-    margin: 14px 0 0;
+    margin: 16px 0 0;
     font-family: var(--font-display);
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 300;
     line-height: 1.45;
     color: var(--cyan);
@@ -80,10 +78,10 @@ const seeAll = `/publications?tag=${area.id}`;
     text-wrap: pretty;
   }
   .area__desc {
-    margin: 18px 0 0;
-    font-size: 14.5px;
-    line-height: 1.7;
-    color: color-mix(in srgb, var(--ink) 78%, var(--ground));
+    margin: 20px 0 0;
+    font-size: 17px;
+    line-height: 1.75;
+    color: color-mix(in srgb, var(--ink) 80%, var(--ground));
     max-width: 62ch;
     text-wrap: pretty;
   }
@@ -96,7 +94,7 @@ const seeAll = `/publications?tag=${area.id}`;
   }
   .area__link {
     font-family: var(--font-display);
-    font-size: 14px;
+    font-size: 15.5px;
     color: var(--cyan);
     border-bottom: 1px solid color-mix(in srgb, var(--cyan) 40%, transparent);
     padding-bottom: 2px;
