@@ -12,6 +12,7 @@
 @import '@fontsource/stix-two-text/600.css';
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
 
 /* ── Palette ───────────────────────────────────────────────────────────────
    Semantic variables. Dark is not an inversion — it is the same room at lower

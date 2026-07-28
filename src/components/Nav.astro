@@ -1,6 +1,4 @@
 ---
-import Wordmark from './Wordmark.astro';
-
 interface Props {
   current?: 'research' | 'publications' | 'people' | 'join';
 }
@@ -17,8 +15,8 @@ const links = [
 <header class="nav" data-nav>
   <div class="wrap nav__inner">
     <a href="/" class="brand">
-      <Wordmark h={22} />
-      <span class="brand__name">Quantum Information Theory</span>
+      <img class="brand__logo" src="/images/logo.png" alt="" width="40" height="40" />
+      <span class="brand__name">QIT Group</span>
       <span class="brand__sub">KAIST Physics</span>
     </a>
 
@@ -63,31 +61,38 @@ const links = [
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    min-height: 68px;
+    min-height: 84px;
     padding-block: 16px;
   }
 
   .brand {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     color: var(--ink);
     min-height: 44px;
   }
+  .brand__logo {
+    height: 46px;
+    width: auto;
+    display: block;
+    flex: none;
+  }
   .brand__name {
     font-family: var(--font-display);
-    font-size: 14.5px;
+    font-size: 22px;
     font-weight: 500;
     letter-spacing: 0.005em;
+    line-height: 1.1;
   }
   .brand__sub {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 13px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
     border-left: 1px solid var(--rule);
-    padding-left: 14px;
+    padding-left: 16px;
   }
 
   .nav__menu {
@@ -101,7 +106,7 @@ const links = [
     align-items: center;
     gap: 7px;
     font-family: var(--font-display);
-    font-size: 14px;
+    font-size: 16px;
     color: var(--ink);
     opacity: 0.72;
     min-height: 44px;
@@ -156,6 +161,9 @@ const links = [
   @media (max-width: 820px) {
     .brand__sub {
       display: none;
+    }
+    .brand__name {
+      font-size: 18px;
     }
     .nav__toggle {
       display: flex;
