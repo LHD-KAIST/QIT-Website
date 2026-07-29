@@ -30,11 +30,13 @@ const BRANCH = 'main';
   <body>
     <main class="wrap">
       <h1>Add a paper</h1>
-      <p class="lead">
-        Paste a <b>DOI</b> or <b>arXiv link/number</b>, press <b>Fetch</b>, check the details,
-        pick tags, then <b>Create on GitHub</b> — GitHub opens with the file pre-filled; just
-        press Commit. (You must be signed in to GitHub with edit access.)
-      </p>
+      <ol class="steps">
+        <li>Paste a <b>DOI</b> or <b>arXiv</b> link/number below → press <b>Fetch</b>.</li>
+        <li>Check the auto-filled details, and pick <b>1–2 tags</b>.</li>
+        <li>Press <b>Create on GitHub →</b>. GitHub opens with the file ready — just press
+          <b>Commit changes</b>. The site updates in ~1–2 min.</li>
+      </ol>
+      <p class="note">You must be signed in to GitHub with edit access.</p>
 
       <div class="row">
         <input id="src" type="text" placeholder="e.g. arXiv:2607.19017  or  10.1126/science.adv2560" />
@@ -245,7 +247,9 @@ const BRANCH = 'main';
       body { font-family: system-ui, sans-serif; color: #121719; background: #ecf0f1; margin: 0; }
       .wrap { max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
       h1 { font-size: 28px; margin: 0 0 8px; }
-      .lead { color: #3b474b; line-height: 1.6; font-size: 14px; }
+      .steps { color: #1c2427; line-height: 1.7; font-size: 15px; background: #fff; border: 1px solid #c9d3d5; border-radius: 6px; padding: 16px 20px 16px 40px; margin: 8px 0; }
+      .steps li { margin-bottom: 6px; }
+      .note { color: #5c6b70; font-size: 12.5px; margin: 4px 0 8px; }
       .row { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
       input[type='text'], input[type='number'], select { padding: 8px 10px; border: 1px solid #c9d3d5; border-radius: 3px; font-size: 14px; background: #fff; }
       #src { flex: 1; min-width: 260px; }
