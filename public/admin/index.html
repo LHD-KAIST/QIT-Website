@@ -5,8 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>QIT Site — Content Editor</title>
+    <style>
+      /* Always-visible shortcut to the auto-fill "Add a paper" tool. */
+      .add-paper-fab {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 99999;
+        background: #145661;
+        color: #fff;
+        font: 600 14px/1 system-ui, -apple-system, sans-serif;
+        padding: 14px 18px;
+        border-radius: 24px;
+        text-decoration: none;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+      }
+      .add-paper-fab:hover {
+        background: #0e3d45;
+      }
+    </style>
   </head>
   <body>
+    <a href="/admin/paper" class="add-paper-fab">+ Add a paper</a>
+
     <!-- Sveltia CMS: a form-based editor that commits to GitHub. Login is gated
          by GitHub OAuth + repo write access (see /admin/config.yml). -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
