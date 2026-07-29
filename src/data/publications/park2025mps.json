@@ -1,0 +1,32 @@
+{
+  "id": "park2025mps",
+  "title": "Matrix product state approach to lossy boson sampling and noisy IQP sampling",
+  "authors": [
+    {
+      "name": "S. Park",
+      "group": true,
+      "memberId": "park-sojeong"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2025,
+  "order": 16,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2510.24137 (2025)",
+  "arxiv": "2510.24137",
+  "url": "https://arxiv.org/abs/2510.24137",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "iqp-sampling",
+    "tensor-networks"
+  ],
+  "highlight": false,
+  "note": null
+}

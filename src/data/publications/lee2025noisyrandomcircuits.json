@@ -1,0 +1,41 @@
+{
+  "id": "lee2025noisyrandomcircuits",
+  "title": "Classical simulation of noisy random circuits from exponential decay of correlation",
+  "authors": [
+    {
+      "name": "S.-u. Lee"
+    },
+    {
+      "name": "S. Ghosh"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "K. Noh"
+    },
+    {
+      "name": "B. Fefferman"
+    },
+    {
+      "name": "L. Jiang"
+    }
+  ],
+  "year": 2025,
+  "order": 17,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2510.06328 (2025)",
+  "arxiv": "2510.06328",
+  "url": "https://arxiv.org/abs/2510.06328",
+  "tags": [
+    "nisq",
+    "classical-simulation",
+    "random-circuits",
+    "noise-and-loss"
+  ],
+  "highlight": false,
+  "note": null
+}

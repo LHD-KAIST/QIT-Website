@@ -1,0 +1,269 @@
+---
+import { getMembers, getTags } from '../../lib/collections';
+
+// Embedded at build time for client-side author-matching + tag picker.
+const members = (await getMembers()).map((m) => ({
+  id: m.id,
+  name: m.name,
+  authorKey: m.authorKey || '',
+}));
+const tags = (await getTags()).map((t) => ({ id: t.id, label: t.label }));
+
+const REPO = 'LHD-KAIST/QIT-Website';
+const BRANCH = 'main';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Add a paper — QIT admin</title>
+    <script type="application/json" id="members-data" set:html={JSON.stringify(members)}></script>
+    <script type="application/json" id="tags-data" set:html={JSON.stringify(tags)}></script>
+    <script define:vars={{ REPO, BRANCH }}>
+      window.__REPO = REPO;
+      window.__BRANCH = BRANCH;
+    </script>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Add a paper</h1>
+      <p class="lead">
+        Paste a <b>DOI</b> or <b>arXiv link/number</b>, press <b>Fetch</b>, check the details,
+        pick tags, then <b>Create on GitHub</b> — GitHub opens with the file pre-filled; just
+        press Commit. (You must be signed in to GitHub with edit access.)
+      </p>
+
+      <div class="row">
+        <input id="src" type="text" placeholder="e.g. arXiv:2607.19017  or  10.1126/science.adv2560" />
+        <button id="fetchBtn" type="button">Fetch</button>
+      </div>
+      <p id="msg" class="msg"></p>
+
+      <form id="form" hidden>
+        <label>Title <input name="title" type="text" /></label>
+
+        <fieldset>
+          <legend>Authors <small>(order matters; set each author's lab member + corresponding)</small></legend>
+          <div id="authors"></div>
+        </fieldset>
+
+        <div class="grid">
+          <label>Year <input name="year" type="number" /></label>
+          <label>Order in year <input name="order" type="number" value="0" /></label>
+          <label>Type
+            <select name="type">
+              <option value="journal">journal</option>
+              <option value="preprint">preprint</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Venue (badge) <input name="venue" type="text" /></label>
+        <label>Citation <input name="citation" type="text" /></label>
+        <label>URL <input name="url" type="text" /></label>
+        <label>arXiv id <small>(preprints)</small> <input name="arxiv" type="text" /></label>
+        <label>Note <small>(optional, e.g. Editors' Suggestion)</small> <input name="note" type="text" /></label>
+
+        <fieldset>
+          <legend>Tags <small>(pick 1–2 that best fit)</small></legend>
+          <div id="tags" class="tags"></div>
+        </fieldset>
+
+        <label class="inline"><input name="highlight" type="checkbox" /> Feature on the home page (highlight)</label>
+
+        <label>File id <small>(filename; auto-suggested)</small> <input name="id" type="text" /></label>
+
+        <div class="row">
+          <button id="createBtn" type="button" class="primary">Create on GitHub →</button>
+          <button id="copyBtn" type="button">Copy JSON</button>
+        </div>
+        <pre id="preview"></pre>
+      </form>
+    </main>
+
+    <script>
+      const members = JSON.parse(document.getElementById('members-data').textContent);
+      const tags = JSON.parse(document.getElementById('tags-data').textContent);
+      const $ = (s, r = document) => r.querySelector(s);
+      const msg = $('#msg');
+
+      // "Zheng-Hao Liu" -> "Z.-H. Liu"
+      function initials(given) {
+        return given
+          .trim()
+          .split(/\s+/)
+          .map((w) => w.split('-').map((p) => (p ? p[0].toUpperCase() + '.' : '')).join('-'))
+          .join(' ');
+      }
+      function toShort(full) {
+        const parts = full.trim().split(/\s+/);
+        if (parts.length < 2) return full.trim();
+        return initials(parts.slice(0, -1).join(' ')) + ' ' + parts[parts.length - 1];
+      }
+      function matchMember(full) {
+        const norm = full.trim().toLowerCase();
+        return members.find((m) => m.name.trim().toLowerCase() === norm) || null;
+      }
+      function slugify(s) {
+        return s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '').slice(0, 14);
+      }
+
+      // Render tag checkboxes
+      $('#tags').innerHTML = tags
+        .map((t) => `<label class="chk"><input type="checkbox" value="${t.id}" /> ${t.label}</label>`)
+        .join('');
+
+      let authorState = [];
+      function renderAuthors() {
+        const opts = (sel) =>
+          '<option value="">— external —</option>' +
+          members
+            .map((m) => `<option value="${m.id}" ${sel === m.id ? 'selected' : ''}>${m.name}</option>`)
+            .join('');
+        $('#authors').innerHTML = authorState
+          .map(
+            (a, i) => `<div class="author">
+              <input data-i="${i}" class="a-name" type="text" value="${a.name.replace(/"/g, '&quot;')}" />
+              <select data-i="${i}" class="a-member">${opts(a.memberId)}</select>
+              <label class="chk"><input data-i="${i}" class="a-corr" type="checkbox" ${a.corr ? 'checked' : ''}/> corr∗</label>
+            </div>`,
+          )
+          .join('');
+      }
+
+      async function doFetch() {
+        const id = $('#src').value.trim();
+        if (!id) return;
+        msg.textContent = 'Fetching…';
+        try {
+          const res = await fetch('/.netlify/functions/fetch-paper?id=' + encodeURIComponent(id));
+          const d = await res.json();
+          if (d.error) {
+            msg.textContent = '⚠ ' + d.error;
+            return;
+          }
+          // author matching
+          authorState = (d.authors || []).map((full) => {
+            const m = matchMember(full);
+            return m
+              ? { name: m.authorKey || toShort(full), memberId: m.id, corr: false }
+              : { name: toShort(full), memberId: '', corr: false };
+          });
+          $('#form').hidden = false;
+          $('[name=title]').value = d.title || '';
+          $('[name=year]').value = d.year || '';
+          $('[name=type]').value = d.type || 'journal';
+          $('[name=venue]').value = d.venue || '';
+          $('[name=citation]').value = d.citation || '';
+          $('[name=url]').value = d.url || '';
+          $('[name=arxiv]').value = d.arxiv || '';
+          const first = (authorState[0]?.name || 'paper').split(' ').pop();
+          $('[name=id]').value = slugify(first) + (d.year || '') + slugify((d.title || '').split(' ')[0] || '');
+          renderAuthors();
+          buildPreview();
+          msg.textContent = '✓ Fetched. Review below.';
+        } catch (e) {
+          msg.textContent = '⚠ ' + e;
+        }
+      }
+
+      function collect() {
+        const f = $('#form');
+        const authors = authorState.map((a) => {
+          const o = { name: a.name };
+          if (a.memberId) {
+            o.group = true;
+            o.memberId = a.memberId;
+          }
+          if (a.corr) o.corresponding = true;
+          return o;
+        });
+        const chosenTags = [...$('#tags').querySelectorAll('input:checked')].map((c) => c.value);
+        const type = f.type.value;
+        const obj = {
+          id: f.id.value.trim(),
+          title: f.title.value.trim(),
+          authors,
+          year: Number(f.year.value) || null,
+          order: Number(f.order.value) || 0,
+          type,
+          venue: f.venue.value.trim(),
+          citation: f.citation.value.trim(),
+          url: f.url.value.trim(),
+          tags: chosenTags,
+          highlight: f.highlight.checked,
+          note: f.note.value.trim() || null,
+        };
+        if (type === 'preprint' && f.arxiv.value.trim()) obj.arxiv = f.arxiv.value.trim();
+        return obj;
+      }
+      function buildPreview() {
+        $('#preview').textContent = JSON.stringify(collect(), null, 2);
+      }
+
+      // events
+      $('#fetchBtn').addEventListener('click', doFetch);
+      $('#src').addEventListener('keydown', (e) => e.key === 'Enter' && (e.preventDefault(), doFetch()));
+      $('#authors').addEventListener('input', (e) => {
+        const i = e.target.dataset.i;
+        if (i == null) return;
+        if (e.target.classList.contains('a-name')) authorState[i].name = e.target.value;
+        if (e.target.classList.contains('a-member')) {
+          authorState[i].memberId = e.target.value;
+          const m = members.find((x) => x.id === e.target.value);
+          if (m && m.authorKey) {
+            authorState[i].name = m.authorKey;
+            renderAuthors();
+          }
+        }
+        if (e.target.classList.contains('a-corr')) authorState[i].corr = e.target.checked;
+        buildPreview();
+      });
+      $('#form').addEventListener('input', buildPreview);
+      $('#tags').addEventListener('change', buildPreview);
+
+      $('#createBtn').addEventListener('click', () => {
+        const obj = collect();
+        if (!obj.id) return (msg.textContent = '⚠ Please set a File id.');
+        const content = JSON.stringify(obj, null, 2) + '\n';
+        const url =
+          `https://github.com/${window.__REPO}/new/${window.__BRANCH}` +
+          `?filename=${encodeURIComponent('src/data/publications/' + obj.id + '.json')}` +
+          `&value=${encodeURIComponent(content)}`;
+        window.open(url, '_blank');
+      });
+      $('#copyBtn').addEventListener('click', async () => {
+        await navigator.clipboard.writeText(JSON.stringify(collect(), null, 2) + '\n');
+        msg.textContent = '✓ JSON copied.';
+      });
+    </script>
+
+    <style>
+      body { font-family: system-ui, sans-serif; color: #121719; background: #ecf0f1; margin: 0; }
+      .wrap { max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
+      h1 { font-size: 28px; margin: 0 0 8px; }
+      .lead { color: #3b474b; line-height: 1.6; font-size: 14px; }
+      .row { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
+      input[type='text'], input[type='number'], select { padding: 8px 10px; border: 1px solid #c9d3d5; border-radius: 3px; font-size: 14px; background: #fff; }
+      #src { flex: 1; min-width: 260px; }
+      button { padding: 9px 16px; border: 1px solid #145661; background: #fff; color: #145661; border-radius: 3px; cursor: pointer; font-size: 14px; }
+      button.primary { background: #145661; color: #fff; }
+      .msg { font-size: 13px; color: #3b474b; min-height: 18px; }
+      form { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+      label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #5c6b70; }
+      label input[type='text'], label input[type='number'], label select { width: 100%; box-sizing: border-box; color: #121719; }
+      label.inline, label.chk { flex-direction: row; align-items: center; gap: 8px; color: #121719; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+      fieldset { border: 1px solid #c9d3d5; border-radius: 3px; padding: 12px; }
+      legend { font-size: 12px; color: #5c6b70; }
+      .author { display: grid; grid-template-columns: 1.2fr 1.4fr auto; gap: 8px; margin-bottom: 6px; align-items: center; }
+      .tags { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+      .tags .chk { font-size: 12.5px; }
+      pre { background: #0f1416; color: #e4eaea; padding: 14px; border-radius: 4px; overflow: auto; font-size: 12px; }
+      @media (max-width: 640px) { .grid, .author { grid-template-columns: 1fr; } }
+    </style>
+  </body>
+</html>

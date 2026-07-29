@@ -1,0 +1,32 @@
+{
+  "id": "jeon2026unitarycertification",
+  "title": "On the query complexity of unitary channel certification",
+  "authors": [
+    {
+      "name": "S. Jeon",
+      "group": true,
+      "memberId": "jeon-sangwoo"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2026,
+  "order": 14,
+  "type": "journal",
+  "venue": "npj Quantum Information",
+  "citation": "npj Quantum Inf. 12, 2 (2026)",
+  "arxiv": null,
+  "url": "https://www.nature.com/articles/s41534-025-01135-5",
+  "tags": [
+    "quantum-learning",
+    "certification",
+    "channel-learning",
+    "sample-complexity"
+  ],
+  "highlight": false,
+  "note": null
+}

@@ -77,3 +77,45 @@ collections:
       - { name: nextPosition, label: 'Next position — for Alumni (e.g. PhD student, U. of Waterloo)', widget: string, required: false }
       - { name: authorKey, label: 'Author key — advanced (e.g. C. Oh)', widget: string, required: false }
       - { name: bio, label: 'Bio — not shown on the site currently', widget: text, required: false }
+
+  - name: publications
+    label: Publications
+    label_singular: Paper
+    folder: src/data/publications
+    extension: json
+    format: json
+    identifier_field: title
+    slug: '{{fields.id}}'
+    create: true
+    summary: '{{fields.year}} · {{fields.title}}'
+    hint: 'To ADD a paper faster, use the "Add a paper" tool at /admin/paper (paste a DOI/arXiv link). Use this list to edit or fix existing papers.'
+    fields:
+      - { name: id, label: 'File id (do NOT change once set)', widget: string }
+      - { name: title, label: 'Title', widget: string }
+      - name: authors
+        label: 'Authors (in order)'
+        widget: list
+        summary: '{{fields.name}}'
+        fields:
+          - { name: name, label: 'Name (e.g. C. Oh)', widget: string }
+          - { name: group, label: 'Lab member (bold)', widget: boolean, default: false, required: false }
+          - { name: corresponding, label: 'Corresponding author (∗)', widget: boolean, default: false, required: false }
+          - { name: memberId, label: 'Member id (if lab member, e.g. oh-changhun)', widget: string, required: false }
+      - { name: year, label: 'Year', widget: number, value_type: int }
+      - { name: order, label: 'Order within the year (0 = first)', widget: number, value_type: int, default: 0, required: false }
+      - name: type
+        label: 'Type'
+        widget: select
+        options:
+          - { label: 'Journal', value: journal }
+          - { label: 'Preprint', value: preprint }
+      - { name: venue, label: 'Venue (short journal name / arXiv)', widget: string }
+      - { name: citation, label: 'Citation', widget: string }
+      - { name: url, label: 'URL', widget: string }
+      - { name: arxiv, label: 'arXiv id — optional', widget: string, required: false }
+      - name: tags
+        label: 'Tags (keyword ids, at least 1)'
+        widget: list
+        field: { name: tag, label: 'Tag id', widget: string }
+      - { name: highlight, label: 'Feature on the home page', widget: boolean, default: false }
+      - { name: note, label: 'Note — optional (e.g. Editors'' Suggestion)', widget: string, required: false }

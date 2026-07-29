@@ -1,0 +1,44 @@
+{
+  "id": "iosue2025highermoment",
+  "title": "Higher moment theory and learnability of bosonic states",
+  "authors": [
+    {
+      "name": "J. T. Iosue"
+    },
+    {
+      "name": "Y.-X. Wang"
+    },
+    {
+      "name": "I. Datta"
+    },
+    {
+      "name": "S. Ghosh"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "B. Fefferman"
+    },
+    {
+      "name": "A. V. Gorshkov"
+    }
+  ],
+  "year": 2025,
+  "order": 18,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2510.01610 (2025)",
+  "arxiv": "2510.01610",
+  "url": "https://arxiv.org/abs/2510.01610",
+  "tags": [
+    "quantum-learning",
+    "state-learning",
+    "continuous-variable",
+    "sample-complexity"
+  ],
+  "highlight": false,
+  "note": null
+}

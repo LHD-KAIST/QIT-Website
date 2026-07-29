@@ -1,0 +1,38 @@
+{
+  "id": "wang2026quantumimaging",
+  "title": "Advancing quantum imaging through learning theory",
+  "authors": [
+    {
+      "name": "Y. Wang"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "J. Liu"
+    },
+    {
+      "name": "L. Jiang"
+    },
+    {
+      "name": "S. Zhou"
+    }
+  ],
+  "year": 2026,
+  "order": 12,
+  "type": "journal",
+  "venue": "Nature Communications",
+  "citation": "Nat. Commun. 17, 1124 (2026)",
+  "arxiv": null,
+  "url": "https://www.nature.com/articles/s41467-025-67884-1",
+  "tags": [
+    "metrology",
+    "quantum-learning",
+    "quantum-imaging",
+    "sample-complexity"
+  ],
+  "highlight": true,
+  "note": null
+}

@@ -1,0 +1,36 @@
+{
+  "id": "oh2024graphgbs",
+  "title": "Quantum-inspired classical algorithm for graph problems by Gaussian boson sampling",
+  "authors": [
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "B. Fefferman"
+    },
+    {
+      "name": "L. Jiang"
+    },
+    {
+      "name": "N. Quesada"
+    }
+  ],
+  "year": 2024,
+  "order": 29,
+  "type": "journal",
+  "venue": "PRX Quantum",
+  "citation": "PRX Quantum 5, 020341 (2024)",
+  "arxiv": null,
+  "url": "https://journals.aps.org/prxquantum/abstract/10.1103/PRXQuantum.5.020341",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "classical-simulation",
+    "gaussian-states"
+  ],
+  "highlight": false,
+  "note": null
+}

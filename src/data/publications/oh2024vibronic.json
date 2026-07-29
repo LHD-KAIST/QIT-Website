@@ -1,0 +1,39 @@
+{
+  "id": "oh2024vibronic",
+  "title": "Quantum-inspired classical algorithm for molecular vibronic spectra",
+  "authors": [
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "Y. Lim"
+    },
+    {
+      "name": "Y. Wong"
+    },
+    {
+      "name": "B. Fefferman"
+    },
+    {
+      "name": "L. Jiang"
+    }
+  ],
+  "year": 2024,
+  "order": 33,
+  "type": "journal",
+  "venue": "Nature Physics",
+  "citation": "Nat. Phys. 20, 225 (2024)",
+  "arxiv": null,
+  "url": "https://www.nature.com/articles/s41567-023-02308-9",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "classical-simulation",
+    "gaussian-states"
+  ],
+  "highlight": true,
+  "note": null
+}

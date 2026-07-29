@@ -1,0 +1,33 @@
+{
+  "id": "go2026cvcluster",
+  "title": "Complexity phase transition for continuous-variable cluster state",
+  "authors": [
+    {
+      "name": "B. Go"
+    },
+    {
+      "name": "H. Jeong"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2026,
+  "order": 4,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2604.07804 (2026)",
+  "arxiv": "2604.07804",
+  "url": "https://arxiv.org/abs/2604.07804",
+  "tags": [
+    "nisq",
+    "continuous-variable",
+    "computational-complexity",
+    "gaussian-states"
+  ],
+  "highlight": false,
+  "note": null
+}

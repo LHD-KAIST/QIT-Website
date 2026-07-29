@@ -1,0 +1,34 @@
+{
+  "id": "go2025lossygbs",
+  "title": "Sufficient conditions for hardness of lossy Gaussian boson sampling",
+  "authors": [
+    {
+      "name": "B. Go"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "H. Jeong",
+      "corresponding": true
+    }
+  ],
+  "year": 2025,
+  "order": 15,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2511.07853 (2025)",
+  "arxiv": "2511.07853",
+  "url": "https://arxiv.org/abs/2511.07853",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "noise-and-loss",
+    "computational-complexity"
+  ],
+  "highlight": false,
+  "note": null
+}

@@ -1,0 +1,32 @@
+{
+  "id": "kim2026channellearning",
+  "title": "On the fundamental resource for exponential advantage in quantum channel learning",
+  "authors": [
+    {
+      "name": "M. Kim",
+      "group": true,
+      "memberId": "kim-minsoo"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2026,
+  "order": 9,
+  "type": "journal",
+  "venue": "Nature Communications",
+  "citation": "Nat. Commun. 17, 1822 (2026)",
+  "arxiv": null,
+  "url": "https://www.nature.com/articles/s41467-026-68532-y",
+  "tags": [
+    "quantum-learning",
+    "channel-learning",
+    "entanglement",
+    "sample-complexity"
+  ],
+  "highlight": true,
+  "note": null
+}

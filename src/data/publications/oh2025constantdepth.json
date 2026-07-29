@@ -1,0 +1,27 @@
+{
+  "id": "oh2025constantdepth",
+  "title": "Classical simulability of constant-depth linear-optical circuits with noise",
+  "authors": [
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2025,
+  "order": 21,
+  "type": "journal",
+  "venue": "npj Quantum Information",
+  "citation": "npj Quantum Inf. 11, 126 (2025)",
+  "arxiv": null,
+  "url": "https://www.nature.com/articles/s41534-025-01041-w",
+  "tags": [
+    "nisq",
+    "classical-simulation",
+    "linear-optics",
+    "noise-and-loss"
+  ],
+  "highlight": false,
+  "note": null
+}

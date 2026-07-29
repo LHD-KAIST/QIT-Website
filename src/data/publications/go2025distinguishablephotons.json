@@ -1,0 +1,34 @@
+{
+  "id": "go2025distinguishablephotons",
+  "title": "Quantum computational advantage of noisy boson sampling with partially distinguishable photons",
+  "authors": [
+    {
+      "name": "B. Go"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "H. Jeong",
+      "corresponding": true
+    }
+  ],
+  "year": 2025,
+  "order": 20,
+  "type": "journal",
+  "venue": "PRX Quantum",
+  "citation": "PRX Quantum 6, 030362 (2025)",
+  "arxiv": null,
+  "url": "https://journals.aps.org/prxquantum/abstract/10.1103/rflv-gc66",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "noise-and-loss",
+    "computational-complexity"
+  ],
+  "highlight": false,
+  "note": null
+}

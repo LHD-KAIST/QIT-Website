@@ -1,0 +1,30 @@
+{
+  "id": "lim2025linearoptical",
+  "title": "Efficient classical algorithms for linear optical circuits",
+  "authors": [
+    {
+      "name": "Y. Lim"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2025,
+  "order": 22,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2502.12882 (2025)",
+  "arxiv": "2502.12882",
+  "url": "https://arxiv.org/abs/2502.12882",
+  "tags": [
+    "nisq",
+    "classical-simulation",
+    "linear-optics",
+    "gaussian-states"
+  ],
+  "highlight": false,
+  "note": null
+}

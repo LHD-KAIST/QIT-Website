@@ -22,21 +22,22 @@ const author = z.object({
 });
 
 const publications = defineCollection({
-  loader: file('src/data/publications.json'),
+  // One file per paper: src/data/publications/<id>.json.
+  loader: glob({ pattern: '**/*.json', base: './src/data/publications' }),
   schema: z.object({
     id: z.string(),
     title: z.string(),
     authors: z.array(author).min(1),
     year: z.number().int(),
-    order: z.number().int(),
+    order: z.number().default(0),
     type: z.enum(['journal', 'preprint']),
     venue: z.string(),
     citation: z.string(),
     arxiv: z.string().nullable().optional(),
     url: z.string().url(),
     tags: z.array(z.string()).min(1),
-    highlight: z.boolean(),
-    note: z.string().nullable(),
+    highlight: z.boolean().default(false),
+    note: z.string().nullable().optional(),
   }),
 });
 

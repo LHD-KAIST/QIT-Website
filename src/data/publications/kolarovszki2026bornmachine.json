@@ -1,0 +1,38 @@
+{
+  "id": "kolarovszki2026bornmachine",
+  "title": "Generative modeling with Gaussian Boson Sampling: classically trainable Bosonic Born Machines",
+  "authors": [
+    {
+      "name": "Z. Kolarovszki"
+    },
+    {
+      "name": "B. Bakó"
+    },
+    {
+      "name": "M. Oszmaniec"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "Z. Zimborás"
+    }
+  ],
+  "year": 2026,
+  "order": 6,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2603.11195 (2026)",
+  "arxiv": "2603.11195",
+  "url": "https://arxiv.org/abs/2603.11195",
+  "tags": [
+    "nisq",
+    "quantum-learning",
+    "boson-sampling",
+    "generative-models"
+  ],
+  "highlight": false,
+  "note": null
+}

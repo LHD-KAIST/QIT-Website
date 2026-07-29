@@ -1,0 +1,37 @@
+{
+  "id": "nehra2026distributedsensing",
+  "title": "All-optical loss-tolerant distributed quantum sensing",
+  "authors": [
+    {
+      "name": "R. Nehra",
+      "corresponding": true
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "L. Jiang"
+    },
+    {
+      "name": "A. Marandi"
+    }
+  ],
+  "year": 2026,
+  "order": 11,
+  "type": "journal",
+  "venue": "npj Quantum Information",
+  "citation": "npj Quantum Inf. 12, 18 (2026)",
+  "arxiv": null,
+  "url": "https://www.nature.com/articles/s41534-025-01123-9",
+  "tags": [
+    "metrology",
+    "distributed-sensing",
+    "linear-optics",
+    "noise-and-loss"
+  ],
+  "highlight": false,
+  "note": null
+}

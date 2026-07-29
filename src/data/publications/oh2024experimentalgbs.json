@@ -1,0 +1,40 @@
+{
+  "id": "oh2024experimentalgbs",
+  "title": "Classical algorithm for simulating experimental Gaussian boson sampling",
+  "authors": [
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "M. Liu",
+      "corresponding": true
+    },
+    {
+      "name": "Y. Alexeev"
+    },
+    {
+      "name": "B. Fefferman"
+    },
+    {
+      "name": "L. Jiang"
+    }
+  ],
+  "year": 2024,
+  "order": 28,
+  "type": "journal",
+  "venue": "Nature Physics",
+  "citation": "Nat. Phys. 20, 1461 (2024)",
+  "arxiv": null,
+  "url": "https://www.nature.com/articles/s41567-024-02535-8",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "classical-simulation",
+    "noise-and-loss"
+  ],
+  "highlight": true,
+  "note": null
+}

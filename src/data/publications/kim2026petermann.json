@@ -1,0 +1,40 @@
+{
+  "id": "kim2026petermann",
+  "title": "Classical Petermann factor as a measure of quantum squeezing in photonic time crystals",
+  "authors": [
+    {
+      "name": "Y. Kim"
+    },
+    {
+      "name": "K. Lee"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "Y.-S. Ra"
+    },
+    {
+      "name": "K. W. Kim"
+    },
+    {
+      "name": "B. Min"
+    }
+  ],
+  "year": 2026,
+  "order": 10,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2601.17369 (2026)",
+  "arxiv": "2601.17369",
+  "url": "https://arxiv.org/abs/2601.17369",
+  "tags": [
+    "metrology",
+    "squeezing",
+    "continuous-variable"
+  ],
+  "highlight": false,
+  "note": null
+}

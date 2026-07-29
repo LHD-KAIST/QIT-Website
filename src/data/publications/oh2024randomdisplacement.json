@@ -1,0 +1,58 @@
+{
+  "id": "oh2024randomdisplacement",
+  "title": "Entanglement-enabled advantage for learning a bosonic random displacement channel",
+  "authors": [
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "S. Chen",
+      "corresponding": true
+    },
+    {
+      "name": "Y. Wong"
+    },
+    {
+      "name": "S. Zhou"
+    },
+    {
+      "name": "H.-Y. Huang"
+    },
+    {
+      "name": "J. A. H. Nielsen"
+    },
+    {
+      "name": "Z.-H. Liu"
+    },
+    {
+      "name": "J. S. Neergaard-Nielsen"
+    },
+    {
+      "name": "U. L. Andersen"
+    },
+    {
+      "name": "L. Jiang"
+    },
+    {
+      "name": "J. Preskill"
+    }
+  ],
+  "year": 2024,
+  "order": 25,
+  "type": "journal",
+  "venue": "Physical Review Letters",
+  "citation": "Phys. Rev. Lett. 133, 230604 (2024)",
+  "arxiv": null,
+  "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.133.230604",
+  "tags": [
+    "quantum-learning",
+    "channel-learning",
+    "entanglement",
+    "continuous-variable"
+  ],
+  "highlight": true,
+  "note": null
+}

@@ -1,0 +1,34 @@
+{
+  "id": "go2026shallowboson",
+  "title": "On computational complexity and average-case hardness of shallow-depth boson sampling",
+  "authors": [
+    {
+      "name": "B. Go"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "H. Jeong",
+      "corresponding": true
+    }
+  ],
+  "year": 2026,
+  "order": 7,
+  "type": "journal",
+  "venue": "Quantum",
+  "citation": "Quantum 10, 2026 (2026)",
+  "arxiv": null,
+  "url": "https://quantum-journal.org/papers/q-2026-03-13-2026/",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "computational-complexity",
+    "linear-optics"
+  ],
+  "highlight": false,
+  "note": null
+}

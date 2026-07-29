@@ -1,0 +1,39 @@
+{
+  "id": "lee2024cmispreading",
+  "title": "Universal spreading of conditional mutual information in noisy random circuits",
+  "authors": [
+    {
+      "name": "S.-u. Lee",
+      "corresponding": true
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "Y. Wong"
+    },
+    {
+      "name": "S. Chen"
+    },
+    {
+      "name": "L. Jiang"
+    }
+  ],
+  "year": 2024,
+  "order": 26,
+  "type": "journal",
+  "venue": "Physical Review Letters",
+  "citation": "Phys. Rev. Lett. 133, 200402 (2024)",
+  "arxiv": null,
+  "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.133.200402",
+  "tags": [
+    "nisq",
+    "random-circuits",
+    "noise-and-loss",
+    "entanglement"
+  ],
+  "highlight": false,
+  "note": null
+}

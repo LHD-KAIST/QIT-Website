@@ -1,0 +1,27 @@
+{
+  "id": "oh2025bosonsamplingreview",
+  "title": "Recent theoretical and experimental progress on boson sampling",
+  "authors": [
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2025,
+  "order": 23,
+  "type": "journal",
+  "venue": "Current Optics and Photonics",
+  "citation": "Curr. Opt. Photon. 9, 1-18 (2025)",
+  "arxiv": null,
+  "url": "https://www.coppjournal.org/journal/view.html?uid=1651",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "linear-optics",
+    "experiment"
+  ],
+  "highlight": false,
+  "note": "Review article"
+}

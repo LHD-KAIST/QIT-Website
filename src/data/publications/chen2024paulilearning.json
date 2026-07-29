@@ -1,0 +1,40 @@
+{
+  "id": "chen2024paulilearning",
+  "title": "Tight bounds on Pauli channel learning without entanglement",
+  "authors": [
+    {
+      "name": "S. Chen",
+      "corresponding": true
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "S. Zhou"
+    },
+    {
+      "name": "H.-Y. Huang"
+    },
+    {
+      "name": "L. Jiang",
+      "corresponding": true
+    }
+  ],
+  "year": 2024,
+  "order": 31,
+  "type": "journal",
+  "venue": "Physical Review Letters",
+  "citation": "Phys. Rev. Lett. 132, 180805 (2024)",
+  "arxiv": null,
+  "url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.180805",
+  "tags": [
+    "quantum-learning",
+    "channel-learning",
+    "entanglement",
+    "sample-complexity"
+  ],
+  "highlight": false,
+  "note": null
+}

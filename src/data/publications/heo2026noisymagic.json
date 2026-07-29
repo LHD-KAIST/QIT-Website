@@ -1,0 +1,37 @@
+{
+  "id": "heo2026noisymagic",
+  "title": "Classical simulation of a quantum circuit with noisy magic inputs",
+  "authors": [
+    {
+      "name": "J. Heo",
+      "group": true,
+      "memberId": "heo-jiwon"
+    },
+    {
+      "name": "S. Park",
+      "group": true,
+      "memberId": "park-sojeong"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2026,
+  "order": 13,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2601.10111 (2026)",
+  "arxiv": "2601.10111",
+  "url": "https://arxiv.org/abs/2601.10111",
+  "tags": [
+    "nisq",
+    "classical-simulation",
+    "magic-states",
+    "noise-and-loss"
+  ],
+  "highlight": false,
+  "note": null
+}

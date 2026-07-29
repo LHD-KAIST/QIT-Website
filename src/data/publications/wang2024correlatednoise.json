@@ -1,0 +1,42 @@
+{
+  "id": "wang2024correlatednoise",
+  "title": "Exponential entanglement advantage in sensing correlated noise",
+  "authors": [
+    {
+      "name": "Y.-X. Wang",
+      "corresponding": true
+    },
+    {
+      "name": "J. Bringewatt"
+    },
+    {
+      "name": "A. Seif"
+    },
+    {
+      "name": "A. J. Brady"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "A. V. Gorshkov"
+    }
+  ],
+  "year": 2024,
+  "order": 27,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2410.05878 (2024)",
+  "arxiv": "2410.05878",
+  "url": "https://arxiv.org/abs/2410.05878",
+  "tags": [
+    "metrology",
+    "entanglement",
+    "noise-and-loss",
+    "distributed-sensing"
+  ],
+  "highlight": false,
+  "note": null
+}

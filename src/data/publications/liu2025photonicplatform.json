@@ -1,0 +1,68 @@
+{
+  "id": "liu2025photonicplatform",
+  "title": "Quantum learning advantage on a scalable photonic platform",
+  "authors": [
+    {
+      "name": "Z.-H. Liu"
+    },
+    {
+      "name": "R. Brunel"
+    },
+    {
+      "name": "E. E. B. Østergaard"
+    },
+    {
+      "name": "O. Cordero"
+    },
+    {
+      "name": "S. Chen"
+    },
+    {
+      "name": "Y. Wong"
+    },
+    {
+      "name": "J. A. H. Nielsen"
+    },
+    {
+      "name": "A. B. Bregnsbo"
+    },
+    {
+      "name": "S. Zhou"
+    },
+    {
+      "name": "H.-Y. Huang"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "L. Jiang"
+    },
+    {
+      "name": "J. Preskill"
+    },
+    {
+      "name": "J. S. Neergaard-Nielsen"
+    },
+    {
+      "name": "U. L. Andersen"
+    }
+  ],
+  "year": 2025,
+  "order": 19,
+  "type": "journal",
+  "venue": "Science",
+  "citation": "Science 389, 1332 (2025)",
+  "arxiv": null,
+  "url": "https://www.science.org/doi/10.1126/science.adv2560",
+  "tags": [
+    "quantum-learning",
+    "entanglement",
+    "continuous-variable",
+    "experiment"
+  ],
+  "highlight": true,
+  "note": null
+}

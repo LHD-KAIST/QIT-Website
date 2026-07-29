@@ -1,0 +1,32 @@
+{
+  "id": "sohn2026gkp",
+  "title": "When to Skip Syndrome Extraction in Surface-GKP Codes",
+  "authors": [
+    {
+      "name": "V. Sohn",
+      "group": true,
+      "memberId": "sohn-vaughan"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2026,
+  "order": 1,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2606.24469 (2026)",
+  "arxiv": "2606.24469",
+  "url": "https://arxiv.org/abs/2606.24469",
+  "tags": [
+    "nisq",
+    "error-correction",
+    "continuous-variable",
+    "noise-and-loss"
+  ],
+  "highlight": false,
+  "note": null
+}

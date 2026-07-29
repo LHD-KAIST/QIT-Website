@@ -1,0 +1,35 @@
+{
+  "id": "shin2026hamiltonian",
+  "title": "Heisenberg-limited Hamiltonian learning without short-time control",
+  "authors": [
+    {
+      "name": "M. Shin",
+      "group": true,
+      "memberId": "shin-myeongjin"
+    },
+    {
+      "name": "J. Lee"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    }
+  ],
+  "year": 2026,
+  "order": 2,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2604.27838 (2026)",
+  "arxiv": "2604.27838",
+  "url": "https://arxiv.org/abs/2604.27838",
+  "tags": [
+    "quantum-learning",
+    "metrology",
+    "hamiltonian-learning",
+    "sample-complexity"
+  ],
+  "highlight": false,
+  "note": null
+}

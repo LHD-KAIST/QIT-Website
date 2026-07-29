@@ -1,0 +1,41 @@
+{
+  "id": "kwon2026virtualpurification",
+  "title": "Virtual purification complements quantum error correction in quantum metrology",
+  "authors": [
+    {
+      "name": "H. Kwon"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "Y. Lim"
+    },
+    {
+      "name": "H. Jeong"
+    },
+    {
+      "name": "S.-W. Lee"
+    },
+    {
+      "name": "L. Jiang"
+    }
+  ],
+  "year": 2026,
+  "order": 5,
+  "type": "journal",
+  "venue": "npj Quantum Information",
+  "citation": "npj Quantum Inf. 12, 88 (2026)",
+  "arxiv": null,
+  "url": "https://www.nature.com/articles/s41534-026-01231-0",
+  "tags": [
+    "metrology",
+    "error-mitigation",
+    "error-correction",
+    "noise-and-loss"
+  ],
+  "highlight": false,
+  "note": null
+}

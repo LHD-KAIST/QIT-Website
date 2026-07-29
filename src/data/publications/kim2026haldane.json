@@ -1,0 +1,36 @@
+{
+  "id": "kim2026haldane",
+  "title": "Disentangling Haldane Phase by Generalized Clifford Circuits",
+  "authors": [
+    {
+      "name": "M. Kim",
+      "group": true,
+      "memberId": "kim-minsoo"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "D. Kim",
+      "corresponding": true
+    }
+  ],
+  "year": 2026,
+  "order": 0,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2607.03939 (2026)",
+  "arxiv": "2607.03939",
+  "url": "https://arxiv.org/abs/2607.03939",
+  "tags": [
+    "nisq",
+    "classical-simulation",
+    "tensor-networks",
+    "entanglement"
+  ],
+  "highlight": false,
+  "note": null
+}

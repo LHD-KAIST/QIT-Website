@@ -1,0 +1,36 @@
+{
+  "id": "go2024shallowdepth",
+  "title": "Exploring shallow-depth boson sampling: towards scalable quantum supremacy",
+  "authors": [
+    {
+      "name": "B. Go"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "L. Jiang"
+    },
+    {
+      "name": "H. Jeong"
+    }
+  ],
+  "year": 2024,
+  "order": 30,
+  "type": "journal",
+  "venue": "Physical Review A",
+  "citation": "Phys. Rev. A 109, 052613 (2024)",
+  "arxiv": null,
+  "url": "https://journals.aps.org/pra/abstract/10.1103/PhysRevA.109.052613",
+  "tags": [
+    "nisq",
+    "boson-sampling",
+    "computational-complexity",
+    "linear-optics"
+  ],
+  "highlight": false,
+  "note": "Editors' Suggestion"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "oh2026freefermion",
+  "title": "Classical simulation of free-fermionic dynamics and quantum chemistry with magic input",
+  "authors": [
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "M. Oszmaniec"
+    },
+    {
+      "name": "O. Reardon-Smith"
+    },
+    {
+      "name": "Z. Zimborás"
+    }
+  ],
+  "year": 2026,
+  "order": 3,
+  "type": "preprint",
+  "venue": "arXiv",
+  "citation": "arXiv:2604.26813 (2026)",
+  "arxiv": "2604.26813",
+  "url": "https://arxiv.org/abs/2604.26813",
+  "tags": [
+    "nisq",
+    "classical-simulation",
+    "magic-states",
+    "quantum-chemistry"
+  ],
+  "highlight": false,
+  "note": null
+}

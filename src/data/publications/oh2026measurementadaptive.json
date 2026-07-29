@@ -1,0 +1,30 @@
+{
+  "id": "oh2026measurementadaptive",
+  "title": "Classical algorithms for measurement-adaptive Gaussian circuits",
+  "authors": [
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "Y. Lim"
+    }
+  ],
+  "year": 2026,
+  "order": 8,
+  "type": "journal",
+  "venue": "PRX Quantum",
+  "citation": "PRX Quantum 7, 010329 (2026)",
+  "arxiv": null,
+  "url": "https://journals.aps.org/prxquantum/abstract/10.1103/rpl7-ylg8",
+  "tags": [
+    "nisq",
+    "classical-simulation",
+    "gaussian-states",
+    "linear-optics"
+  ],
+  "highlight": false,
+  "note": null
+}

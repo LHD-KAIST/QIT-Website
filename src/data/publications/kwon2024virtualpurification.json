@@ -1,0 +1,38 @@
+{
+  "id": "kwon2024virtualpurification",
+  "title": "Efficacy of virtual purification-based error mitigation on quantum metrology",
+  "authors": [
+    {
+      "name": "H. Kwon"
+    },
+    {
+      "name": "C. Oh",
+      "group": true,
+      "corresponding": true,
+      "memberId": "oh-changhun"
+    },
+    {
+      "name": "Y. Lim"
+    },
+    {
+      "name": "H. Jeong"
+    },
+    {
+      "name": "L. Jiang"
+    }
+  ],
+  "year": 2024,
+  "order": 32,
+  "type": "journal",
+  "venue": "Physical Review A",
+  "citation": "Phys. Rev. A 109, 022410 (2024)",
+  "arxiv": null,
+  "url": "https://journals.aps.org/pra/abstract/10.1103/PhysRevA.109.022410",
+  "tags": [
+    "metrology",
+    "error-mitigation",
+    "noise-and-loss"
+  ],
+  "highlight": false,
+  "note": null
+}
