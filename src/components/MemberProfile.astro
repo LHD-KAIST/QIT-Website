@@ -12,7 +12,7 @@
  *       (Only members with a website get the button — currently just the PI.)
  */
 import type { Member } from '../lib/collections';
-import { findMemberPhoto } from '../lib/assets';
+import { publicAssetExists, findMemberPhoto } from '../lib/assets';
 import Placeholder from './Placeholder.astro';
 
 interface Props {
@@ -20,11 +20,12 @@ interface Props {
 }
 const { member: m } = Astro.props;
 
-// Photo is matched by member id, in any common format (jpg/jpeg/png/webp).
-const photo = findMemberPhoto(m.id);
+// Photo: prefer the uploaded `photo` path (set by the CMS image field); fall
+// back to matching by member id in any common format (jpg/jpeg/png/webp).
+const photo = m.photo && publicAssetExists(m.photo) ? m.photo : findMemberPhoto(m.id);
 
 // Heading under the name: the formal title if there is one, otherwise the role.
-const heading = m.title ?? m.roleLabel;
+const heading = m.title || m.roleLabel;
 
 // Emails as "user@domain" strings (primary first).
 const emails = [...m.emails]

@@ -1,0 +1,31 @@
+{
+  "id": "kim-minsoo",
+  "name": "Minsoo Kim",
+  "authorKey": "M. Kim",
+  "role": "grad",
+  "roleLabel": "Graduate Student",
+  "order": 0,
+  "title": null,
+  "affiliation": "KAIST Physics",
+  "emails": [
+    {
+      "user": "nijgnuy",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/kim-minsoo.jpg",
+  "bio": "Minsoo studied physics in his undergraduate.",
+  "education": [],
+  "interests": [
+    "Quantum learning",
+    "Tensor network"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 3
+}

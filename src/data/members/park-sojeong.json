@@ -1,0 +1,31 @@
+{
+  "id": "park-sojeong",
+  "name": "Sojeong Park",
+  "authorKey": "S. Park",
+  "role": "grad",
+  "roleLabel": "Graduate Student",
+  "order": 1,
+  "title": null,
+  "affiliation": "KAIST Physics",
+  "emails": [
+    {
+      "user": "sojeong.park",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/park-sojeong.jpg",
+  "bio": "Sojeong studied physics as her major with a CS minor in her undergraduate.",
+  "education": [],
+  "interests": [
+    "Boson sampling",
+    "Quantum simulation"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 3
+}

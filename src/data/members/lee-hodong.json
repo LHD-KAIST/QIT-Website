@@ -1,0 +1,37 @@
+{
+  "id": "lee-hodong",
+  "name": "Hodong Lee",
+  "authorKey": null,
+  "role": "undergrad",
+  "roleLabel": "Undergraduate Student",
+  "order": 2,
+  "title": null,
+  "affiliation": "KAIST Physics",
+  "emails": [
+    {
+      "user": "ghehd1024",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/lee-hodong.jpg",
+  "bio": null,
+  "education": [
+    {
+      "period": null,
+      "position": "B.Sc. Physics & Computer Science",
+      "org": null
+    }
+  ],
+  "interests": [
+    "Quantum machine learning",
+    "Quantum information theory"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 4
+}

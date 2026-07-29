@@ -1,0 +1,31 @@
+{
+  "id": "jeon-sangwoo",
+  "name": "Sangwoo Jeon",
+  "authorKey": "S. Jeon",
+  "role": "alumni",
+  "roleLabel": "Research Assistant",
+  "order": 0,
+  "title": null,
+  "affiliation": "KAIST Physics",
+  "emails": [
+    {
+      "user": "swjeon",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/jeon-sangwoo.jpg",
+  "bio": "Sangwoo studied electrical engineering and mathematics in his undergraduate.",
+  "education": [],
+  "interests": [
+    "Quantum learning",
+    "Quantum information theory"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": "PhD student, University of Waterloo",
+  "roleOrder": 6
+}

@@ -1,0 +1,38 @@
+{
+  "id": "yang-eunbin",
+  "name": "Eunbin Yang",
+  "authorKey": null,
+  "role": "undergrad",
+  "roleLabel": "Undergraduate Student",
+  "order": 0,
+  "title": null,
+  "affiliation": "KAIST Physics",
+  "emails": [
+    {
+      "user": "ybse1013",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/yang-eunbin.jpg",
+  "bio": null,
+  "education": [
+    {
+      "period": null,
+      "position": "B.Sc. Physics",
+      "org": null
+    }
+  ],
+  "interests": [
+    "Quantum learning theory",
+    "Quantum information theory",
+    "Quantum algorithms"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 4
+}

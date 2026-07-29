@@ -1,0 +1,38 @@
+{
+  "id": "shin-myeongjin",
+  "name": "Myeongjin Shin",
+  "authorKey": "M. Shin",
+  "role": "undergrad",
+  "roleLabel": "Undergraduate Student",
+  "order": 3,
+  "title": null,
+  "affiliation": "KAIST Computer Science & Mathematics",
+  "emails": [
+    {
+      "user": "hanwoolmj",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/shin-myeongjin.jpg",
+  "bio": null,
+  "education": [
+    {
+      "period": null,
+      "position": "B.Sc. Computer Science & Mathematics",
+      "org": null
+    }
+  ],
+  "interests": [
+    "Quantum learning theory",
+    "Quantum property testing",
+    "Quantum algorithms"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 4
+}

@@ -1,0 +1,49 @@
+{
+  "id": "oh-changhun",
+  "name": "Changhun Oh",
+  "authorKey": "C. Oh",
+  "role": "pi",
+  "roleLabel": "Team Leader",
+  "order": 0,
+  "title": "Assistant Professor",
+  "affiliation": "Department of Physics, KAIST",
+  "emails": [
+    {
+      "user": "changhun0218",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    },
+    {
+      "user": "changhun0218",
+      "domain": "gmail.com",
+      "primary": false
+    }
+  ],
+  "photo": "/images/people/oh-changhun.jpg",
+  "bio": null,
+  "education": [
+    {
+      "period": "2024.04 – present",
+      "position": "Assistant Professor",
+      "org": "Department of Physics, Korea Advanced Institute of Science and Technology (KAIST)"
+    },
+    {
+      "period": "2020.03 – 2024.03",
+      "position": "Postdoctoral Scholar",
+      "org": "Pritzker School of Molecular Engineering, The University of Chicago"
+    }
+  ],
+  "interests": [],
+  "links": {
+    "scholar": "https://scholar.google.com/citations?user=_nHHP-cAAAAJ",
+    "website": "https://sites.google.com/view/changhun/home",
+    "arxiv": null,
+    "orcid": null
+  },
+  "period": {
+    "start": "2024-04",
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 1
+}

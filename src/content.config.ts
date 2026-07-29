@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { file } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 
 /**
  * Content Collections + schema validation.
@@ -48,9 +48,9 @@ const email = z.object({
 });
 
 const educationEntry = z.object({
-  period: z.string().nullable(),
   position: z.string(),
-  org: z.string().nullable(),
+  period: z.string().nullable().optional(),
+  org: z.string().nullable().optional(),
 });
 
 // links may be an empty object; every key is optional and may be null.
@@ -64,28 +64,31 @@ const links = z
   .partial();
 
 const members = defineCollection({
-  loader: file('src/data/members.json'),
+  // One file per member: src/data/members/<id>.json (edited via the /admin CMS).
+  loader: glob({ pattern: '**/*.json', base: './src/data/members' }),
+  // Required fields = the ones a member must have. The rest are optional so that
+  // a form (CMS) saving a profile with empty fields never breaks the build.
   schema: z.object({
     id: z.string(),
     name: z.string(),
-    authorKey: z.string().nullable(), // matches publications author name, or null
     role: z.enum(['pi', 'postdoc', 'grad', 'undergrad', 'ra', 'alumni']),
     roleLabel: z.string(),
-    order: z.number().int(), // order within a role group
-    title: z.string().nullable(),
     affiliation: z.string(),
-    emails: z.array(email),
-    photo: z.string(),
-    bio: z.string().nullable(),
-    education: z.array(educationEntry),
-    interests: z.array(z.string()),
-    links,
-    period: z.object({
-      start: z.string().nullable(),
-      end: z.string().nullable(),
-    }),
-    nextPosition: z.string().nullable(),
-    roleOrder: z.number().int(), // display order of the role group itself
+    order: z.number().default(0), // order within a role group
+    title: z.string().nullable().optional(),
+    emails: z.array(email).default([]),
+    photo: z.string().optional().default(''),
+    bio: z.string().nullable().optional(),
+    education: z.array(educationEntry).default([]),
+    interests: z.array(z.string()).default([]),
+    links: links.optional().default({}),
+    authorKey: z.string().nullable().optional(),
+    nextPosition: z.string().nullable().optional(),
+    period: z
+      .object({ start: z.string().nullable(), end: z.string().nullable() })
+      .partial()
+      .optional(),
+    roleOrder: z.number().optional(),
   }),
 });
 

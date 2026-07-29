@@ -1,0 +1,79 @@
+backend:
+  name: github
+  repo: LHD-KAIST/QIT-Website
+  branch: main
+  # OAuth login is handled by our own Netlify Functions (secrets stay in Netlify
+  # env vars, never in this public repo).
+  base_url: https://kaist-qit.netlify.app
+  auth_endpoint: .netlify/functions/auth
+
+# Uploaded member photos go here.
+media_folder: public/images/people
+public_folder: /images/people
+
+collections:
+  - name: members
+    label: Members
+    label_singular: Member
+    folder: src/data/members
+    extension: json
+    format: json
+    identifier_field: name
+    slug: '{{fields.id}}'
+    create: true
+    summary: '{{fields.name}} — {{fields.roleLabel}}'
+    fields:
+      - name: id
+        label: 'ID — lowercase, e.g. lee-hodong (do NOT change once set)'
+        widget: string
+      - { name: name, label: 'Name', widget: string }
+      - name: role
+        label: 'Role (which section)'
+        widget: select
+        options:
+          - { label: 'Team Leader', value: pi }
+          - { label: 'Postdoctoral Researcher', value: postdoc }
+          - { label: 'Graduate Student', value: grad }
+          - { label: 'Undergraduate Student', value: undergrad }
+          - { label: 'Alumni', value: alumni }
+      - { name: roleLabel, label: 'Role label (shown under the name)', widget: string }
+      - { name: title, label: 'Title — optional (e.g. Assistant Professor)', widget: string, required: false }
+      - { name: affiliation, label: 'Affiliation', widget: string }
+      - { name: order, label: 'Order within section (0 = first)', widget: number, value_type: int, default: 0, required: false }
+      - { name: photo, label: 'Photo', widget: image, required: false, choose_url: false }
+      - name: emails
+        label: 'Emails'
+        widget: list
+        required: false
+        summary: '{{fields.user}}@{{fields.domain}}'
+        fields:
+          - { name: user, label: 'user (before @)', widget: string }
+          - { name: domain, label: 'domain (after @)', widget: string, default: kaist.ac.kr }
+          - { name: primary, label: 'Primary', widget: boolean, default: true }
+      - name: education
+        label: 'Academic Career'
+        widget: list
+        required: false
+        summary: '{{fields.position}}'
+        fields:
+          - { name: position, label: 'Position / Degree', widget: string }
+          - { name: period, label: 'Period — optional (e.g. 2024 – present)', widget: string, required: false }
+          - { name: org, label: 'Organization — optional', widget: string, required: false }
+      - name: interests
+        label: 'Research Interests'
+        widget: list
+        required: false
+        field: { name: interest, label: 'Interest', widget: string }
+      - name: links
+        label: 'Links'
+        widget: object
+        required: false
+        collapsed: false
+        fields:
+          - { name: scholar, label: 'Google Scholar URL', widget: string, required: false }
+          - { name: website, label: 'Personal Homepage URL (adds the button under the photo)', widget: string, required: false }
+          - { name: arxiv, label: 'arXiv URL', widget: string, required: false }
+          - { name: orcid, label: 'ORCID URL', widget: string, required: false }
+      - { name: nextPosition, label: 'Next position — for Alumni (e.g. PhD student, U. of Waterloo)', widget: string, required: false }
+      - { name: authorKey, label: 'Author key — advanced (e.g. C. Oh)', widget: string, required: false }
+      - { name: bio, label: 'Bio — not shown on the site currently', widget: text, required: false }

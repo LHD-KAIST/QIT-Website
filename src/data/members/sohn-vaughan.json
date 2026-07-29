@@ -1,0 +1,30 @@
+{
+  "id": "sohn-vaughan",
+  "name": "Vaughan Sohn",
+  "authorKey": "V. Sohn",
+  "role": "grad",
+  "roleLabel": "Graduate Student",
+  "order": 3,
+  "title": null,
+  "affiliation": "KAIST Electrical Engineering",
+  "emails": [
+    {
+      "user": "webb41",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/sohn-vaughan.jpg",
+  "bio": "Vaughan studied computer science in her undergraduate.",
+  "education": [],
+  "interests": [
+    "Quantum error correction"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 3
+}

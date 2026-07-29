@@ -1,0 +1,38 @@
+{
+  "id": "kang-hyeongu",
+  "name": "Hyeongu Kang",
+  "authorKey": null,
+  "role": "undergrad",
+  "roleLabel": "Undergraduate Student",
+  "order": 1,
+  "title": null,
+  "affiliation": "KAIST Physics",
+  "emails": [
+    {
+      "user": "venator2021",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/kang-hyeongu.jpg",
+  "bio": null,
+  "education": [
+    {
+      "period": null,
+      "position": "B.Sc. Physics & Mathematics",
+      "org": null
+    }
+  ],
+  "interests": [
+    "Quantum metrology",
+    "Quantum learning theory",
+    "Quantum information theory"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 4
+}

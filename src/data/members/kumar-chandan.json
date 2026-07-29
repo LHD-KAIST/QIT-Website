@@ -1,0 +1,31 @@
+{
+  "id": "kumar-chandan",
+  "name": "Chandan Kumar",
+  "authorKey": null,
+  "role": "postdoc",
+  "roleLabel": "Postdoctoral Researcher",
+  "order": 0,
+  "title": null,
+  "affiliation": "KAIST Physics",
+  "emails": [
+    {
+      "user": "chandan",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/kumar-chandan.jpg",
+  "bio": "Chandan studied physics for an integrated BS-MS at IISER Mohali and subsequently completed his PhD at the same institute.",
+  "education": [],
+  "interests": [
+    "Continuous variable quantum information theory",
+    "Quantum metrology and quantum communication"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 2
+}

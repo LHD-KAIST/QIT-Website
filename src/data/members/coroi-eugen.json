@@ -1,0 +1,31 @@
+{
+  "id": "coroi-eugen",
+  "name": "Eugen Coroi",
+  "authorKey": "E. Coroi",
+  "role": "grad",
+  "roleLabel": "Graduate Student",
+  "order": 4,
+  "title": null,
+  "affiliation": "KAIST Physics",
+  "emails": [
+    {
+      "user": "eugen",
+      "domain": "kaist.ac.kr",
+      "primary": true
+    }
+  ],
+  "photo": "/images/people/coroi-eugen.jpg",
+  "bio": "Eugen studied physics with a minor in artificial intelligence as an undergraduate.",
+  "education": [],
+  "interests": [
+    "Quantum learning theory",
+    "Quantum algorithms"
+  ],
+  "links": {},
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "nextPosition": null,
+  "roleOrder": 3
+}
