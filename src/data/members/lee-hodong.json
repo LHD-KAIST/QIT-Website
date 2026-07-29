@@ -1,12 +1,12 @@
 {
   "id": "lee-hodong",
   "name": "Hodong Lee",
-  "authorKey": null,
-  "role": "undergrad",
-  "roleLabel": "Undergraduate Student",
-  "order": 2,
-  "title": null,
+  "role": "grad",
+  "roleLabel": "Graduate Student",
+  "title": "",
   "affiliation": "KAIST Physics",
+  "order": 2,
+  "photo": "/images/people/lee-hodong.jpg",
   "emails": [
     {
       "user": "ghehd1024",
@@ -14,13 +14,11 @@
       "primary": true
     }
   ],
-  "photo": "/images/people/lee-hodong.jpg",
-  "bio": null,
   "education": [
     {
-      "period": null,
       "position": "B.Sc. Physics & Computer Science",
-      "org": null
+      "period": "",
+      "org": ""
     }
   ],
   "interests": [
@@ -28,10 +26,12 @@
     "Quantum information theory"
   ],
   "links": {},
+  "nextPosition": "",
+  "authorKey": "",
+  "bio": "",
   "period": {
     "start": null,
     "end": null
   },
-  "nextPosition": null,
   "roleOrder": 4
 }
