@@ -1,15 +1,19 @@
 ---
-// Single site-wide footer: a bold "Location" title and the address.
+// Single site-wide footer: a bold "Location" title + address, and a small
+// "Admin" link (bottom-right) to the editor at /admin.
 ---
 
 <footer class="ft">
   <div class="wrap ft__inner">
-    <h2 class="ft__title">Location</h2>
-    <address class="ft__addr">
-      Department of Physics in KAIST<br />
-      KAIST KI building (E4) A321 (Professor's office), A322 and A323 (Students' office)<br />
-      291 Daehak-ro, Yuseong-gu, Daejeon 34141, South Korea
-    </address>
+    <div>
+      <h2 class="ft__title">Location</h2>
+      <address class="ft__addr">
+        Department of Physics in KAIST<br />
+        KAIST KI building (E4) A321 (Professor's office), A322 and A323 (Students' office)<br />
+        291 Daehak-ro, Yuseong-gu, Daejeon 34141, South Korea
+      </address>
+    </div>
+    <a class="ft__admin" href="/admin">Admin →</a>
   </div>
 </footer>
 
@@ -21,8 +25,9 @@
   .ft__inner {
     padding-block: clamp(32px, 5vw, 48px);
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
   }
   .ft__title {
     margin: 0;
@@ -37,5 +42,25 @@
     line-height: 1.7;
     color: var(--muted);
     max-width: 74ch;
+    margin-top: 16px;
+  }
+  .ft__admin {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .ft__admin:hover {
+    color: var(--cyan);
+  }
+
+  @media (max-width: 640px) {
+    .ft__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
   }
 </style>
