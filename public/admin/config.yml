@@ -88,7 +88,7 @@ collections:
     slug: '{{fields.id}}'
     create: true
     summary: '{{fields.year}} · {{fields.title}}'
-    description: '➕ To ADD a paper: go to  /admin/paper  — paste a DOI or arXiv link and it auto-fills everything. This list is mainly for EDITING existing papers (click any paper below).'
+    description: 'Add a paper: click "New" (top-right), fill the fields, pick at least 1 tag, then Save. Faster: /admin/paper auto-fills from a DOI/arXiv link.'
     fields:
       - { name: id, label: 'File id (do NOT change once set)', widget: string }
       - { name: title, label: 'Title', widget: string }
