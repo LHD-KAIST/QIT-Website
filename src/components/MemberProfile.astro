@@ -92,8 +92,6 @@ const career = m.education.map((e) =>
       ))}
     </ul>
 
-    {m.bio && <p class="profile__bio">{m.bio}</p>}
-
     {
       career.length > 0 && (
         <>
@@ -208,14 +206,6 @@ const career = m.education.map((e) =>
     font-family: var(--font-display);
     font-size: 15px;
     color: var(--muted);
-  }
-  .profile__bio {
-    margin: 16px 0 0;
-    font-size: 15px;
-    line-height: 1.7;
-    color: color-mix(in srgb, var(--ink) 82%, var(--ground));
-    max-width: 64ch;
-    text-wrap: pretty;
   }
 
   @media (max-width: 720px) {
