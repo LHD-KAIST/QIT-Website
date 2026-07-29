@@ -4,8 +4,8 @@ backend:
   branch: main
   # OAuth login is handled by our own Netlify Functions (secrets stay in Netlify
   # env vars, never in this public repo).
-  base_url: https://kaist-qit.netlify.app
-  auth_endpoint: .netlify/functions/auth
+  base_url: https://kaist-qit.pages.dev
+  auth_endpoint: auth
 
 # Uploaded member photos go here.
 media_folder: public/images/people

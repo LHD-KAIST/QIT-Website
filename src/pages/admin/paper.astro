@@ -139,7 +139,7 @@ const BRANCH = 'main';
         if (!id) return;
         msg.textContent = 'Fetching…';
         try {
-          const res = await fetch('/.netlify/functions/fetch-paper?id=' + encodeURIComponent(id));
+          const res = await fetch('/fetch-paper?id=' + encodeURIComponent(id));
           const d = await res.json();
           if (d.error) {
             msg.textContent = '⚠ ' + d.error;
