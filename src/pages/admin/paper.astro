@@ -6,6 +6,7 @@ const members = (await getMembers()).map((m) => ({
   id: m.id,
   name: m.name,
   authorKey: m.authorKey || '',
+  role: m.role,
 }));
 const tags = (await getTags()).map((t) => ({ id: t.id, label: t.label }));
 
@@ -48,7 +49,7 @@ const BRANCH = 'main';
         <label>Title <input name="title" type="text" /></label>
 
         <fieldset>
-          <legend>Authors <small>(order matters; set each author's lab member + corresponding)</small></legend>
+          <legend>Authors <small>(in order). For each: <b>None</b> = external · <b>Lab member</b> = shown bold · <b>PI</b> = bold + ∗ (corresponding)</small></legend>
           <div id="authors"></div>
         </fieldset>
 
@@ -89,6 +90,7 @@ const BRANCH = 'main';
     <script>
       const members = JSON.parse(document.getElementById('members-data').textContent);
       const tags = JSON.parse(document.getElementById('tags-data').textContent);
+      const pi = members.find((m) => m.role === 'pi');
       const $ = (s, r = document) => r.querySelector(s);
       const msg = $('#msg');
 
@@ -120,17 +122,19 @@ const BRANCH = 'main';
 
       let authorState = [];
       function renderAuthors() {
-        const opts = (sel) =>
-          '<option value="">— external —</option>' +
-          members
-            .map((m) => `<option value="${m.id}" ${sel === m.id ? 'selected' : ''}>${m.name}</option>`)
-            .join('');
+        const radio = (i, val, label, cur) =>
+          `<label class="chk"><input type="radio" data-i="${i}" class="a-role" name="role-${i}" value="${val}" ${
+            cur === val ? 'checked' : ''
+          }/> ${label}</label>`;
         $('#authors').innerHTML = authorState
           .map(
             (a, i) => `<div class="author">
               <input data-i="${i}" class="a-name" type="text" value="${a.name.replace(/"/g, '&quot;')}" />
-              <select data-i="${i}" class="a-member">${opts(a.memberId)}</select>
-              <label class="chk"><input data-i="${i}" class="a-corr" type="checkbox" ${a.corr ? 'checked' : ''}/> corr∗</label>
+              <div class="a-roles">
+                ${radio(i, 'none', 'None', a.role)}
+                ${radio(i, 'member', 'Lab member', a.role)}
+                ${radio(i, 'pi', 'PI', a.role)}
+              </div>
             </div>`,
           )
           .join('');
@@ -147,12 +151,15 @@ const BRANCH = 'main';
             msg.textContent = '⚠ ' + d.error;
             return;
           }
-          // author matching
+          // author matching -> None / Lab member / PI
           authorState = (d.authors || []).map((full) => {
             const m = matchMember(full);
-            return m
-              ? { name: m.authorKey || toShort(full), memberId: m.id, corr: false }
-              : { name: toShort(full), memberId: '', corr: false };
+            if (!m) return { name: toShort(full), memberId: '', role: 'none' };
+            return {
+              name: m.authorKey || toShort(full),
+              memberId: m.id,
+              role: m.role === 'pi' ? 'pi' : 'member',
+            };
           });
           $('#form').hidden = false;
           $('[name=title]').value = d.title || '';
@@ -176,11 +183,11 @@ const BRANCH = 'main';
         const f = $('#form');
         const authors = authorState.map((a) => {
           const o = { name: a.name };
-          if (a.memberId) {
+          if (a.role === 'member' || a.role === 'pi') {
             o.group = true;
-            o.memberId = a.memberId;
+            if (a.memberId) o.memberId = a.memberId;
           }
-          if (a.corr) o.corresponding = true;
+          if (a.role === 'pi') o.corresponding = true;
           return o;
         });
         const chosenTags = [...$('#tags').querySelectorAll('input:checked')].map((c) => c.value);
@@ -211,17 +218,18 @@ const BRANCH = 'main';
       $('#src').addEventListener('keydown', (e) => e.key === 'Enter' && (e.preventDefault(), doFetch()));
       $('#authors').addEventListener('input', (e) => {
         const i = e.target.dataset.i;
-        if (i == null) return;
-        if (e.target.classList.contains('a-name')) authorState[i].name = e.target.value;
-        if (e.target.classList.contains('a-member')) {
-          authorState[i].memberId = e.target.value;
-          const m = members.find((x) => x.id === e.target.value);
-          if (m && m.authorKey) {
-            authorState[i].name = m.authorKey;
-            renderAuthors();
-          }
+        if (i != null && e.target.classList.contains('a-name')) {
+          authorState[i].name = e.target.value;
+          buildPreview();
         }
-        if (e.target.classList.contains('a-corr')) authorState[i].corr = e.target.checked;
+      });
+      $('#authors').addEventListener('change', (e) => {
+        const i = e.target.dataset.i;
+        if (i == null || !e.target.classList.contains('a-role')) return;
+        const role = e.target.value;
+        authorState[i].role = role;
+        if (role === 'pi') authorState[i].memberId = pi ? pi.id : 'oh-changhun';
+        else if (role === 'none') authorState[i].memberId = '';
         buildPreview();
       });
       $('#form').addEventListener('input', buildPreview);
@@ -263,7 +271,9 @@ const BRANCH = 'main';
       .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
       fieldset { border: 1px solid #c9d3d5; border-radius: 3px; padding: 12px; }
       legend { font-size: 12px; color: #5c6b70; }
-      .author { display: grid; grid-template-columns: 1.2fr 1.4fr auto; gap: 8px; margin-bottom: 6px; align-items: center; }
+      .author { display: grid; grid-template-columns: 1fr auto; gap: 14px; margin-bottom: 8px; align-items: center; }
+      .a-roles { display: flex; gap: 14px; white-space: nowrap; }
+      .a-roles .chk { gap: 5px; }
       .tags { display: flex; flex-wrap: wrap; gap: 6px 14px; }
       .tags .chk { font-size: 12.5px; }
       pre { background: #0f1416; color: #e4eaea; padding: 14px; border-radius: 4px; overflow: auto; font-size: 12px; }
