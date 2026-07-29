@@ -6,30 +6,44 @@
     <meta name="robots" content="noindex" />
     <title>QIT Site — Content Editor</title>
     <style>
-      /* Always-visible shortcut to the auto-fill "Add a paper" tool. */
-      .add-paper-fab {
+      /* Shortcut to the auto-fill "Add a paper" tool. Shown (top-right) only
+         while the Publications collection is open. */
+      .add-paper-btn {
         position: fixed;
-        right: 20px;
-        bottom: 20px;
+        top: 52px;
+        right: 24px;
         z-index: 99999;
+        display: none;
         background: #145661;
         color: #fff;
-        font: 600 14px/1 system-ui, -apple-system, sans-serif;
-        padding: 14px 18px;
-        border-radius: 24px;
+        font: 600 13px/1 system-ui, -apple-system, sans-serif;
+        padding: 11px 16px;
+        border-radius: 6px;
         text-decoration: none;
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       }
-      .add-paper-fab:hover {
+      .add-paper-btn:hover {
         background: #0e3d45;
       }
     </style>
   </head>
   <body>
-    <a href="/admin/paper" class="add-paper-fab">+ Add a paper</a>
+    <a href="/admin/paper" id="addPaperBtn" class="add-paper-btn">+ Add a paper</a>
 
     <!-- Sveltia CMS: a form-based editor that commits to GitHub. Login is gated
          by GitHub OAuth + repo write access (see /admin/config.yml). -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+
+    <script>
+      // Only show the button on the Publications collection view.
+      const _btn = document.getElementById('addPaperBtn');
+      function _toggleAddPaper() {
+        _btn.style.display = location.hash.includes('/collections/publications')
+          ? 'inline-block'
+          : 'none';
+      }
+      window.addEventListener('hashchange', _toggleAddPaper);
+      _toggleAddPaper();
+    </script>
   </body>
 </html>
