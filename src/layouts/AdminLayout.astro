@@ -1,0 +1,257 @@
+---
+/**
+ * Shared shell for the self-hosted admin tools (/admin, /admin/member,
+ * /admin/paper). These pages are plain static pages: the lists render public
+ * repo data, and every "edit"/"create" action deep-links to github.com, where
+ * GitHub handles sign-in and enforces write access. No credentials or tokens
+ * are ever handled here — the pages are public, but only repo collaborators can
+ * actually commit a change.
+ */
+interface Props {
+  title: string;
+  active?: 'home' | 'member' | 'paper';
+}
+const { title, active } = Astro.props;
+
+const NAV = [
+  { key: 'home', label: 'Home', href: '/admin' },
+  { key: 'member', label: 'Members', href: '/admin/member' },
+  { key: 'paper', label: 'Papers', href: '/admin/paper' },
+] as const;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{title} — QIT admin</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="/admin">QIT admin</a>
+        <nav>
+          {
+            NAV.map((n) => (
+              <a href={n.href} class={active === n.key ? 'nav-link active' : 'nav-link'}>
+                {n.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+
+    <style is:global>
+      :root {
+        --bg: #ecf0f1;
+        --surface: #fff;
+        --border: #c9d3d5;
+        --ink: #121719;
+        --ink-soft: #5c6b70;
+        --accent: #145661;
+        --accent-dark: #0e3d45;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        margin: 0;
+      }
+
+      /* --- top navigation ---------------------------------------------------- */
+      .topbar {
+        background: var(--accent);
+        color: #fff;
+      }
+      .topbar-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        height: 52px;
+      }
+      .brand {
+        font-weight: 700;
+        font-size: 15px;
+        color: #fff;
+        text-decoration: none;
+        letter-spacing: 0.02em;
+      }
+      .topbar nav {
+        display: flex;
+        gap: 4px;
+      }
+      .nav-link {
+        color: #cfe3e6;
+        text-decoration: none;
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 4px;
+      }
+      .nav-link:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+      }
+      .nav-link.active {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+        font-weight: 600;
+      }
+
+      /* --- page shell -------------------------------------------------------- */
+      .wrap {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 32px 24px 80px;
+      }
+      h1 {
+        font-size: 28px;
+        margin: 0 0 8px;
+      }
+      h2 {
+        font-size: 18px;
+        margin: 32px 0 12px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+      }
+      .note {
+        color: var(--ink-soft);
+        font-size: 12.5px;
+        margin: 4px 0 8px;
+      }
+      .steps {
+        color: #1c2427;
+        line-height: 1.7;
+        font-size: 15px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 16px 20px 16px 40px;
+        margin: 8px 0;
+      }
+      .steps li {
+        margin-bottom: 6px;
+      }
+
+      /* --- forms ------------------------------------------------------------- */
+      .row {
+        display: flex;
+        gap: 10px;
+        margin: 12px 0;
+        flex-wrap: wrap;
+      }
+      input[type='text'],
+      input[type='number'],
+      input[type='email'],
+      select {
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        font-size: 14px;
+        background: var(--surface);
+        color: var(--ink);
+      }
+      button {
+        padding: 9px 16px;
+        border: 1px solid var(--accent);
+        background: var(--surface);
+        color: var(--accent);
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      button:hover {
+        background: #f2f7f8;
+      }
+      button.primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      button.primary:hover {
+        background: var(--accent-dark);
+      }
+      .msg {
+        font-size: 13px;
+        color: #3b474b;
+        min-height: 18px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 13px;
+        color: var(--ink-soft);
+      }
+      label input,
+      label select {
+        width: 100%;
+      }
+      label.inline,
+      label.chk {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        color: var(--ink);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      fieldset {
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 12px;
+        margin: 0;
+      }
+      legend {
+        font-size: 12px;
+        color: var(--ink-soft);
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+      }
+      .tags .chk {
+        font-size: 12.5px;
+      }
+      pre {
+        background: #0f1416;
+        color: #e4eaea;
+        padding: 14px;
+        border-radius: 4px;
+        overflow: auto;
+        font-size: 12px;
+      }
+      @media (max-width: 640px) {
+        .grid,
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>

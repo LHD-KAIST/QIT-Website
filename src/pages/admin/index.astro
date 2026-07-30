@@ -1,0 +1,76 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getMembers, getPublications } from '../../lib/collections';
+
+const memberCount = (await getMembers()).length;
+const paperCount = (await getPublications()).length;
+---
+
+<AdminLayout title="Home" active="home">
+  <h1>QIT content editor</h1>
+  <p class="note">
+    Edits here open <b>github.com</b>, where you sign in and commit. Only repo
+    collaborators can save changes. The live site updates ~1–2 min after a commit.
+  </p>
+
+  <div class="cards">
+    <a class="card" href="/admin/member">
+      <div class="card-title">Members</div>
+      <div class="card-desc">Add, edit, and reorder people ({memberCount} now).</div>
+      <div class="card-cta">Open →</div>
+    </a>
+    <a class="card" href="/admin/paper">
+      <div class="card-title">Papers</div>
+      <div class="card-desc">
+        Add a paper from a DOI/arXiv link, or edit existing ones ({paperCount} now).
+      </div>
+      <div class="card-cta">Open →</div>
+    </a>
+  </div>
+
+  <style>
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px;
+      text-decoration: none;
+      color: var(--ink);
+      transition:
+        border-color 0.12s,
+        box-shadow 0.12s;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 10px rgba(20, 86, 97, 0.12);
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+    .card-cta {
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    @media (max-width: 640px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</AdminLayout>

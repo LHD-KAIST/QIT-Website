@@ -65,7 +65,7 @@ const links = z
   .partial();
 
 const members = defineCollection({
-  // One file per member: src/data/members/<id>.json (edited via the /admin CMS).
+  // One file per member: src/data/members/<id>.json (edited via /admin/member).
   loader: glob({ pattern: '**/*.json', base: './src/data/members' }),
   // Required fields = the ones a member must have. The rest are optional so that
   // a form (CMS) saving a profile with empty fields never breaks the build.

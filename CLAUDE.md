@@ -32,15 +32,26 @@ maintainable. Read this first, then `README.md` (non-dev guide) and `MEMBER-GUID
 - `join.astro` — image + one centered invitation line.
 
 ## Admin / content editing
-- `public/admin/` — **Sveltia CMS** (`index.html` + `config.yml`). Form-based editor that
-  commits to GitHub. Login = GitHub OAuth; only repo collaborators can edit.
-- `src/pages/admin/paper.astro` — **"Add a paper" tool**: paste a DOI/arXiv link →
-  auto-fills from `/fetch-paper` → per-author None/Lab member/PI selector + tags →
-  "Create on GitHub" opens a pre-filled new file.
-- `functions/{auth,callback,fetch-paper}.js` — **Cloudflare Pages Functions**.
-  auth/callback = GitHub OAuth for the CMS; fetch-paper = arXiv + Crossref metadata.
-  Secrets `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` live in Cloudflare env vars (not the repo).
-  (`netlify/` + `netlify.toml` are stale leftovers from the old host — can be deleted.)
+Self-hosted admin under `src/pages/admin/` (built as normal Astro pages). **No CMS,
+no login, no secrets in our code**: the lists render public repo data, and every
+"Create"/"Edit" action deep-links to **github.com**, where GitHub handles sign-in and
+enforces write access (only repo collaborators can commit). The `/admin` pages are
+public but harmless — a stranger can build JSON but cannot commit it. Uses `AdminLayout`.
+- `src/layouts/AdminLayout.astro` — shared shell (top nav Home/Members/Papers + styles).
+- `src/pages/admin/index.astro` — hub at `/admin` linking the two tools.
+- `src/pages/admin/member.astro` — **Members**: list grouped by section (PI → POSTDOC →
+  GRAD → UNDERGRAD → ALUMNI, uppercase, alphabetical) with per-member *Edit on GitHub*
+  deep-links, plus an *Add a new member* form → "Create on GitHub" (pre-filled new file).
+- `src/pages/admin/paper.astro` — **Papers**: "Add a paper" (paste DOI/arXiv → auto-fills
+  from `/fetch-paper` → per-author None/Lab member/PI selector + tags → "Create on GitHub"),
+  plus a year-grouped list of existing papers with *Edit on GitHub* deep-links.
+- Deep-link URLs: `github.com/<repo>/new/<branch>?filename=…&value=…` (create) and
+  `github.com/<repo>/edit/<branch>/<path>` (edit). `REPO`/`BRANCH` are constants in each page.
+- `functions/fetch-paper.js` — **Cloudflare Pages Function**: arXiv + Crossref metadata for
+  the paper tool. (Sveltia CMS + its GitHub-OAuth functions `auth.js`/`callback.js` and
+  `public/admin/` were removed when the admin moved to this deep-link model; the Cloudflare
+  `GITHUB_CLIENT_ID`/`GITHUB_CLIENT_SECRET` env vars are now unused and can be deleted there.
+  `netlify/` + `netlify.toml` are stale leftovers from the old host — can be deleted.)
 
 ## Commands
 ```

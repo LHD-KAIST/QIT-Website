@@ -1,0 +1,341 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getMembers } from '../../lib/collections';
+import { buildMemberHrefs } from '../../lib/people';
+
+const REPO = 'LHD-KAIST/QIT-Website';
+const BRANCH = 'main';
+
+const members = await getMembers();
+const hrefs = buildMemberHrefs(members);
+
+// Section order (rank) + short uppercase labels, as requested. Any member whose
+// role isn't listed still shows up under "OTHER" so nothing is ever hidden.
+const ROLE_ORDER: [string, string][] = [
+  ['pi', 'PI'],
+  ['postdoc', 'POSTDOC'],
+  ['grad', 'GRAD'],
+  ['undergrad', 'UNDERGRAD'],
+  ['ra', 'RA'],
+  ['alumni', 'ALUMNI'],
+];
+const known = new Set(ROLE_ORDER.map(([r]) => r));
+
+const groups = ROLE_ORDER.map(([role, label]) => ({
+  label,
+  members: members
+    .filter((m) => m.role === role)
+    .sort((a, b) => a.name.localeCompare(b.name)),
+})).filter((g) => g.members.length > 0);
+
+const orphans = members
+  .filter((m) => !known.has(m.role))
+  .sort((a, b) => a.name.localeCompare(b.name));
+if (orphans.length) groups.push({ label: 'OTHER', members: orphans });
+
+const editUrl = (id: string) =>
+  `https://github.com/${REPO}/edit/${BRANCH}/src/data/members/${id}.json`;
+---
+
+<AdminLayout title="Members" active="member">
+  <h1>Members</h1>
+  <p class="note">
+    Grouped by section (PI → POSTDOC → GRAD → UNDERGRAD → ALUMNI), alphabetical by
+    name. <b>Edit</b> opens the file on GitHub — change it and press
+    <b>Commit changes</b>. You must be signed in with edit access.
+  </p>
+
+  {
+    groups.map((g) => (
+      <section class="grp">
+        <h2>
+          {g.label} <span class="count">{g.members.length}</span>
+        </h2>
+        <ul class="mlist">
+          {g.members.map((m) => (
+            <li class="mrow">
+              <div class="minfo">
+                <span class="mname">{m.name}</span>
+                <span class="mmeta">
+                  {m.roleLabel}
+                  {m.title ? ` · ${m.title}` : ''} · <code>{m.id}</code>
+                </span>
+              </div>
+              <div class="macts">
+                {hrefs.get(m.id) && (
+                  <a class="mlink" href={hrefs.get(m.id)} target="_blank" rel="noopener">
+                    View
+                  </a>
+                )}
+                <a class="mlink edit" href={editUrl(m.id)} target="_blank" rel="noopener">
+                  Edit on GitHub →
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+
+  <h2 id="new">Add a new member</h2>
+  <p class="note">
+    Fill the essentials → <b>Create on GitHub →</b> opens a new file, pre-filled.
+    You can complete the rest (photo, education, more emails) there or later via
+    <b>Edit</b>. Upload the photo separately into <code>public/images/people/</code>.
+  </p>
+
+  <form id="form">
+    <div class="grid-2">
+      <label>Full name <input name="name" type="text" placeholder="Hodong Lee" /></label>
+      <label>File id <small>(filename; auto-suggested)</small>
+        <input name="id" type="text" placeholder="lee-hodong" /></label>
+    </div>
+
+    <div class="grid">
+      <label>Section
+        <select name="role">
+          <option value="pi">PI (Team Leader)</option>
+          <option value="postdoc">Postdoc</option>
+          <option value="grad" selected>Graduate</option>
+          <option value="undergrad">Undergraduate</option>
+          <option value="alumni">Alumni</option>
+          <option value="ra">RA</option>
+        </select>
+      </label>
+      <label>Role label <small>(shown under name)</small>
+        <input name="roleLabel" type="text" placeholder="Graduate Student" /></label>
+      <label>Order in section <small>(0 = first)</small>
+        <input name="order" type="number" value="0" /></label>
+    </div>
+
+    <div class="grid">
+      <label>Title <small>(optional)</small><input name="title" type="text" placeholder="Assistant Professor" /></label>
+      <label>Affiliation <input name="affiliation" type="text" value="KAIST Physics" /></label>
+      <label>Author key <small>(e.g. C. Oh)</small><input name="authorKey" type="text" /></label>
+    </div>
+
+    <fieldset>
+      <legend>Primary email</legend>
+      <div class="grid-2">
+        <label>user <small>(before @)</small><input name="emailUser" type="text" placeholder="hodong1024" /></label>
+        <label>domain <small>(after @)</small><input name="emailDomain" type="text" value="kaist.ac.kr" /></label>
+      </div>
+    </fieldset>
+
+    <label>Photo path <small>(optional; upload the image first)</small>
+      <input name="photo" type="text" placeholder="/images/people/lee-hodong.jpg" /></label>
+
+    <label>Research interests <small>(comma-separated)</small>
+      <input name="interests" type="text" placeholder="Quantum information theory, Quantum algorithms" /></label>
+
+    <fieldset>
+      <legend>Links <small>(optional)</small></legend>
+      <div class="grid-2">
+        <label>Google Scholar URL<input name="scholar" type="text" /></label>
+        <label>Personal homepage URL<input name="website" type="text" /></label>
+        <label>arXiv URL<input name="arxiv" type="text" /></label>
+        <label>ORCID URL<input name="orcid" type="text" /></label>
+      </div>
+    </fieldset>
+
+    <label>Next position <small>(Alumni only, e.g. PhD student, U. of Waterloo)</small>
+      <input name="nextPosition" type="text" /></label>
+    <label>Bio <small>(optional)</small><input name="bio" type="text" /></label>
+
+    <div class="row">
+      <button id="createBtn" type="button" class="primary">Create on GitHub →</button>
+      <button id="copyBtn" type="button">Copy JSON</button>
+    </div>
+    <p id="msg" class="msg"></p>
+    <pre id="preview"></pre>
+  </form>
+
+  <script define:vars={{ REPO, BRANCH }}>
+    const $ = (s, r = document) => r.querySelector(s);
+    const f = $('#form');
+    const msg = $('#msg');
+
+    const ROLE_LABELS = {
+      pi: 'Team Leader',
+      postdoc: 'Postdoctoral Researcher',
+      grad: 'Graduate Student',
+      undergrad: 'Undergraduate Student',
+      alumni: 'Alumni',
+      ra: 'Research Assistant',
+    };
+
+    function suggestId(name) {
+      const parts = name.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      if (parts.length < 2) return (parts[0] || '').replace(/[^a-z0-9-]/g, '');
+      const last = parts[parts.length - 1];
+      const first = parts.slice(0, -1).join('-');
+      return (last + '-' + first).replace(/[^a-z0-9-]/g, '');
+    }
+
+    function collect() {
+      const v = (n) => (f[n]?.value ?? '').trim();
+      const id = v('id');
+      const emailUser = v('emailUser');
+      const interests = v('interests')
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const obj = {
+        id,
+        name: v('name'),
+        role: v('role'),
+        roleLabel: v('roleLabel'),
+        affiliation: v('affiliation'),
+        order: Number(v('order')) || 0,
+        title: v('title'),
+        emails: emailUser
+          ? [{ user: emailUser, domain: v('emailDomain') || 'kaist.ac.kr', primary: true }]
+          : [],
+        photo: v('photo'),
+        bio: v('bio') || null,
+        education: [],
+        interests,
+        links: {
+          scholar: v('scholar') || null,
+          website: v('website') || null,
+          arxiv: v('arxiv') || null,
+          orcid: v('orcid') || null,
+        },
+        authorKey: v('authorKey') || null,
+        nextPosition: v('nextPosition') || null,
+      };
+      return obj;
+    }
+
+    function buildPreview() {
+      $('#preview').textContent = JSON.stringify(collect(), null, 2);
+    }
+
+    // auto-suggest id + roleLabel + photo as the user types
+    f.name.addEventListener('input', () => {
+      if (!f.id.dataset.touched) f.id.value = suggestId(f.name.value);
+      syncPhoto();
+      buildPreview();
+    });
+    f.id.addEventListener('input', () => {
+      f.id.dataset.touched = '1';
+      syncPhoto();
+      buildPreview();
+    });
+    f.role.addEventListener('change', () => {
+      if (!f.roleLabel.dataset.touched) f.roleLabel.value = ROLE_LABELS[f.role.value] || '';
+      buildPreview();
+    });
+    f.roleLabel.addEventListener('input', () => (f.roleLabel.dataset.touched = '1'));
+    function syncPhoto() {
+      if (!f.photo.dataset.touched)
+        f.photo.value = f.id.value ? `/images/people/${f.id.value}.jpg` : '';
+    }
+    f.photo.addEventListener('input', () => (f.photo.dataset.touched = '1'));
+    f.addEventListener('input', buildPreview);
+
+    // seed the role label for the default selection
+    f.roleLabel.value = ROLE_LABELS[f.role.value] || '';
+
+    $('#createBtn').addEventListener('click', () => {
+      const obj = collect();
+      if (!obj.id) return (msg.textContent = '⚠ Please set a File id.');
+      if (!obj.name) return (msg.textContent = '⚠ Please set a name.');
+      const content = JSON.stringify(obj, null, 2) + '\n';
+      const url =
+        `https://github.com/${REPO}/new/${BRANCH}` +
+        `?filename=${encodeURIComponent('src/data/members/' + obj.id + '.json')}` +
+        `&value=${encodeURIComponent(content)}`;
+      window.open(url, '_blank');
+    });
+    $('#copyBtn').addEventListener('click', async () => {
+      await navigator.clipboard.writeText(JSON.stringify(collect(), null, 2) + '\n');
+      msg.textContent = '✓ JSON copied.';
+    });
+
+    buildPreview();
+  </script>
+
+  <style>
+    .grp {
+      margin-bottom: 4px;
+    }
+    h2 .count {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      background: #dfe7e8;
+      border-radius: 10px;
+      padding: 1px 8px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    .mlist {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+    }
+    .mname {
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .mmeta {
+      display: block;
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin-top: 2px;
+    }
+    .mmeta code,
+    .note code {
+      font-size: 11.5px;
+      background: #e4ebec;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+    .macts {
+      display: flex;
+      gap: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .mlink {
+      font-size: 13px;
+      text-decoration: none;
+      color: var(--accent);
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .mlink:hover {
+      border-color: var(--accent);
+    }
+    .mlink.edit {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .mlink.edit:hover {
+      background: var(--accent-dark);
+    }
+    @media (max-width: 560px) {
+      .mrow {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</AdminLayout>
