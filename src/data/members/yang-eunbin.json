@@ -1,12 +1,12 @@
 {
   "id": "yang-eunbin",
   "name": "Eunbin Yang",
-  "authorKey": null,
-  "role": "undergrad",
+  "role": "grad",
   "roleLabel": "Undergraduate Student",
-  "order": 0,
-  "title": null,
+  "title": "",
   "affiliation": "KAIST Physics",
+  "order": 0,
+  "photo": "/images/people/yang-eunbin.jpg",
   "emails": [
     {
       "user": "ybse1013",
@@ -14,13 +14,11 @@
       "primary": true
     }
   ],
-  "photo": "/images/people/yang-eunbin.jpg",
-  "bio": null,
   "education": [
     {
-      "period": null,
       "position": "B.Sc. Physics",
-      "org": null
+      "period": "",
+      "org": ""
     }
   ],
   "interests": [
@@ -29,10 +27,12 @@
     "Quantum algorithms"
   ],
   "links": {},
+  "nextPosition": "",
+  "authorKey": "",
+  "bio": "",
   "period": {
     "start": null,
     "end": null
   },
-  "nextPosition": null,
   "roleOrder": 4
 }
