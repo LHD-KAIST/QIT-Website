@@ -18,13 +18,12 @@ const tags = (await getTags()).map((t) => ({ id: t.id, label: t.label }));
 const pubs = await getPublications();
 const years = [...new Set(pubs.map((p) => p.year))].sort((a, b) => b - a);
 const byYear = years.map((y) => ({ year: y, papers: pubs.filter((p) => p.year === y) }));
-const editUrl = (id: string) =>
-  `https://github.com/${REPO}/edit/${BRANCH}/src/data/publications/${id}.json`;
 ---
 
 <AdminLayout title="Papers" active="paper">
   <script type="application/json" id="members-data" set:html={JSON.stringify(members)}></script>
   <script type="application/json" id="tags-data" set:html={JSON.stringify(tags)}></script>
+  <script type="application/json" id="papers-full" set:html={JSON.stringify(pubs)}></script>
 
   <h1>Add a paper</h1>
   <ol class="steps">
@@ -81,7 +80,8 @@ const editUrl = (id: string) =>
     <label>File id <small>(filename; auto-suggested)</small> <input name="id" type="text" /></label>
 
     <div class="row">
-      <button id="createBtn" type="button" class="primary">Create on GitHub →</button>
+      <button id="createBtn" type="button" class="primary">Save (commit)</button>
+      <button id="newPaperBtn" type="button" hidden>+ New paper</button>
       <button id="copyBtn" type="button">Copy JSON</button>
     </div>
     <pre id="preview"></pre>
@@ -89,7 +89,7 @@ const editUrl = (id: string) =>
 
   <h2>Edit existing papers</h2>
   <p class="note">
-    <b>Edit</b> opens the file on GitHub — change it and press <b>Commit changes</b>.
+    <b>Edit</b> loads the paper into the form above; <b>Save</b> commits the change.
     {pubs.length} papers.
   </p>
   {
@@ -106,9 +106,9 @@ const editUrl = (id: string) =>
                   {p.highlight ? ' · ★ highlighted' : ''} · <code>{p.id}</code>
                 </span>
               </div>
-              <a class="mlink edit" href={editUrl(p.id)} target="_blank" rel="noopener">
-                Edit on GitHub →
-              </a>
+              <button type="button" class="mlink edit editPaperBtn" data-id={p.id}>
+                Edit
+              </button>
             </li>
           ))}
         </ul>
@@ -122,6 +122,10 @@ const editUrl = (id: string) =>
     const pi = members.find((m) => m.role === 'pi');
     const $ = (s, r = document) => r.querySelector(s);
     const msg = $('#msg');
+    const pById = Object.fromEntries(
+      JSON.parse(document.getElementById('papers-full').textContent).map((p) => [p.id, p]),
+    );
+    let mode = 'create'; // 'create' | 'update'
 
     // "Zheng-Hao Liu" -> "Z.-H. Liu"
     function initials(given) {
@@ -191,6 +195,10 @@ const editUrl = (id: string) =>
           };
         });
         $('#form').hidden = false;
+        mode = 'create';
+        $('[name=id]').readOnly = false;
+        $('#newPaperBtn').hidden = true;
+        $('#createBtn').textContent = 'Save (commit)';
         $('[name=title]').value = d.title || '';
         $('[name=year]').value = d.year || '';
         $('[name=type]').value = d.type || 'journal';
@@ -264,15 +272,88 @@ const editUrl = (id: string) =>
     $('#form').addEventListener('input', buildPreview);
     $('#tags').addEventListener('change', buildPreview);
 
-    $('#createBtn').addEventListener('click', () => {
+    function loadPaper(id) {
+      const p = pById[id];
+      if (!p) return;
+      mode = 'update';
+      $('#form').hidden = false;
+      $('[name=title]').value = p.title || '';
+      $('[name=year]').value = p.year ?? '';
+      $('[name=order]').value = p.order ?? 0;
+      $('[name=type]').value = p.type || 'journal';
+      $('[name=venue]').value = p.venue || '';
+      $('[name=citation]').value = p.citation || '';
+      $('[name=url]').value = p.url || '';
+      $('[name=arxiv]').value = p.arxiv || '';
+      $('[name=note]').value = p.note || '';
+      $('[name=highlight]').checked = !!p.highlight;
+      $('[name=id]').value = p.id;
+      $('[name=id]').readOnly = true;
+      authorState = (p.authors || []).map((a) => ({
+        name: a.name,
+        memberId: a.memberId || '',
+        role: a.corresponding ? 'pi' : a.group ? 'member' : 'none',
+      }));
+      renderAuthors();
+      const chosen = new Set(p.tags || []);
+      $('#tags')
+        .querySelectorAll('input[type=checkbox]')
+        .forEach((c) => (c.checked = chosen.has(c.value)));
+      $('#newPaperBtn').hidden = false;
+      $('#createBtn').textContent = 'Save changes (commit)';
+      buildPreview();
+      msg.textContent = 'Editing ' + p.id + '.';
+      document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
+    }
+    function newPaper() {
+      mode = 'create';
+      $('#form').reset();
+      authorState = [];
+      renderAuthors();
+      $('#tags')
+        .querySelectorAll('input[type=checkbox]')
+        .forEach((c) => (c.checked = false));
+      $('[name=id]').readOnly = false;
+      $('#form').hidden = true;
+      $('#createBtn').textContent = 'Save (commit)';
+      $('#newPaperBtn').hidden = true;
+      msg.textContent = 'Paste a DOI/arXiv above to start a new paper.';
+    }
+
+    document.querySelectorAll('.editPaperBtn').forEach((b) =>
+      b.addEventListener('click', () => loadPaper(b.dataset.id)),
+    );
+    $('#newPaperBtn').addEventListener('click', newPaper);
+
+    $('#createBtn').addEventListener('click', async () => {
       const obj = collect();
       if (!obj.id) return (msg.textContent = '⚠ Please set a File id.');
-      const content = JSON.stringify(obj, null, 2) + '\n';
-      const url =
-        `https://github.com/${REPO}/new/${BRANCH}` +
-        `?filename=${encodeURIComponent('src/data/publications/' + obj.id + '.json')}` +
-        `&value=${encodeURIComponent(content)}`;
-      window.open(url, '_blank');
+      if (!obj.title) return (msg.textContent = '⚠ Please set a title.');
+      const btn = $('#createBtn');
+      btn.disabled = true;
+      msg.textContent = 'Saving…';
+      try {
+        const content = JSON.stringify(obj, null, 2) + '\n';
+        const res = await window.qitAdmin.saveFile({
+          path: 'src/data/publications/' + obj.id + '.json',
+          content,
+          message: (mode === 'update' ? 'Update paper ' : 'Add paper ') + obj.id,
+        });
+        msg.textContent =
+          '✓ ' +
+          (res.created ? 'Created' : 'Updated') +
+          '. The site rebuilds in ~1–2 min — reload then to refresh the list.';
+        if (mode === 'create') {
+          mode = 'update';
+          $('[name=id]').readOnly = true;
+          $('#newPaperBtn').hidden = false;
+          $('#createBtn').textContent = 'Save changes (commit)';
+        }
+      } catch (e) {
+        msg.textContent = '⚠ ' + e.message;
+      } finally {
+        btn.disabled = false;
+      }
     });
     $('#copyBtn').addEventListener('click', async () => {
       await navigator.clipboard.writeText(JSON.stringify(collect(), null, 2) + '\n');

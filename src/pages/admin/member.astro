@@ -3,14 +3,11 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 import { getMembers } from '../../lib/collections';
 import { buildMemberHrefs } from '../../lib/people';
 
-const REPO = 'LHD-KAIST/QIT-Website';
-const BRANCH = 'main';
-
 const members = await getMembers();
 const hrefs = buildMemberHrefs(members);
 
-// Section order (rank) + short uppercase labels, as requested. Any member whose
-// role isn't listed still shows up under "OTHER" so nothing is ever hidden.
+// Section order (rank) + short uppercase labels. Any member whose role isn't
+// listed still shows up under "OTHER" so nothing is ever hidden.
 const ROLE_ORDER: [string, string][] = [
   ['pi', 'PI'],
   ['postdoc', 'POSTDOC'],
@@ -32,17 +29,16 @@ const orphans = members
   .filter((m) => !known.has(m.role))
   .sort((a, b) => a.name.localeCompare(b.name));
 if (orphans.length) groups.push({ label: 'OTHER', members: orphans });
-
-const editUrl = (id: string) =>
-  `https://github.com/${REPO}/edit/${BRANCH}/src/data/members/${id}.json`;
 ---
 
 <AdminLayout title="Members" active="member">
+  <script type="application/json" id="members-full" set:html={JSON.stringify(members)}></script>
+
   <h1>Members</h1>
   <p class="note">
     Grouped by section (PI → POSTDOC → GRAD → UNDERGRAD → ALUMNI), alphabetical by
-    name. <b>Edit</b> opens the file on GitHub — change it and press
-    <b>Commit changes</b>. You must be signed in with edit access.
+    name. <b>Edit</b> loads a person into the form below; <b>Save</b> commits straight
+    to the repo (you sign in with GitHub once). The site updates ~1–2 min later.
   </p>
 
   {
@@ -53,7 +49,7 @@ const editUrl = (id: string) =>
         </h2>
         <ul class="mlist">
           {g.members.map((m) => (
-            <li class="mrow">
+            <li class="mrow" data-id={m.id}>
               <div class="minfo">
                 <span class="mname">{m.name}</span>
                 <span class="mmeta">
@@ -67,9 +63,9 @@ const editUrl = (id: string) =>
                     View
                   </a>
                 )}
-                <a class="mlink edit" href={editUrl(m.id)} target="_blank" rel="noopener">
-                  Edit on GitHub →
-                </a>
+                <button type="button" class="mlink edit editBtn" data-id={m.id}>
+                  Edit
+                </button>
               </div>
             </li>
           ))}
@@ -78,17 +74,13 @@ const editUrl = (id: string) =>
     ))
   }
 
-  <h2 id="new">Add a new member</h2>
-  <p class="note">
-    Fill the essentials → <b>Create on GitHub →</b> opens a new file, pre-filled.
-    You can complete the rest (photo, education, more emails) there or later via
-    <b>Edit</b>. Upload the photo separately into <code>public/images/people/</code>.
-  </p>
+  <h2 id="editor">Add / edit a member</h2>
+  <p class="note" id="editorMode">Creating a new member. Photos: upload separately into <code>public/images/people/</code>.</p>
 
   <form id="form">
     <div class="grid-2">
       <label>Full name <input name="name" type="text" placeholder="Hodong Lee" /></label>
-      <label>File id <small>(filename; auto-suggested)</small>
+      <label>File id <small>(filename; locked when editing)</small>
         <input name="id" type="text" placeholder="lee-hodong" /></label>
     </div>
 
@@ -116,11 +108,15 @@ const editUrl = (id: string) =>
     </div>
 
     <fieldset>
-      <legend>Primary email</legend>
-      <div class="grid-2">
-        <label>user <small>(before @)</small><input name="emailUser" type="text" placeholder="hodong1024" /></label>
-        <label>domain <small>(after @)</small><input name="emailDomain" type="text" value="kaist.ac.kr" /></label>
-      </div>
+      <legend>Emails</legend>
+      <div id="emails"></div>
+      <button type="button" id="addEmail" class="mini">+ email</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Academic career</legend>
+      <div id="edu"></div>
+      <button type="button" id="addEdu" class="mini">+ entry</button>
     </fieldset>
 
     <label>Photo path <small>(optional; upload the image first)</small>
@@ -144,14 +140,17 @@ const editUrl = (id: string) =>
     <label>Bio <small>(optional)</small><input name="bio" type="text" /></label>
 
     <div class="row">
-      <button id="createBtn" type="button" class="primary">Create on GitHub →</button>
+      <button id="saveBtn" type="button" class="primary">Save (commit)</button>
+      <button id="newBtn" type="button" hidden>+ New member</button>
       <button id="copyBtn" type="button">Copy JSON</button>
     </div>
     <p id="msg" class="msg"></p>
     <pre id="preview"></pre>
   </form>
 
-  <script define:vars={{ REPO, BRANCH }}>
+  <script>
+    const ALL = JSON.parse(document.getElementById('members-full').textContent);
+    const byId = Object.fromEntries(ALL.map((m) => [m.id, m]));
     const $ = (s, r = document) => r.querySelector(s);
     const f = $('#form');
     const msg = $('#msg');
@@ -165,36 +164,137 @@ const editUrl = (id: string) =>
       ra: 'Research Assistant',
     };
 
+    let mode = 'create'; // 'create' | 'update'
+    let currentDoc = null; // full loaded doc (preserves fields not in the form)
+    let emailRows = [{ user: '', domain: 'kaist.ac.kr', primary: true }];
+    let eduRows = [];
+
+    const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+
+    function renderEmails() {
+      $('#emails').innerHTML = emailRows
+        .map(
+          (e, i) => `<div class="lrow">
+            <input class="e-user" data-i="${i}" placeholder="user" value="${esc(e.user)}" />
+            <span class="at">@</span>
+            <input class="e-domain" data-i="${i}" placeholder="domain" value="${esc(e.domain)}" />
+            <label class="chk"><input type="checkbox" class="e-primary" data-i="${i}" ${e.primary ? 'checked' : ''} /> primary</label>
+            <button type="button" class="rm" data-kind="email" data-i="${i}">×</button>
+          </div>`,
+        )
+        .join('');
+    }
+    function renderEdu() {
+      $('#edu').innerHTML = eduRows
+        .map(
+          (e, i) => `<div class="lrow edu">
+            <input class="d-position" data-i="${i}" placeholder="Position / Degree" value="${esc(e.position)}" />
+            <input class="d-period" data-i="${i}" placeholder="Period (e.g. 2024 – present)" value="${esc(e.period)}" />
+            <input class="d-org" data-i="${i}" placeholder="Organization" value="${esc(e.org)}" />
+            <button type="button" class="rm" data-kind="edu" data-i="${i}">×</button>
+          </div>`,
+        )
+        .join('');
+    }
+
+    function fill(obj) {
+      const g = (k, d = '') => (obj[k] == null ? d : obj[k]);
+      f.name.value = g('name');
+      f.id.value = g('id');
+      f.role.value = g('role', 'grad');
+      f.roleLabel.value = g('roleLabel');
+      f.order.value = g('order', 0);
+      f.title.value = g('title');
+      f.affiliation.value = g('affiliation', 'KAIST Physics');
+      f.authorKey.value = g('authorKey');
+      f.photo.value = g('photo');
+      f.interests.value = (obj.interests || []).join(', ');
+      const links = obj.links || {};
+      f.scholar.value = links.scholar || '';
+      f.website.value = links.website || '';
+      f.arxiv.value = links.arxiv || '';
+      f.orcid.value = links.orcid || '';
+      f.nextPosition.value = g('nextPosition');
+      f.bio.value = g('bio');
+      emailRows = (obj.emails && obj.emails.length ? obj.emails : [{ user: '', domain: 'kaist.ac.kr', primary: true }]).map(
+        (e) => ({ user: e.user || '', domain: e.domain || 'kaist.ac.kr', primary: !!e.primary }),
+      );
+      eduRows = (obj.education || []).map((e) => ({
+        position: e.position || '',
+        period: e.period || '',
+        org: e.org || '',
+      }));
+      renderEmails();
+      renderEdu();
+    }
+
+    function loadMember(id) {
+      const m = byId[id];
+      if (!m) return;
+      currentDoc = m;
+      mode = 'update';
+      fill(m);
+      f.id.readOnly = true;
+      f.id.dataset.touched = '1';
+      f.roleLabel.dataset.touched = '1';
+      f.photo.dataset.touched = '1';
+      $('#editorMode').innerHTML = `Editing <b>${esc(m.name)}</b> (<code>${esc(m.id)}</code>). Save commits an update to this file.`;
+      $('#saveBtn').textContent = 'Save changes (commit)';
+      $('#newBtn').hidden = false;
+      buildPreview();
+      document.getElementById('editor').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function newMember() {
+      currentDoc = null;
+      mode = 'create';
+      f.reset();
+      f.id.readOnly = false;
+      delete f.id.dataset.touched;
+      delete f.roleLabel.dataset.touched;
+      delete f.photo.dataset.touched;
+      emailRows = [{ user: '', domain: 'kaist.ac.kr', primary: true }];
+      eduRows = [];
+      f.roleLabel.value = ROLE_LABELS[f.role.value] || '';
+      renderEmails();
+      renderEdu();
+      $('#editorMode').innerHTML =
+        'Creating a new member. Photos: upload separately into <code>public/images/people/</code>.';
+      $('#saveBtn').textContent = 'Save (commit)';
+      $('#newBtn').hidden = true;
+      msg.textContent = '';
+      buildPreview();
+    }
+
     function suggestId(name) {
       const parts = name.trim().toLowerCase().split(/\s+/).filter(Boolean);
       if (parts.length < 2) return (parts[0] || '').replace(/[^a-z0-9-]/g, '');
-      const last = parts[parts.length - 1];
-      const first = parts.slice(0, -1).join('-');
-      return (last + '-' + first).replace(/[^a-z0-9-]/g, '');
+      return (parts[parts.length - 1] + '-' + parts.slice(0, -1).join('-')).replace(/[^a-z0-9-]/g, '');
     }
 
     function collect() {
       const v = (n) => (f[n]?.value ?? '').trim();
-      const id = v('id');
-      const emailUser = v('emailUser');
-      const interests = v('interests')
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-      const obj = {
-        id,
+      const base = mode === 'update' && currentDoc ? { ...currentDoc } : {};
+      const emails = emailRows
+        .filter((e) => e.user.trim())
+        .map((e) => ({ user: e.user.trim(), domain: (e.domain || 'kaist.ac.kr').trim(), primary: !!e.primary }));
+      const education = eduRows
+        .filter((e) => e.position.trim())
+        .map((e) => ({ position: e.position.trim(), period: e.period.trim(), org: e.org.trim() }));
+      const interests = v('interests').split(',').map((s) => s.trim()).filter(Boolean);
+      return {
+        ...base,
+        id: v('id'),
         name: v('name'),
         role: v('role'),
         roleLabel: v('roleLabel'),
         affiliation: v('affiliation'),
         order: Number(v('order')) || 0,
         title: v('title'),
-        emails: emailUser
-          ? [{ user: emailUser, domain: v('emailDomain') || 'kaist.ac.kr', primary: true }]
-          : [],
+        emails,
         photo: v('photo'),
         bio: v('bio') || null,
-        education: [],
+        education,
         interests,
         links: {
           scholar: v('scholar') || null,
@@ -205,22 +305,70 @@ const editUrl = (id: string) =>
         authorKey: v('authorKey') || null,
         nextPosition: v('nextPosition') || null,
       };
-      return obj;
     }
-
     function buildPreview() {
       $('#preview').textContent = JSON.stringify(collect(), null, 2);
     }
 
-    // auto-suggest id + roleLabel + photo as the user types
+    // --- list edit buttons ---
+    document.querySelectorAll('.editBtn').forEach((b) =>
+      b.addEventListener('click', () => loadMember(b.dataset.id)),
+    );
+
+    // --- repeatable rows ---
+    $('#addEmail').addEventListener('click', () => {
+      emailRows.push({ user: '', domain: 'kaist.ac.kr', primary: emailRows.length === 0 });
+      renderEmails();
+      buildPreview();
+    });
+    $('#addEdu').addEventListener('click', () => {
+      eduRows.push({ position: '', period: '', org: '' });
+      renderEdu();
+      buildPreview();
+    });
+    $('#emails').addEventListener('input', (e) => {
+      const i = e.target.dataset.i;
+      if (i == null) return;
+      if (e.target.classList.contains('e-user')) emailRows[i].user = e.target.value;
+      else if (e.target.classList.contains('e-domain')) emailRows[i].domain = e.target.value;
+      else if (e.target.classList.contains('e-primary')) emailRows[i].primary = e.target.checked;
+      buildPreview();
+    });
+    $('#edu').addEventListener('input', (e) => {
+      const i = e.target.dataset.i;
+      if (i == null) return;
+      if (e.target.classList.contains('d-position')) eduRows[i].position = e.target.value;
+      else if (e.target.classList.contains('d-period')) eduRows[i].period = e.target.value;
+      else if (e.target.classList.contains('d-org')) eduRows[i].org = e.target.value;
+      buildPreview();
+    });
+    function onRemove(e) {
+      const btn = e.target.closest('.rm');
+      if (!btn) return;
+      const i = Number(btn.dataset.i);
+      if (btn.dataset.kind === 'email') {
+        emailRows.splice(i, 1);
+        renderEmails();
+      } else {
+        eduRows.splice(i, 1);
+        renderEdu();
+      }
+      buildPreview();
+    }
+    $('#emails').addEventListener('click', onRemove);
+    $('#edu').addEventListener('click', onRemove);
+
+    // --- auto-suggest (create mode only) ---
     f.name.addEventListener('input', () => {
-      if (!f.id.dataset.touched) f.id.value = suggestId(f.name.value);
-      syncPhoto();
+      if (mode === 'create' && !f.id.dataset.touched) {
+        f.id.value = suggestId(f.name.value);
+        syncPhoto();
+      }
       buildPreview();
     });
     f.id.addEventListener('input', () => {
       f.id.dataset.touched = '1';
-      syncPhoto();
+      if (mode === 'create') syncPhoto();
       buildPreview();
     });
     f.role.addEventListener('change', () => {
@@ -229,32 +377,48 @@ const editUrl = (id: string) =>
     });
     f.roleLabel.addEventListener('input', () => (f.roleLabel.dataset.touched = '1'));
     function syncPhoto() {
-      if (!f.photo.dataset.touched)
-        f.photo.value = f.id.value ? `/images/people/${f.id.value}.jpg` : '';
+      if (!f.photo.dataset.touched) f.photo.value = f.id.value ? `/images/people/${f.id.value}.jpg` : '';
     }
     f.photo.addEventListener('input', () => (f.photo.dataset.touched = '1'));
     f.addEventListener('input', buildPreview);
 
-    // seed the role label for the default selection
-    f.roleLabel.value = ROLE_LABELS[f.role.value] || '';
-
-    $('#createBtn').addEventListener('click', () => {
-      const obj = collect();
-      if (!obj.id) return (msg.textContent = '⚠ Please set a File id.');
-      if (!obj.name) return (msg.textContent = '⚠ Please set a name.');
-      const content = JSON.stringify(obj, null, 2) + '\n';
-      const url =
-        `https://github.com/${REPO}/new/${BRANCH}` +
-        `?filename=${encodeURIComponent('src/data/members/' + obj.id + '.json')}` +
-        `&value=${encodeURIComponent(content)}`;
-      window.open(url, '_blank');
-    });
+    // --- actions ---
+    $('#newBtn').addEventListener('click', newMember);
     $('#copyBtn').addEventListener('click', async () => {
       await navigator.clipboard.writeText(JSON.stringify(collect(), null, 2) + '\n');
       msg.textContent = '✓ JSON copied.';
     });
+    $('#saveBtn').addEventListener('click', async () => {
+      const obj = collect();
+      if (!obj.id) return (msg.textContent = '⚠ Please set a File id.');
+      if (!obj.name) return (msg.textContent = '⚠ Please set a name.');
+      const btn = $('#saveBtn');
+      btn.disabled = true;
+      msg.textContent = 'Saving…';
+      try {
+        const content = JSON.stringify(obj, null, 2) + '\n';
+        const res = await window.qitAdmin.saveFile({
+          path: 'src/data/members/' + obj.id + '.json',
+          content,
+          message: (mode === 'update' ? 'Update member ' : 'Add member ') + obj.name,
+        });
+        msg.textContent =
+          '✓ ' + (res.created ? 'Created' : 'Updated') + '. The site rebuilds in ~1–2 min — reload then to refresh the list.';
+        if (mode === 'create') {
+          mode = 'update';
+          currentDoc = obj;
+          f.id.readOnly = true;
+          $('#newBtn').hidden = false;
+        }
+      } catch (e) {
+        msg.textContent = '⚠ ' + e.message;
+      } finally {
+        btn.disabled = false;
+      }
+    });
 
-    buildPreview();
+    // init
+    newMember();
   </script>
 
   <style>
@@ -300,7 +464,8 @@ const editUrl = (id: string) =>
       margin-top: 2px;
     }
     .mmeta code,
-    .note code {
+    .note code,
+    #editorMode code {
       font-size: 11.5px;
       background: #e4ebec;
       padding: 1px 5px;
@@ -319,6 +484,8 @@ const editUrl = (id: string) =>
       padding: 5px 10px;
       border: 1px solid var(--border);
       border-radius: 4px;
+      background: var(--surface);
+      cursor: pointer;
     }
     .mlink:hover {
       border-color: var(--accent);
@@ -331,10 +498,39 @@ const editUrl = (id: string) =>
     .mlink.edit:hover {
       background: var(--accent-dark);
     }
+    .lrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .lrow.edu {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+    }
+    .lrow input[type='text'],
+    .lrow input:not([type]) {
+      flex: 1;
+    }
+    .lrow .at {
+      color: var(--ink-soft);
+    }
+    .lrow .rm {
+      padding: 4px 9px;
+      border-color: #d7b2b2;
+      color: #a23b3b;
+    }
+    button.mini {
+      padding: 5px 10px;
+      font-size: 12.5px;
+    }
     @media (max-width: 560px) {
       .mrow {
         flex-direction: column;
         align-items: flex-start;
+      }
+      .lrow.edu {
+        grid-template-columns: 1fr;
       }
     }
   </style>

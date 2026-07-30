@@ -13,6 +13,9 @@ interface Props {
 }
 const { title, active } = Astro.props;
 
+const REPO = 'LHD-KAIST/QIT-Website';
+const BRANCH = 'main';
+
 const NAV = [
   { key: 'home', label: 'Home', href: '/admin' },
   { key: 'member', label: 'Members', href: '/admin/member' },
@@ -41,11 +44,134 @@ const NAV = [
             ))
           }
         </nav>
+        <div class="auth" id="authArea">
+          <span class="auth-status" id="authStatus" hidden></span>
+          <button id="signInBtn" type="button" class="auth-btn">Sign in with GitHub</button>
+          <button id="signOutBtn" type="button" class="auth-btn ghost" hidden>Sign out</button>
+        </div>
       </div>
     </header>
     <main class="wrap">
       <slot />
     </main>
+
+    <script define:vars={{ REPO, BRANCH }}>
+      // Shared admin auth + GitHub write helper. Editing pages call
+      // window.qitAdmin.saveFile(...) which signs in on demand (GitHub OAuth
+      // popup, handled by /auth + /callback) and commits straight to the repo
+      // via the GitHub Contents API. The client secret never leaves Cloudflare;
+      // GitHub enforces that only repo collaborators can actually write.
+      (function () {
+        const API = 'https://api.github.com';
+        const KEY = 'qit_gh_token';
+        const listeners = [];
+
+        const getToken = () => sessionStorage.getItem(KEY) || null;
+        function setToken(t) {
+          if (t) sessionStorage.setItem(KEY, t);
+          else sessionStorage.removeItem(KEY);
+          renderAuth();
+          listeners.forEach((fn) => fn(getToken()));
+        }
+
+        function signIn() {
+          return new Promise((resolve, reject) => {
+            const w = 640,
+              h = 720;
+            const left = window.screenX + (window.outerWidth - w) / 2;
+            const top = window.screenY + (window.outerHeight - h) / 2;
+            const popup = window.open(
+              '/auth',
+              'gh-oauth',
+              `width=${w},height=${h},left=${left},top=${top}`,
+            );
+            if (!popup) return reject(new Error('Popup blocked — allow popups and retry.'));
+            function onMsg(e) {
+              if (typeof e.data !== 'string') return;
+              if (e.data.indexOf('authorizing:github') === 0) {
+                // handshake: reply so the popup sends the token back
+                popup.postMessage('authorizing:github', '*');
+                return;
+              }
+              const m = e.data.match(/^authorization:github:(success|error):([\s\S]+)$/);
+              if (!m) return;
+              window.removeEventListener('message', onMsg);
+              try {
+                popup.close();
+              } catch (_) {}
+              let data = {};
+              try {
+                data = JSON.parse(m[2]);
+              } catch (_) {}
+              if (m[1] === 'success' && data.token) {
+                setToken(data.token);
+                resolve(data.token);
+              } else {
+                reject(new Error(data.error || 'Sign-in failed.'));
+              }
+            }
+            window.addEventListener('message', onMsg);
+          });
+        }
+
+        function authHeaders() {
+          return {
+            Authorization: 'Bearer ' + getToken(),
+            Accept: 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28',
+          };
+        }
+        function b64(str) {
+          const bytes = new TextEncoder().encode(str);
+          let bin = '';
+          for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+          return btoa(bin);
+        }
+
+        async function getSha(path) {
+          const r = await fetch(
+            `${API}/repos/${REPO}/contents/${encodeURIComponent(path).replace(/%2F/g, '/')}?ref=${BRANCH}`,
+            { headers: authHeaders() },
+          );
+          if (r.status === 404) return null;
+          if (!r.ok) throw new Error('Could not read file (' + r.status + ').');
+          return (await r.json()).sha;
+        }
+
+        // Create or update `path` with `content`, committing to the repo.
+        async function saveFile({ path, content, message }) {
+          if (!getToken()) await signIn();
+          const sha = await getSha(path);
+          const body = { message, content: b64(content), branch: BRANCH };
+          if (sha) body.sha = sha;
+          const r = await fetch(
+            `${API}/repos/${REPO}/contents/${encodeURIComponent(path).replace(/%2F/g, '/')}`,
+            { method: 'PUT', headers: { ...authHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify(body) },
+          );
+          if (!r.ok) {
+            const e = await r.json().catch(() => ({}));
+            throw new Error(e.message || 'Save failed (' + r.status + ').');
+          }
+          return { ...(await r.json()), created: !sha };
+        }
+
+        // --- topbar UI ---
+        const $ = (id) => document.getElementById(id);
+        function renderAuth() {
+          const on = !!getToken();
+          $('signInBtn').hidden = on;
+          $('signOutBtn').hidden = !on;
+          const st = $('authStatus');
+          st.hidden = !on;
+          if (on) st.textContent = 'Signed in';
+        }
+        $('signInBtn').addEventListener('click', () => signIn().catch((e) => alert(e.message)));
+        $('signOutBtn').addEventListener('click', () => setToken(null));
+        renderAuth();
+
+        window.qitAdmin = { REPO, BRANCH, getToken, signIn, signOut: () => setToken(null), saveFile, onAuthChange: (fn) => listeners.push(fn) };
+      })();
+    </script>
 
     <style is:global>
       :root {
@@ -107,6 +233,36 @@ const NAV = [
         background: rgba(255, 255, 255, 0.18);
         color: #fff;
         font-weight: 600;
+      }
+      .auth {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .auth-status {
+        font-size: 12.5px;
+        color: #bfe0d6;
+      }
+      .auth-status::before {
+        content: '● ';
+        color: #7fe0b0;
+      }
+      .auth-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+      }
+      .auth-btn:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .auth-btn.ghost {
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #cfe3e6;
       }
 
       /* --- page shell -------------------------------------------------------- */

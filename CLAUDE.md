@@ -32,26 +32,29 @@ maintainable. Read this first, then `README.md` (non-dev guide) and `MEMBER-GUID
 - `join.astro` — image + one centered invitation line.
 
 ## Admin / content editing
-Self-hosted admin under `src/pages/admin/` (built as normal Astro pages). **No CMS,
-no login, no secrets in our code**: the lists render public repo data, and every
-"Create"/"Edit" action deep-links to **github.com**, where GitHub handles sign-in and
-enforces write access (only repo collaborators can commit). The `/admin` pages are
-public but harmless — a stranger can build JSON but cannot commit it. Uses `AdminLayout`.
-- `src/layouts/AdminLayout.astro` — shared shell (top nav Home/Members/Papers + styles).
-- `src/pages/admin/index.astro` — hub at `/admin` linking the two tools.
+Self-hosted mini-CMS under `src/pages/admin/` (normal Astro pages; replaced Sveltia CMS).
+Lists render public repo data at build time; editing commits **in-page** straight to the
+repo via the GitHub Contents API after a one-time GitHub sign-in. The `/admin` pages are
+public, but only repo collaborators can actually save (GitHub enforces write access; the
+OAuth client secret lives only in Cloudflare env, never in the repo/browser).
+- `src/layouts/AdminLayout.astro` — shared shell: top nav (Home/Members/Papers) + a
+  **Sign in with GitHub** button, and the shared client helper `window.qitAdmin`
+  (`saveFile({path,content,message})` → OAuth popup on demand, then GET sha + PUT to the
+  Contents API; token kept in `sessionStorage`).
+- `src/pages/admin/index.astro` — hub at `/admin`.
 - `src/pages/admin/member.astro` — **Members**: list grouped by section (PI → POSTDOC →
-  GRAD → UNDERGRAD → ALUMNI, uppercase, alphabetical) with per-member *Edit on GitHub*
-  deep-links, plus an *Add a new member* form → "Create on GitHub" (pre-filled new file).
+  GRAD → UNDERGRAD → ALUMNI, uppercase, alphabetical). *Edit* loads a member into the form
+  (repeatable emails/education, etc.); *Save* commits a create/update. Editing preserves
+  fields not shown in the form (e.g. `roleOrder`, `period`) by merging over the loaded doc.
 - `src/pages/admin/paper.astro` — **Papers**: "Add a paper" (paste DOI/arXiv → auto-fills
-  from `/fetch-paper` → per-author None/Lab member/PI selector + tags → "Create on GitHub"),
-  plus a year-grouped list of existing papers with *Edit on GitHub* deep-links.
-- Deep-link URLs: `github.com/<repo>/new/<branch>?filename=…&value=…` (create) and
-  `github.com/<repo>/edit/<branch>/<path>` (edit). `REPO`/`BRANCH` are constants in each page.
-- `functions/fetch-paper.js` — **Cloudflare Pages Function**: arXiv + Crossref metadata for
-  the paper tool. (Sveltia CMS + its GitHub-OAuth functions `auth.js`/`callback.js` and
-  `public/admin/` were removed when the admin moved to this deep-link model; the Cloudflare
-  `GITHUB_CLIENT_ID`/`GITHUB_CLIENT_SECRET` env vars are now unused and can be deleted there.
-  `netlify/` + `netlify.toml` are stale leftovers from the old host — can be deleted.)
+  from `/fetch-paper` → per-author None/Lab member/PI selector + tags), plus a year-grouped
+  list where *Edit* loads a paper into the same form; *Save* commits. The form covers every
+  paper field, so no merge is needed.
+- `functions/{auth,callback,fetch-paper}.js` — **Cloudflare Pages Functions**. auth/callback
+  = GitHub OAuth popup flow (`window.qitAdmin` consumes the token); fetch-paper = arXiv +
+  Crossref metadata. Secrets `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` live in Cloudflare
+  env vars (not the repo). (`netlify/` + `netlify.toml` are stale old-host leftovers — can be
+  deleted.)
 
 ## Commands
 ```
