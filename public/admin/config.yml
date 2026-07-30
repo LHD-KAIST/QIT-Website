@@ -22,6 +22,20 @@ collections:
     slug: '{{fields.id}}'
     create: true
     summary: '{{fields.name}} — {{fields.roleLabel}}'
+    # Show members grouped by section (Team Leader → Postdoc → Grad → Undergrad
+    # → Alumni), alphabetical by name within each. Grouping by role is the
+    # default view; name-ascending is the default (and only) sort.
+    view_groups:
+      groups:
+        - name: role
+          label: 'Section'
+          field: role
+      default: role
+    sortable_fields:
+      fields: [name]
+      default:
+        field: name
+        direction: ascending
     fields:
       - name: id
         label: 'ID — lowercase, e.g. lee-hodong (do NOT change once set)'

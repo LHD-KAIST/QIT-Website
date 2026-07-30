@@ -25,6 +25,15 @@
       .add-paper-btn:hover {
         background: #0e3d45;
       }
+
+      /* Hide Sveltia's global "quick create" (+) button in the top-right app bar
+         (left of the account avatar). It opened a menu to create an entry or
+         upload assets from anywhere, which was redundant/confusing — members and
+         papers are created from within their own sections (or the Add-a-paper
+         tool). Sveltia labels this button aria-label="Create Entry or Assets". */
+      button[aria-label='Create Entry or Assets'] {
+        display: none !important;
+      }
     </style>
   </head>
   <body>
