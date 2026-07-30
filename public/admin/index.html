@@ -34,6 +34,14 @@
       button[aria-label='Create Entry or Assets'] {
         display: none !important;
       }
+
+      /* Hide the "Group" control in the entry-list toolbar. Members are grouped
+         by section by default (see config.yml view_groups), so the manual
+         grouping chooser is redundant. Sveltia labels it aria-label="Grouping
+         Options". */
+      button[aria-label='Grouping Options'] {
+        display: none !important;
+      }
     </style>
   </head>
   <body>
